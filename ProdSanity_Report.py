@@ -5141,19 +5141,424 @@ class CustomHTMLReportGenerator:
         
         return leads_summary
     
-    def generate_html_file(self, filename=None):
-        """Generate and save HTML report to file"""
+    def generate_html_file(self, filename=None, dashboard_style=True):
+        """Generate and save HTML report to file
+        
+        Args:
+            filename: Output filename (auto-generated if not provided)
+            dashboard_style: If True, generates modern dashboard. If False, generates traditional tabbed report.
+        """
         if not filename:
             timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
             filename = f"Production_execution_report_{timestamp}.html"
         
-        html_content = self.generate_html()
+        if dashboard_style:
+            html_content = self.generate_dashboard_html()
+        else:
+            html_content = self.generate_html()
         
         with open(filename, 'w', encoding='utf-8') as f:
             f.write(html_content)
         
         print(f"\n✅ Report generated: {filename}")
         return filename
+    
+    def generate_dashboard_html(self):
+        """Generate modern dashboard-style HTML report with embedded data"""
+        # Calculate statistics
+        organized_data = self.organize_data_by_lead_module()
+        grand_totals = self.calculate_grand_totals(organized_data)
+        
+        # Calculate percentages
+        manual_pass_pct, manual_exec_pct = self.calculate_grand_total_percentages(grand_totals['manual'])
+        auto_pass_pct, auto_exec_pct = self.calculate_grand_total_percentages(grand_totals['automation'])
+        
+        manual_count = sum(1 for t in self.test_data if t['type'].lower() == 'manual')
+        auto_count = sum(1 for t in self.test_data if t['type'].lower() == 'automation')
+        
+        # Outcome counts
+        outcomes = {}
+        for test in self.test_data:
+            outcome = test['outcome']
+            outcomes[outcome] = outcomes.get(outcome, 0) + 1
+        
+        # Bug stats
+        allowed_states = {
+            'new', 'active', 'blocked', 'ready to deploy', 'resolved', 
+            'ba clarification', 're-open', 'blocked in pt', 'blocked in uat', 'deferred'
+        }
+        filtered_bugs = [bug for bug in self.bug_data if bug['state'].lower() in allowed_states]
+        
+        # Build HTML
+        html = f'''<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Production Execution Report - {self.suite_name}</title>
+    <style>
+{self._dashboard_styles()}
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <div class="header">
+            <h1>
+                🚀 Production Execution Report
+                <span class="static-indicator">SNAPSHOT</span>
+            </h1>
+            <div class="subtitle">{self.suite_name}</div>
+            <div class="last-update">
+                Generated: <strong>{self.timestamp}</strong>
+            </div>
+        </div>
+
+        <!-- Statistics Cards -->
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-icon">📊</div>
+                <div class="stat-label">Total Tests</div>
+                <div class="stat-value">{len(self.test_data):,}</div>
+            </div>
+
+            <div class="stat-card">
+                <div class="stat-icon">✏️</div>
+                <div class="stat-label">Manual Tests</div>
+                <div class="stat-value">{manual_count:,}</div>
+                <div class="progress-bar">
+                    <div class="progress-fill" style="width: {manual_pass_pct:.1f}%"></div>
+                </div>
+                <div class="subtitle" style="margin-top: 8px;">
+                    Pass: <strong>{manual_pass_pct:.1f}%</strong> | 
+                    Exec: <strong>{manual_exec_pct:.1f}%</strong>
+                </div>
+            </div>
+
+            <div class="stat-card">
+                <div class="stat-icon">🤖</div>
+                <div class="stat-label">Automation Tests</div>
+                <div class="stat-value">{auto_count:,}</div>
+                <div class="progress-bar">
+                    <div class="progress-fill" style="width: {auto_pass_pct:.1f}%"></div>
+                </div>
+                <div class="subtitle" style="margin-top: 8px;">
+                    Pass: <strong>{auto_pass_pct:.1f}%</strong> | 
+                    Exec: <strong>{auto_exec_pct:.1f}%</strong>
+                </div>
+            </div>
+
+            <div class="stat-card">
+                <div class="stat-icon">🐛</div>
+                <div class="stat-label">Active Bugs</div>
+                <div class="stat-value">{len(filtered_bugs):,}</div>
+                <div class="subtitle" style="margin-top: 8px;">
+                    From query: <strong>{len(self.bug_data)}</strong>
+                </div>
+            </div>
+        </div>
+
+        <!-- Test Outcomes Table -->
+        <div class="table-container">
+            <h2>📈 Test Outcomes Summary</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Outcome</th>
+                        <th>Count</th>
+                        <th>Percentage</th>
+                    </tr>
+                </thead>
+                <tbody>
+{self._generate_outcomes_rows(outcomes, len(self.test_data))}
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Lead/Module Breakdown -->
+        <div class="table-container">
+            <h2>👥 Test Execution by Lead & Module</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Lead</th>
+                        <th>Module</th>
+                        <th>Type</th>
+                        <th>Total</th>
+                        <th>Passed</th>
+                        <th>Failed</th>
+                        <th>Blocked</th>
+                        <th>Pass %</th>
+                        <th>Exec %</th>
+                    </tr>
+                </thead>
+                <tbody>
+{self._generate_lead_module_rows(organized_data)}
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Bugs Table -->
+        {self._generate_bugs_section(filtered_bugs)}
+    </div>
+</body>
+</html>'''
+        return html
+    
+    def _dashboard_styles(self):
+        """Return CSS styles for dashboard"""
+        return '''* {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .header {
+            background: white;
+            border-radius: 12px;
+            padding: 30px;
+            margin-bottom: 20px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+        }
+
+        .header h1 {
+            color: #2d3748;
+            font-size: 28px;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .static-indicator {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: #3b82f6;
+            color: white;
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        .subtitle {
+            color: #718096;
+            font-size: 14px;
+            margin-top: 8px;
+        }
+
+        .last-update {
+            color: #4a5568;
+            font-size: 14px;
+            margin-top: 12px;
+            font-weight: 500;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+
+        .stat-card {
+            background: white;
+            border-radius: 12px;
+            padding: 24px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .stat-value {
+            font-size: 36px;
+            font-weight: bold;
+            color: #2d3748;
+            margin: 8px 0;
+        }
+
+        .stat-label {
+            color: #718096;
+            font-size: 14px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .stat-icon {
+            font-size: 24px;
+            margin-bottom: 8px;
+        }
+
+        .progress-bar {
+            height: 8px;
+            background: #e2e8f0;
+            border-radius: 4px;
+            overflow: hidden;
+            margin-top: 12px;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #10b981, #059669);
+        }
+
+        .table-container {
+            background: white;
+            border-radius: 12px;
+            padding: 30px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+            overflow-x: auto;
+            margin-bottom: 20px;
+        }
+
+        .table-container h2 {
+            color: #2d3748;
+            margin-bottom: 20px;
+            font-size: 22px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        thead th {
+            background: #f7fafc;
+            color: #2d3748;
+            font-weight: 600;
+            text-align: left;
+            padding: 12px 16px;
+            border-bottom: 2px solid #e2e8f0;
+            font-size: 14px;
+        }
+
+        tbody td {
+            padding: 12px 16px;
+            border-bottom: 1px solid #e2e8f0;
+            color: #4a5568;
+            font-size: 14px;
+        }
+
+        tbody tr:hover {
+            background: #f7fafc;
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 4px 10px;
+            border-radius: 12px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        .badge-passed { background: #d1fae5; color: #065f46; }
+        .badge-failed { background: #fee2e2; color: #991b1b; }
+        .badge-blocked { background: #fef3c7; color: #92400e; }
+        .badge-na { background: #e0e7ff; color: #3730a3; }
+        .badge-notrun { background: #f3f4f6; color: #374151; }
+        
+        .text-center { text-align: center; }
+        .text-right { text-align: right; }
+        .font-bold { font-weight: 700; }'''
+    
+    def _generate_outcomes_rows(self, outcomes, total):
+        """Generate HTML rows for outcomes table"""
+        sorted_outcomes = sorted(outcomes.items(), key=lambda x: x[1], reverse=True)
+        rows = []
+        for outcome, count in sorted_outcomes:
+            percentage = (count / total * 100) if total > 0 else 0
+            badge_class = self._get_badge_class(outcome)
+            rows.append(f'''                    <tr>
+                        <td><span class="badge {badge_class}">{outcome}</span></td>
+                        <td class="font-bold">{count:,}</td>
+                        <td>{percentage:.1f}%</td>
+                    </tr>''')
+        return '\n'.join(rows)
+    
+    def _get_badge_class(self, outcome):
+        """Get CSS class for outcome badge"""
+        outcome_lower = outcome.lower()
+        if 'pass' in outcome_lower:
+            return 'badge-passed'
+        elif 'fail' in outcome_lower:
+            return 'badge-failed'
+        elif 'block' in outcome_lower:
+            return 'badge-blocked'
+        elif 'not applicable' in outcome_lower or outcome_lower == 'na':
+            return 'badge-na'
+        else:
+            return 'badge-notrun'
+    
+    def _generate_lead_module_rows(self, organized_data):
+        """Generate HTML rows for lead/module breakdown"""
+        rows = []
+        for lead, modules in sorted(organized_data.items()):
+            for module, types in sorted(modules.items()):
+                for test_type in ['manual', 'automation']:
+                    data = types[test_type]
+                    if data['total'] > 0:
+                        pass_pct, exec_pct = self.calculate_percentages(data)
+                        rows.append(f'''                    <tr>
+                        <td>{lead}</td>
+                        <td>{module}</td>
+                        <td style="text-transform: capitalize;">{test_type}</td>
+                        <td class="text-center font-bold">{data['total']}</td>
+                        <td class="text-center">{data['passed']}</td>
+                        <td class="text-center">{data['failed']}</td>
+                        <td class="text-center">{data['blocked']}</td>
+                        <td class="text-center font-bold">{pass_pct:.1f}%</td>
+                        <td class="text-center font-bold">{exec_pct:.1f}%</td>
+                    </tr>''')
+        return '\n'.join(rows) if rows else '<tr><td colspan="9" class="text-center">No data available</td></tr>'
+    
+    def _generate_bugs_section(self, bugs):
+        """Generate bugs table section"""
+        if not bugs:
+            return ''
+        
+        rows = []
+        for bug in bugs[:50]:  # Limit to 50 bugs
+            rows.append(f'''                    <tr>
+                        <td><a href="https://dev.azure.com/accenturecio08/AutomationProcess_29697/_workitems/edit/{bug['id']}" target="_blank">#{bug['id']}</a></td>
+                        <td>{bug['title']}</td>
+                        <td><span class="badge badge-na">{bug['state']}</span></td>
+                        <td><span class="badge badge-{'failed' if '1 -' in bug['severity'] else 'blocked'}">{bug['severity']}</span></td>
+                        <td>{bug['assigned_to']}</td>
+                    </tr>''')
+        
+        return f'''        <div class="table-container">
+            <h2>🐛 Active Bugs ({len(bugs)} total)</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Title</th>
+                        <th>State</th>
+                        <th>Severity</th>
+                        <th>Assigned To</th>
+                    </tr>
+                </thead>
+                <tbody>
+{chr(10).join(rows)}
+                </tbody>
+            </table>
+        </div>'''
     
     def export_to_json(self, filename="latest_report.json"):
         """Export report data to JSON format for GitHub-hosted live dashboard"""
