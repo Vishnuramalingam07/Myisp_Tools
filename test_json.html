@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JSON Test Page</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            max-width: 1200px;
+            margin: 40px auto;
+            padding: 20px;
+            background: #f5f5f5;
+        }
+        .container {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        h1 { color: #2c3e50; margin-bottom: 20px; }
+        .status {
+            padding: 15px;
+            border-radius: 5px;
+            margin: 20px 0;
+            font-weight: 600;
+        }
+        .success { background: #d4edda; color: #155724; border: 1px solid #c3e6cb; }
+        .error { background: #f8d7da; color: #721c24; border: 1px solid #f5c6cb; }
+        .info { background: #d1ecf1; color: #0c5460; border: 1px solid #bee5eb; }
+        pre {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 5px;
+            overflow-x: auto;
+            border: 1px solid #dee2e6;
+        }
+        button {
+            background: #007bff;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            margin: 10px 5px 10px 0;
+        }
+        button:hover { background: #0056b3; }
+        .timestamp { color: #6c757d; font-size: 14px; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🔍 JSON File Test</h1>
+        <p>This page tests if <code>latest_report.json</code> is accessible.</p>
+        
+        <button onclick="testRelativePath()">Test Relative Path</button>
+        <button onclick="testGitHubRaw()">Test GitHub Raw URL</button>
+        <button onclick="testGitHubPages()">Test GitHub Pages URL</button>
+        
+        <div id="status"></div>
+        <div id="output"></div>
+    </div>
+
+    <script>
+        const statusDiv = document.getElementById('status');
+        const outputDiv = document.getElementById('output');
+
+        async function testRelativePath() {
+            await testURL('./latest_report.json', 'Relative Path');
+        }
+
+        async function testGitHubRaw() {
+            await testURL('https://raw.githubusercontent.com/Vishnuramalingam07/Myisp_Tools/main/latest_report.json', 'GitHub Raw');
+        }
+
+        async function testGitHubPages() {
+            await testURL('https://vishnuramalingam07.github.io/Myisp_Tools/latest_report.json', 'GitHub Pages');
+        }
+
+        async function testURL(url, label) {
+            const startTime = Date.now();
+            statusDiv.innerHTML = `<div class="info">⏳ Testing ${label}: <code>${url}</code></div>`;
+            outputDiv.innerHTML = '';
+
+            try {
+                const response = await fetch(url + '?t=' + Date.now(), {
+                    cache: 'no-cache',
+                    headers: { 'Cache-Control': 'no-cache' }
+                });
+
+                const loadTime = Date.now() - startTime;
+
+                if (!response.ok) {
+                    throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+                }
+
+                const data = await response.json();
+                
+                statusDiv.innerHTML = `
+                    <div class="success">
+                        ✅ Success! (${loadTime}ms)<br>
+                        <span class="timestamp">Response: HTTP ${response.status}</span><br>
+                        <span class="timestamp">Content-Type: ${response.headers.get('content-type')}</span>
+                    </div>
+                `;
+
+                outputDiv.innerHTML = `
+                    <h3>Data Preview:</h3>
+                    <pre>${JSON.stringify({
+                        generated_at: data.generated_at,
+                        suite_name: data.suite_name,
+                        total_tests: data.statistics.total_tests,
+                        manual_tests: data.statistics.manual_tests,
+                        automation_tests: data.statistics.automation_tests,
+                        manual_pass: data.statistics.grand_totals.manual.pass_percentage,
+                        automation_pass: data.statistics.grand_totals.automation.pass_percentage,
+                        bugs_count: data.bugs.filtered_count
+                    }, null, 2)}</pre>
+                    <p><strong>File Size:</strong> ${(JSON.stringify(data).length / 1024).toFixed(2)} KB</p>
+                `;
+
+            } catch (error) {
+                const loadTime = Date.now() - startTime;
+                statusDiv.innerHTML = `
+                    <div class="error">
+                        ❌ Failed! (${loadTime}ms)<br>
+                        <strong>Error:</strong> ${error.message}
+                    </div>
+                `;
+                outputDiv.innerHTML = `
+                    <h3>Debug Information:</h3>
+                    <pre>Error Type: ${error.name}
+Message: ${error.message}
+URL: ${url}
+
+Common Issues:
+1. File doesn't exist at this location
+2. CORS policy blocking the request
+3. Network error or timeout
+4. GitHub Pages not yet deployed
+
+Solutions:
+- Wait 2-3 minutes for GitHub Pages deployment
+- Check GitHub Actions workflow status
+- Verify file exists in repository
+- Try opening URL directly in browser</pre>
+                `;
+            }
+        }
+
+        // Auto-test on page load
+        window.addEventListener('load', () => {
+            setTimeout(() => testRelativePath(), 500);
+        });
+    </script>
+</body>
+</html>

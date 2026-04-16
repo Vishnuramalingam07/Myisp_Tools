@@ -42,6 +42,7 @@ jobs:
           cp sample_reports.html _site/
           cp report.html _site/
           cp live_report.html _site/
+          cp test_json.html _site/
           
           # Copy JSON data for live dashboard
           cp latest_report.json _site/ 2>/dev/null || echo "⚠️  latest_report.json not found (run ProdSanity_Report.py to generate)"
