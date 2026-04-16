@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sample Reports - Azure DevOps Test Execution</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #f5f7fa;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .back-link {
+            display: inline-block;
+            margin-bottom: 20px;
+            color: #667eea;
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .back-link:hover {
+            text-decoration: underline;
+        }
+
+        .header {
+            background: white;
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        .header h1 {
+            color: #333;
+            margin-bottom: 15px;
+            font-size: 2.5rem;
+        }
+
+        .header p {
+            color: #666;
+            font-size: 1.1rem;
+        }
+
+        .reports-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 25px;
+        }
+
+        .report-card {
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            padding: 30px;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .report-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+        }
+
+        .report-card .icon {
+            font-size: 3rem;
+            margin-bottom: 15px;
+            text-align: center;
+        }
+
+        .report-card h3 {
+            color: #333;
+            margin-bottom: 10px;
+            font-size: 1.3rem;
+        }
+
+        .report-card .meta {
+            color: #999;
+            font-size: 0.85rem;
+            margin-bottom: 15px;
+        }
+
+        .report-card p {
+            color: #666;
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+
+        .report-card .stats {
+            display: flex;
+            justify-content: space-around;
+            margin: 20px 0;
+            padding: 15px;
+            background: #f8f9fa;
+            border-radius: 8px;
+        }
+
+        .report-card .stat-item {
+            text-align: center;
+        }
+
+        .report-card .stat-value {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #333;
+        }
+
+        .report-card .stat-label {
+            font-size: 0.75rem;
+            color: #999;
+            margin-top: 5px;
+        }
+
+        .btn {
+            display: inline-block;
+            background: #667eea;
+            color: white;
+            padding: 10px 25px;
+            border-radius: 25px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+            text-align: center;
+        }
+
+        .btn:hover {
+            background: #5568d3;
+        }
+
+        .btn-secondary {
+            background: #6c757d;
+        }
+
+        .btn-secondary:hover {
+            background: #5a6268;
+        }
+
+        .info-box {
+            background: #e7f3ff;
+            border-left: 4px solid #2196F3;
+            padding: 20px;
+            margin: 30px 0;
+            border-radius: 5px;
+        }
+
+        .info-box h3 {
+            color: #1976D2;
+            margin-bottom: 10px;
+        }
+
+        .info-box p {
+            color: #555;
+            line-height: 1.6;
+        }
+
+        .info-box a {
+            color: #2196F3;
+            font-weight: 600;
+        }
+
+        @media (max-width: 768px) {
+            .reports-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <a href="index.html" class="back-link">← Back to Home</a>
+
+        <div class="header">
+            <h1>📄 Sample Test Execution Reports</h1>
+            <p>Browse pre-generated reports and explore the full documentation</p>
+        </div>
+
+        <div class="info-box">
+            <h3>💡 About These Reports</h3>
+            <p>
+                These are <strong>static sample reports</strong> generated from Azure DevOps test executions. 
+                In production, the Python script connects to Azure DevOps, fetches live test data, and generates 
+                both HTML and Excel reports automatically. 
+                <a href="README.md" target="_blank">Learn more →</a>
+            </p>
+        </div>
+
+        <div class="reports-grid">
+            <div class="report-card" onclick="window.location.href='Production_execution_report_20260416_202718.html'">
+                <div class="icon">📊</div>
+                <h3>Prod Execution Report #1</h3>
+                <div class="meta">Generated: April 16, 2026 at 8:27 PM</div>
+                <p>Comprehensive test execution report for Production Sanity test suite with bug tracking and requirement mapping.</p>
+                <div class="stats">
+                    <div class="stat-item">
+                        <div class="stat-value">1,074</div>
+                        <div class="stat-label">Total Tests</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-value">79%</div>
+                        <div class="stat-label">Pass Rate</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-value">23</div>
+                        <div class="stat-label">Bugs</div>
+                    </div>
+                </div>
+                <button class="btn">View Report</button>
+            </div>
+
+            <div class="report-card" onclick="window.location.href='Production_execution_report_20260416_211611.html'">
+                <div class="icon">📈</div>
+                <h3>Prod Execution Report #2</h3>
+                <div class="meta">Generated: April 16, 2026 at 9:16 PM</div>
+                <p>Latest execution report showing updated test results with enhanced bug severity tracking and coverage metrics.</p>
+                <div class="stats">
+                    <div class="stat-item">
+                        <div class="stat-value">1,074</div>
+                        <div class="stat-label">Total Tests</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-value">82%</div>
+                        <div class="stat-label">Pass Rate</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-value">18</div>
+                        <div class="stat-label">Bugs</div>
+                    </div>
+                </div>
+                <button class="btn">View Report</button>
+            </div>
+
+            <div class="report-card">
+                <div class="icon">📚</div>
+                <h3>Quick Start Guide</h3>
+                <div class="meta">Setup Documentation</div>
+                <p>Step-by-step guide to set up the reporting system locally, including PostgreSQL integration and live dashboard.</p>
+                <div style="margin: 20px 0; padding: 15px; background: #f8f9fa; border-radius: 8px;">
+                    <div style="text-align: center; color: #667eea; font-weight: 600;">
+                        3-Step Setup Process
+                    </div>
+                </div>
+                <a href="QUICK_START.md" target="_blank" class="btn btn-secondary" style="text-decoration: none;">Read Guide</a>
+            </div>
+
+            <div class="report-card">
+                <div class="icon">🔧</div>
+                <h3>Complete Documentation</h3>
+                <div class="meta">README & Setup Guide</div>
+                <p>Full project documentation including architecture, configuration, API endpoints, and troubleshooting guide.</p>
+                <div style="margin: 20px 0; padding: 15px; background: #f8f9fa; border-radius: 8px;">
+                    <div style="text-align: center; color: #667eea; font-weight: 600;">
+                        Comprehensive Docs
+                    </div>
+                </div>
+                <a href="README.md" target="_blank" class="btn btn-secondary" style="text-decoration: none;">Read Docs</a>
+            </div>
+
+            <div class="report-card">
+                <div class="icon">💻</div>
+                <h3>GitHub Repository</h3>
+                <div class="meta">Source Code</div>
+                <p>Access the full source code, download the Python script, and contribute to the project on GitHub.</p>
+                <div style="margin: 20px 0; padding: 15px; background: #f8f9fa; border-radius: 8px;">
+                    <div style="text-align: center; color: #28a745; font-weight: 600;">
+                        Open Source
+                    </div>
+                </div>
+                <a href="https://github.com/YOUR_USERNAME/MyISP_Tools/tree/main/Prod_Sanity_Report" target="_blank" class="btn btn-secondary" style="text-decoration: none;">View on GitHub</a>
+            </div>
+
+            <div class="report-card">
+                <div class="icon">🌐</div>
+                <h3>Live Dashboard (Demo)</h3>
+                <div class="meta">Interactive Interface</div>
+                <p>Try the interactive dashboard with sample data. Features real-time statistics, filtering, and auto-refresh.</p>
+                <div style="margin: 20px 0; padding: 15px; background: #f8f9fa; border-radius: 8px;">
+                    <div style="text-align: center; color: #dc3545; font-weight: 600;">
+                        Coming Soon
+                    </div>
+                </div>
+                <a href="demo_dashboard.html" class="btn" style="text-decoration: none;">Try Demo</a>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

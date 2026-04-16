@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test Execution Dashboard - Demo Mode</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #f5f7fa;
+            padding: 20px;
+        }
+
+        .demo-banner {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 15px;
+            text-align: center;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .demo-banner h2 {
+            font-size: 1.5rem;
+            margin-bottom: 5px;
+        }
+
+        .demo-banner p {
+            font-size: 0.9rem;
+            opacity: 0.9;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .header {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            margin-bottom: 30px;
+        }
+
+        .header h1 {
+            color: #333;
+            margin-bottom: 10px;
+        }
+
+        .header .meta {
+            color: #666;
+            font-size: 0.9rem;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .stat-card {
+            background: white;
+            padding: 25px;
+            border-radius: 10px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            border-left: 4px solid #667eea;
+        }
+
+        .stat-card h3 {
+            color: #666;
+            font-size: 0.9rem;
+            font-weight: 500;
+            margin-bottom: 10px;
+        }
+
+        .stat-card .value {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: #333;
+            margin-bottom: 5px;
+        }
+
+        .stat-card .label {
+            color: #999;
+            font-size: 0.85rem;
+        }
+
+        .stat-card.passed { border-left-color: #28a745; }
+        .stat-card.failed { border-left-color: #dc3545; }
+        .stat-card.blocked { border-left-color: #ffc107; }
+        .stat-card.not-executed { border-left-color: #6c757d; }
+
+        .chart-section {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            margin-bottom: 30px;
+        }
+
+        .chart-section h2 {
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        .table-container {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            overflow-x: auto;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        thead th {
+            background: #f8f9fa;
+            padding: 15px;
+            text-align: left;
+            font-weight: 600;
+            color: #333;
+            border-bottom: 2px solid #dee2e6;
+        }
+
+        tbody td {
+            padding: 15px;
+            border-bottom: 1px solid #dee2e6;
+            color: #666;
+        }
+
+        tbody tr:hover {
+            background: #f8f9fa;
+        }
+
+        .status-badge {
+            display: inline-block;
+            padding: 5px 12px;
+            border-radius: 15px;
+            font-size: 0.85rem;
+            font-weight: 600;
+        }
+
+        .status-passed {
+            background: #d4edda;
+            color: #155724;
+        }
+
+        .status-failed {
+            background: #f8d7da;
+            color: #721c24;
+        }
+
+        .status-blocked {
+            background: #fff3cd;
+            color: #856404;
+        }
+
+        .status-not-executed {
+            background: #e2e3e5;
+            color: #383d41;
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 30px;
+            background: #e9ecef;
+            border-radius: 15px;
+            overflow: hidden;
+            display: flex;
+            margin-top: 20px;
+        }
+
+        .progress-segment {
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 0.85rem;
+            font-weight: 600;
+        }
+
+        .progress-passed { background: #28a745; }
+        .progress-failed { background: #dc3545; }
+        .progress-blocked { background: #ffc107; }
+        .progress-not-executed { background: #6c757d; }
+
+        .back-link {
+            display: inline-block;
+            margin-bottom: 20px;
+            color: #667eea;
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .back-link:hover {
+            text-decoration: underline;
+        }
+
+        @media (max-width: 768px) {
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <a href="index.html" class="back-link">← Back to Home</a>
+
+        <div class="demo-banner">
+            <h2>📊 Demo Mode - Sample Data</h2>
+            <p>This dashboard displays mock test data for demonstration purposes. In production, data comes from Azure DevOps + PostgreSQL.</p>
+        </div>
+
+        <div class="header">
+            <h1>Prod Execution Report</h1>
+            <div class="meta">
+                <strong>Test Suite:</strong> Prod Sanity Scenarios | 
+                <strong>Generated:</strong> <span id="currentDate"></span> | 
+                <strong>Total Tests:</strong> 1,074
+            </div>
+        </div>
+
+        <div class="stats-grid">
+            <div class="stat-card passed">
+                <h3>Passed Tests</h3>
+                <div class="value">850</div>
+                <div class="label">79.1% Success Rate</div>
+            </div>
+
+            <div class="stat-card failed">
+                <h3>Failed Tests</h3>
+                <div class="value">124</div>
+                <div class="label">11.5% Failure Rate</div>
+            </div>
+
+            <div class="stat-card blocked">
+                <h3>Blocked Tests</h3>
+                <div class="value">76</div>
+                <div class="label">7.1% Blocked</div>
+            </div>
+
+            <div class="stat-card not-executed">
+                <h3>Not Executed</h3>
+                <div class="value">24</div>
+                <div class="label">2.2% Pending</div>
+            </div>
+        </div>
+
+        <div class="chart-section">
+            <h2>Test Execution Overview</h2>
+            <div class="progress-bar">
+                <div class="progress-segment progress-passed" style="width: 79.1%">850 Passed</div>
+                <div class="progress-segment progress-failed" style="width: 11.5%">124 Failed</div>
+                <div class="progress-segment progress-blocked" style="width: 7.1%">76 Blocked</div>
+                <div class="progress-segment progress-not-executed" style="width: 2.3%">24 Not Run</div>
+            </div>
+        </div>
+
+        <div class="chart-section">
+            <h2>Test Type Distribution</h2>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px; margin-top: 20px;">
+                <div style="text-align: center; padding: 20px; background: #f8f9fa; border-radius: 10px;">
+                    <div style="font-size: 3rem;">🔧</div>
+                    <div style="font-size: 2rem; font-weight: 700; color: #333; margin: 10px 0;">224</div>
+                    <div style="color: #666;">Automation Tests</div>
+                    <div style="color: #999; font-size: 0.9rem; margin-top: 5px;">20.9%</div>
+                </div>
+                <div style="text-align: center; padding: 20px; background: #f8f9fa; border-radius: 10px;">
+                    <div style="font-size: 3rem;">👤</div>
+                    <div style="font-size: 2rem; font-weight: 700; color: #333; margin: 10px 0;">850</div>
+                    <div style="color: #666;">Manual Tests</div>
+                    <div style="color: #999; font-size: 0.9rem; margin-top: 5px;">79.1%</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="table-container">
+            <h2 style="margin-bottom: 20px;">Recent Test Executions (Sample)</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Test Case ID</th>
+                        <th>Test Case Name</th>
+                        <th>Status</th>
+                        <th>Type</th>
+                        <th>Priority</th>
+                        <th>Bugs</th>
+                    </tr>
+                </thead>
+                <tbody id="testTableBody">
+                    <!-- Sample data will be inserted here -->
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <script>
+        // Set current date
+        document.getElementById('currentDate').textContent = new Date().toLocaleDateString('en-US', {
+            year: 'numeric',
+            month: 'long',
+            day: 'numeric'
+        });
+
+        // Sample test data
+        const sampleTests = [
+            { id: 4444223, name: 'Verify user login with valid credentials', status: 'Passed', type: 'Manual', priority: 'P1', bugs: 0 },
+            { id: 4444224, name: 'Test checkout page functionality', status: 'Failed', type: 'Automation', priority: 'P0', bugs: 2 },
+            { id: 4444225, name: 'Validate payment gateway integration', status: 'Passed', type: 'Manual', priority: 'P1', bugs: 0 },
+            { id: 4444226, name: 'Check product search with filters', status: 'Blocked', type: 'Automation', priority: 'P2', bugs: 1 },
+            { id: 4444227, name: 'Test shopping cart add/remove items', status: 'Passed', type: 'Manual', priority: 'P1', bugs: 0 },
+            { id: 4444228, name: 'Verify order confirmation email', status: 'Failed', type: 'Automation', priority: 'P1', bugs: 1 },
+            { id: 4444229, name: 'Test user profile update functionality', status: 'Passed', type: 'Manual', priority: 'P2', bugs: 0 },
+            { id: 4444230, name: 'Validate promo code application', status: 'Not Executed', type: 'Manual', priority: 'P3', bugs: 0 },
+            { id: 4444231, name: 'Check mobile responsive design', status: 'Passed', type: 'Automation', priority: 'P1', bugs: 0 },
+            { id: 4444232, name: 'Test API authentication endpoints', status: 'Blocked', type: 'Automation', priority: 'P0', bugs: 3 },
+            { id: 4444233, name: 'Verify data export functionality', status: 'Passed', type: 'Manual', priority: 'P2', bugs: 0 },
+            { id: 4444234, name: 'Test batch job processing', status: 'Failed', type: 'Automation', priority: 'P1', bugs: 1 },
+            { id: 4444235, name: 'Validate security headers', status: 'Passed', type: 'Automation', priority: 'P0', bugs: 0 },
+            { id: 4444236, name: 'Check database connection pooling', status: 'Passed', type: 'Manual', priority: 'P2', bugs: 0 },
+            { id: 4444237, name: 'Test error handling mechanisms', status: 'Not Executed', type: 'Automation', priority: 'P3', bugs: 0 }
+        ];
+
+        const tableBody = document.getElementById('testTableBody');
+        
+        sampleTests.forEach(test => {
+            const row = document.createElement('tr');
+            const statusClass = `status-${test.status.toLowerCase().replace(' ', '-')}`;
+            
+            row.innerHTML = `
+                <td><strong>#${test.id}</strong></td>
+                <td>${test.name}</td>
+                <td><span class="status-badge ${statusClass}">${test.status}</span></td>
+                <td>${test.type}</td>
+                <td>${test.priority}</td>
+                <td>${test.bugs > 0 ? `<span style="color: #dc3545; font-weight: 600;">🐛 ${test.bugs}</span>` : '—'}</td>
+            `;
+            
+            tableBody.appendChild(row);
+        });
+    </script>
+</body>
+</html>

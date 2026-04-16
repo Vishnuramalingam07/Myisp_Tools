@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Azure DevOps Test Execution Reports</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .container {
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            max-width: 1000px;
+            width: 100%;
+            padding: 50px;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .header h1 {
+            font-size: 2.5rem;
+            color: #333;
+            margin-bottom: 10px;
+        }
+
+        .header p {
+            color: #666;
+            font-size: 1.1rem;
+        }
+
+        .badge {
+            display: inline-block;
+            background: #667eea;
+            color: white;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            margin-top: 10px;
+        }
+
+        .options {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+
+        .option-card {
+            background: #f8f9fa;
+            border: 2px solid #e0e0e0;
+            border-radius: 15px;
+            padding: 30px;
+            text-align: center;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            position: relative;
+        }
+
+        .option-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+            border-color: #667eea;
+        }
+
+        .option-card h2 {
+            color: #333;
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+        }
+
+        .option-card p {
+            color: #666;
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+
+        .option-card .icon {
+            font-size: 3rem;
+            margin-bottom: 20px;
+        }
+
+        .btn {
+            display: inline-block;
+            background: #667eea;
+            color: white;
+            padding: 12px 30px;
+            border-radius: 25px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+        }
+
+        .btn:hover {
+            background: #5568d3;
+            transform: scale(1.05);
+        }
+
+        .btn-secondary {
+            background: #6c757d;
+        }
+
+        .btn-secondary:hover {
+            background: #5a6268;
+        }
+
+        .features {
+            margin-top: 50px;
+            padding-top: 40px;
+            border-top: 2px solid #e0e0e0;
+        }
+
+        .features h3 {
+            color: #333;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-top: 30px;
+        }
+
+        .feature-item {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+        }
+
+        .feature-item .icon {
+            font-size: 2rem;
+            margin-bottom: 10px;
+        }
+
+        .feature-item h4 {
+            color: #333;
+            margin-bottom: 10px;
+        }
+
+        .feature-item p {
+            color: #666;
+            font-size: 0.9rem;
+        }
+
+        .status-badge {
+            display: inline-block;
+            padding: 3px 10px;
+            border-radius: 12px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            margin-left: 10px;
+        }
+
+        .status-live {
+            background: #d4edda;
+            color: #155724;
+        }
+
+        .status-static {
+            background: #fff3cd;
+            color: #856404;
+        }
+
+        .footer {
+            margin-top: 50px;
+            text-align: center;
+            color: #666;
+            font-size: 0.9rem;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 30px 20px;
+            }
+
+            .header h1 {
+                font-size: 2rem;
+            }
+
+            .options {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🚀 Azure DevOps Test Execution Reports</h1>
+            <p>Professional test reporting with live dashboard</p>
+            <span class="badge">GitHub Pages Deployment</span>
+        </div>
+
+        <div class="options">
+            <div class="option-card" onclick="window.location.href='demo_dashboard.html'">
+                <div class="icon">📊</div>
+                <h2>
+                    Demo Dashboard
+                    <span class="status-badge status-static">Static</span>
+                </h2>
+                <p>View a sample dashboard with mock test data. No backend required - works entirely in your browser.</p>
+                <button class="btn">View Demo</button>
+            </div>
+
+            <div class="option-card" onclick="window.location.href='sample_reports.html'">
+                <div class="icon">📄</div>
+                <h2>
+                    Sample Reports
+                    <span class="status-badge status-static">Static</span>
+                </h2>
+                <p>Browse pre-generated HTML reports showing various test execution scenarios.</p>
+                <button class="btn btn-secondary">View Reports</button>
+            </div>
+        </div>
+
+        <div class="features">
+            <h3>✨ Key Features</h3>
+            <div class="feature-grid">
+                <div class="feature-item">
+                    <div class="icon">🔗</div>
+                    <h4>Azure DevOps</h4>
+                    <p>Direct integration with Test Plans & Work Items</p>
+                </div>
+
+                <div class="feature-item">
+                    <div class="icon">📋</div>
+                    <h4>Multi-Format</h4>
+                    <p>HTML + Excel reports in professional format</p>
+                </div>
+
+                <div class="feature-item">
+                    <div class="icon">🐛</div>
+                    <h4>Bug Tracking</h4>
+                    <p>Automatic bug linking & severity tracking</p>
+                </div>
+
+                <div class="feature-item">
+                    <div class="icon">🗄️</div>
+                    <h4>PostgreSQL</h4>
+                    <p>Optional database for historical data</p>
+                </div>
+
+                <div class="feature-item">
+                    <div class="icon">🌐</div>
+                    <h4>Live Dashboard</h4>
+                    <p>Real-time updates with auto-refresh</p>
+                </div>
+
+                <div class="feature-item">
+                    <div class="icon">📱</div>
+                    <h4>Responsive</h4>
+                    <p>Works on desktop, tablet & mobile</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer">
+            <p>🔧 <strong>Setup Instructions:</strong> See <a href="https://github.com/YOUR_USERNAME/MyISP_Tools/blob/main/Prod_Sanity_Report/README.md" target="_blank">README.md</a> for full deployment guide</p>
+            <p style="margin-top: 10px;">📖 <a href="QUICK_START.html" target="_blank">Quick Start Guide</a> | <a href="https://github.com/YOUR_USERNAME/MyISP_Tools" target="_blank">GitHub Repository</a></p>
+        </div>
+    </div>
+</body>
+</html>

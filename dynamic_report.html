@@ -1,0 +1,465 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Azure DevOps Test Execution Report - Live Dashboard</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 20px;
+            color: #333;
+        }
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+            overflow: hidden;
+        }
+        .header {
+            background: linear-gradient(135deg, #366092 0%, #4a7bb7 100%);
+            color: white;
+            padding: 30px;
+            text-align: center;
+            position: relative;
+        }
+        .header h1 {
+            font-size: 2em;
+            margin-bottom: 10px;
+        }
+        .header p {
+            font-size: 1.1em;
+            opacity: 0.9;
+        }
+        .live-indicator {
+            position: absolute;
+            top: 20px;
+            right: 30px;
+            background: #28a745;
+            color: white;
+            padding: 8px 15px;
+            border-radius: 20px;
+            font-size: 0.9em;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .live-dot {
+            width: 10px;
+            height: 10px;
+            background: white;
+            border-radius: 50%;
+            animation: pulse 2s infinite;
+        }
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.3; }
+        }
+        .summary {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            padding: 30px;
+            background: #f8f9fa;
+        }
+        .stat-card {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            text-align: center;
+            transition: transform 0.3s;
+        }
+        .stat-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 20px rgba(0,0,0,0.15);
+        }
+        .stat-number {
+            font-size: 2.5em;
+            font-weight: bold;
+            margin: 10px 0;
+        }
+        .stat-label {
+            font-size: 0.9em;
+            color: #666;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        .passed { color: #28a745; }
+        .failed { color: #dc3545; }
+        .blocked { color: #ffc107; }
+        .not-run { color: #6c757d; }
+        .automation { color: #17a2b8; }
+        .manual { color: #6f42c1; }
+        .bug { color: #e83e8c; }
+        
+        .controls {
+            padding: 20px 30px;
+            background: #e9ecef;
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+            align-items: center;
+        }
+        .controls button {
+            padding: 10px 20px;
+            background: #366092;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 0.9em;
+            transition: background 0.3s;
+        }
+        .controls button:hover {
+            background: #2c4d75;
+        }
+        .controls input {
+            padding: 10px 15px;
+            border: 1px solid #ced4da;
+            border-radius: 5px;
+            font-size: 0.9em;
+            flex: 1;
+            min-width: 200px;
+        }
+        .controls select {
+            padding: 10px 15px;
+            border: 1px solid #ced4da;
+            border-radius: 5px;
+            font-size: 0.9em;
+            background: white;
+        }
+        .loading {
+            text-align: center;
+            padding: 40px;
+            font-size: 1.2em;
+            color: #666;
+        }
+        .error {
+            text-align: center;
+            padding: 40px;
+            color: #dc3545;
+            font-size: 1.1em;
+        }
+        .table-container {
+            padding: 30px;
+            overflow-x: auto;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.9em;
+        }
+        thead {
+            background: #366092;
+            color: white;
+            position: sticky;
+            top: 0;
+            z-index: 10;
+        }
+        th {
+            padding: 15px 10px;
+            text-align: left;
+            font-weight: 600;
+            border-bottom: 2px solid #2c4d75;
+        }
+        td {
+            padding: 12px 10px;
+            border-bottom: 1px solid #e9ecef;
+        }
+        tr:hover {
+            background-color: #f8f9fa;
+        }
+        .status-passed {
+            background-color: #d4edda;
+            color: #155724;
+            padding: 5px 10px;
+            border-radius: 5px;
+            font-weight: bold;
+            display: inline-block;
+        }
+        .status-failed {
+            background-color: #f8d7da;
+            color: #721c24;
+            padding: 5px 10px;
+            border-radius: 5px;
+            font-weight: bold;
+            display: inline-block;
+        }
+        .status-blocked {
+            background-color: #fff3cd;
+            color: #856404;
+            padding: 5px 10px;
+            border-radius: 5px;
+            font-weight: bold;
+            display: inline-block;
+        }
+        .status-notrun {
+            background-color: #e2e3e5;
+            color: #383d41;
+            padding: 5px 10px;
+            border-radius: 5px;
+            font-weight: bold;
+            display: inline-block;
+        }
+        .footer {
+            text-align: center;
+            padding: 20px;
+            background: #f8f9fa;
+            color: #666;
+            font-size: 0.9em;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <div class="live-indicator">
+                <div class="live-dot"></div>
+                <span>LIVE</span>
+            </div>
+            <h1>🚀 Azure DevOps Test Execution Report</h1>
+            <p id="lastUpdated">Loading...</p>
+        </div>
+        
+        <div class="summary" id="summary">
+            <div class="stat-card">
+                <div class="stat-label">Total Tests</div>
+                <div class="stat-number" id="totalTests">-</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-label">Passed</div>
+                <div class="stat-number passed" id="passedTests">-</div>
+                <div class="stat-label" id="passedPercent">-</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-label">Failed</div>
+                <div class="stat-number failed" id="failedTests">-</div>
+                <div class="stat-label" id="failedPercent">-</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-label">Blocked</div>
+                <div class="stat-number blocked" id="blockedTests">-</div>
+                <div class="stat-label" id="blockedPercent">-</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-label">Not Run</div>
+                <div class="stat-number not-run" id="notRunTests">-</div>
+                <div class="stat-label" id="notRunPercent">-</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-label">Automation</div>
+                <div class="stat-number automation" id="automationTests">-</div>
+                <div class="stat-label" id="automationPercent">-</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-label">Manual</div>
+                <div class="stat-number manual" id="manualTests">-</div>
+                <div class="stat-label" id="manualPercent">-</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-label">Total Bugs</div>
+                <div class="stat-number bug" id="totalBugs">-</div>
+            </div>
+        </div>
+        
+        <div class="controls">
+            <button onclick="refreshData()">🔄 Refresh Data</button>
+            <input type="text" id="searchInput" placeholder="🔍 Search by Test Case ID, Title, Lead, Module..." onkeyup="filterTable()">
+            <select id="statusFilter" onchange="filterTable()">
+                <option value="">All Statuses</option>
+                <option value="Passed">Passed</option>
+                <option value="Failed">Failed</option>
+                <option value="Blocked">Blocked</option>
+                <option value="Not Run">Not Run</option>
+            </select>
+            <select id="typeFilter" onchange="filterTable()">
+                <option value="">All Types</option>
+                <option value="Automation">Automation</option>
+                <option value="Manual">Manual</option>
+            </select>
+        </div>
+        
+        <div id="loadingMessage" class="loading">
+            <p>⏳ Loading test data from database...</p>
+        </div>
+        
+        <div id="errorMessage" class="error" style="display: none;">
+            <p>❌ Error loading data. Please make sure:</p>
+            <ul style="list-style: none; margin-top: 15px;">
+                <li>✓ PostgreSQL is running</li>
+                <li>✓ API server is running (python api_server.py)</li>
+                <li>✓ Database contains test data</li>
+            </ul>
+        </div>
+        
+        <div class="table-container" id="tableContainer" style="display: none;">
+            <table id="testTable">
+                <thead>
+                    <tr>
+                        <th>Test Case ID</th>
+                        <th>Test Case Title</th>
+                        <th>Priority</th>
+                        <th>Test Type</th>
+                        <th>Status</th>
+                        <th>Assigned To</th>
+                        <th>Lead</th>
+                        <th>Module</th>
+                        <th>Requirement ID</th>
+                        <th>Requirement Title</th>
+                        <th>Bug Count</th>
+                        <th>Bug Details</th>
+                    </tr>
+                </thead>
+                <tbody id="testTableBody">
+                </tbody>
+            </table>
+        </div>
+        
+        <div class="footer">
+            <p>Azure DevOps Test Execution Report | Connected to PostgreSQL Database</p>
+            <p style="margin-top: 5px; font-size: 0.8em;">API: http://localhost:5000</p>
+        </div>
+    </div>
+    
+    <script>
+        const API_BASE_URL = 'http://localhost:5000/api';
+        let testData = [];
+        
+        async function fetchStatistics() {
+            try {
+                const response = await fetch(`${API_BASE_URL}/statistics/latest`);
+                if (!response.ok) throw new Error('Failed to fetch statistics');
+                
+                const stats = await response.json();
+                
+                // Update statistics
+                document.getElementById('totalTests').textContent = stats.total_tests || 0;
+                document.getElementById('passedTests').textContent = stats.passed || 0;
+                document.getElementById('failedTests').textContent = stats.failed || 0;
+                document.getElementById('blockedTests').textContent = stats.blocked || 0;
+                document.getElementById('notRunTests').textContent = stats.not_run || 0;
+                document.getElementById('automationTests').textContent = stats.automation_count || 0;
+                document.getElementById('manualTests').textContent = stats.manual_count || 0;
+                document.getElementById('totalBugs').textContent = stats.total_bugs || 0;
+                
+                // Calculate percentages
+                const total = stats.total_tests || 1;
+                document.getElementById('passedPercent').textContent = `${((stats.passed / total) * 100).toFixed(1)}%`;
+                document.getElementById('failedPercent').textContent = `${((stats.failed / total) * 100).toFixed(1)}%`;
+                document.getElementById('blockedPercent').textContent = `${((stats.blocked / total) * 100).toFixed(1)}%`;
+                document.getElementById('notRunPercent').textContent = `${((stats.not_run / total) * 100).toFixed(1)}%`;
+                document.getElementById('automationPercent').textContent = `${((stats.automation_count / total) * 100).toFixed(1)}%`;
+                document.getElementById('manualPercent').textContent = `${((stats.manual_count / total) * 100).toFixed(1)}%`;
+                
+                // Update last updated time
+                if (stats.generated_at) {
+                    const date = new Date(stats.generated_at);
+                    document.getElementById('lastUpdated').textContent = `Last updated: ${date.toLocaleString()}`;
+                }
+                
+            } catch (error) {
+                console.error('Error fetching statistics:', error);
+            }
+        }
+        
+        async function fetchTestData() {
+            try {
+                const response = await fetch(`${API_BASE_URL}/test-data/latest`);
+                if (!response.ok) throw new Error('Failed to fetch test data');
+                
+                testData = await response.json();
+                
+                // Hide loading, show table
+                document.getElementById('loadingMessage').style.display = 'none';
+                document.getElementById('errorMessage').style.display = 'none';
+                document.getElementById('tableContainer').style.display = 'block';
+                
+                renderTable(testData);
+                
+            } catch (error) {
+                console.error('Error fetching test data:', error);
+                document.getElementById('loadingMessage').style.display = 'none';
+                document.getElementById('errorMessage').style.display = 'block';
+            }
+        }
+        
+        function renderTable(data) {
+            const tbody = document.getElementById('testTableBody');
+            tbody.innerHTML = '';
+            
+            data.forEach(test => {
+                const row = document.createElement('tr');
+                
+                const outcome = test.outcome || 'Not Run';
+                const statusClass = {
+                    'Passed': 'status-passed',
+                    'Failed': 'status-failed',
+                    'Blocked': 'status-blocked',
+                    'Not Run': 'status-notrun'
+                }[outcome] || 'status-notrun';
+                
+                row.innerHTML = `
+                    <td>${test.test_case_id || 'N/A'}</td>
+                    <td>${test.test_case_title || 'Unknown'}</td>
+                    <td>${test.priority || 'N/A'}</td>
+                    <td>${test.test_type || 'Manual'}</td>
+                    <td><span class="${statusClass}">${outcome}</span></td>
+                    <td>${test.assigned_to || 'Unassigned'}</td>
+                    <td>${test.lead || 'Unassigned'}</td>
+                    <td>${test.module || 'Unknown'}</td>
+                    <td>${test.requirement_id || 'N/A'}</td>
+                    <td>${test.requirement_title || 'No Linked US'}</td>
+                    <td>${test.bug_count || 0}</td>
+                    <td>${test.bug_details || 'No Bugs'}</td>
+                `;
+                
+                tbody.appendChild(row);
+            });
+        }
+        
+        function filterTable() {
+            const searchInput = document.getElementById('searchInput').value.toLowerCase();
+            const statusFilter = document.getElementById('statusFilter').value;
+            const typeFilter = document.getElementById('typeFilter').value;
+            
+            const filteredData = testData.filter(test => {
+                const matchesSearch = 
+                    String(test.test_case_id).toLowerCase().includes(searchInput) ||
+                    (test.test_case_title || '').toLowerCase().includes(searchInput) ||
+                    (test.lead || '').toLowerCase().includes(searchInput) ||
+                    (test.module || '').toLowerCase().includes(searchInput);
+                
+                const matchesStatus = !statusFilter || test.outcome === statusFilter;
+                const matchesType = !typeFilter || test.test_type === typeFilter;
+                
+                return matchesSearch && matchesStatus && matchesType;
+            });
+            
+            renderTable(filteredData);
+        }
+        
+        async function refreshData() {
+            document.getElementById('loadingMessage').style.display = 'block';
+            document.getElementById('tableContainer').style.display = 'none';
+            document.getElementById('errorMessage').style.display = 'none';
+            
+            await Promise.all([fetchStatistics(), fetchTestData()]);
+        }
+        
+        // Initial load
+        refreshData();
+        
+        // Auto-refresh every 30 seconds
+        setInterval(refreshData, 30000);
+    </script>
+</body>
+</html>

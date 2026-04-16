@@ -1,0 +1,57 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+env/
+venv/
+ENV/
+*.egg-info/
+dist/
+build/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Excel Files (generated)
+*.xlsx
+!POD details with M POC.xlsx
+
+# Generated HTML Reports (keep sample reports)
+Production_execution_report_*.html
+!Production_execution_report_20260416_202718.html
+!Production_execution_report_20260416_211611.html
+
+# Database
+*.db
+*.sqlite
+
+# Environment Variables (contains secrets!)
+.env
+.env.local
+.env.production
+*.env
+
+# Credentials and Secrets
+*secret*
+*credentials*
+*token*
+config.local.py
+
+# Logs
+*.log
+
+# Secrets
+*secrets*.json
+*credentials*.json
+*.pem
+*.key
