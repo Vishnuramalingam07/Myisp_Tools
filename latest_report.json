@@ -1,0 +1,3245 @@
+{
+  "generated_at": "2026-04-17T00:38:24.872903",
+  "timestamp_display": "April 17, 2026 at 00:38:24",
+  "suite_name": "Prod Execution",
+  "statistics": {
+    "total_tests": 1074,
+    "manual_tests": 57,
+    "automation_tests": 1017,
+    "outcomes": {
+      "Not Run": 1074
+    },
+    "grand_totals": {
+      "manual": {
+        "total": 57,
+        "passed": 0,
+        "failed": 0,
+        "blocked": 0,
+        "na": 0,
+        "not_run": 57,
+        "pass_percentage": 0,
+        "execution_percentage": 0.0
+      },
+      "automation": {
+        "total": 1017,
+        "passed": 0,
+        "failed": 0,
+        "blocked": 0,
+        "na": 0,
+        "not_run": 1017,
+        "pass_percentage": 0,
+        "execution_percentage": 0.0
+      }
+    }
+  },
+  "bugs": {
+    "total_from_query": 58,
+    "filtered_count": 1,
+    "bugs_list": [
+      {
+        "id": 4481355,
+        "title": "Regression | AI Foundry | April UAT | Sustainability details not getting saved in UI",
+        "state": "Active",
+        "severity": "2 - High",
+        "priority": 2,
+        "assigned_to": "Shridhar Naik, Nagaratna",
+        "created_date": "2026-04-15T05:16:06.083Z",
+        "mpoc": "shwetha.shriyan",
+        "area_path": "AutomationProcess_29697\\mySPRapidSolutioning\\agentcrafters",
+        "tags": "AI - Foundry; SSA - SCA (MVP2)",
+        "text_verification": "AMS Solution Configuration Agent ",
+        "defect_record": "Regression",
+        "node_name": "agentcrafters",
+        "eta": "2026-04-16T22:30:00Z",
+        "stage_found": "Product Test",
+        "text_verification1": "AMS Solution flow"
+      }
+    ]
+  },
+  "tests_by_lead_module": {
+    "Himanshu": {
+      "4458973 : As a DFD requestor, I should get a Reinvention Partner dropdown in all the SA request forms": {
+        "manual": {
+          "total": 0,
+          "passed": 0,
+          "failed": 0,
+          "blocked": 0,
+          "na": 0,
+          "not_run": 0,
+          "percentages": {
+            "pass": 0,
+            "execution": 0
+          }
+        },
+        "automation": {
+          "total": 23,
+          "passed": 0,
+          "failed": 0,
+          "blocked": 0,
+          "na": 0,
+          "not_run": 23,
+          "percentages": {
+            "pass": 0,
+            "execution": 0.0
+          }
+        }
+      },
+      "4458985 : AS a DFD requestor, I should get Reinvention partner field value in the existing SA requests": {
+        "manual": {
+          "total": 0,
+          "passed": 0,
+          "failed": 0,
+          "blocked": 0,
+          "na": 0,
+          "not_run": 0,
+          "percentages": {
+            "pass": 0,
+            "execution": 0
+          }
+        },
+        "automation": {
+          "total": 34,
+          "passed": 0,
+          "failed": 0,
+          "blocked": 0,
+          "na": 0,
+          "not_run": 34,
+          "percentages": {
+            "pass": 0,
+            "execution": 0.0
+          }
+        }
+      },
+      "4458995 : As a DFD requestor, I should get Reinvention Partner field in SA mail templates when request is created/edited": {
+        "manual": {
+          "total": 0,
+          "passed": 0,
+          "failed": 0,
+          "blocked": 0,
+          "na": 0,
+          "not_run": 0,
+          "percentages": {
+            "pass": 0,
+            "execution": 0
+          }
+        },
+        "automation": {
+          "total": 32,
+          "passed": 0,
+          "failed": 0,
+          "blocked": 0,
+          "na": 0,
+          "not_run": 32,
+          "percentages": {
+            "pass": 0,
+            "execution": 0.0
+          }
+        }
+      }
+    },
+    "Rajeshwari": {
+      "4429521 : As a myISP Solution Architect, I want to see the CDAT - MFE App migrated to Angular 21": {
+        "manual": {
+          "total": 0,
+          "passed": 0,
+          "failed": 0,
+          "blocked": 0,
+          "na": 0,
+          "not_run": 0,
+          "percentages": {
+            "pass": 0,
+            "execution": 0
+          }
+        },
+        "automation": {
+          "total": 40,
+          "passed": 0,
+          "failed": 0,
+          "blocked": 0,
+          "na": 0,
+          "not_run": 40,
+          "percentages": {
+            "pass": 0,
+            "execution": 0.0
+          }
+        }
+      }
+    },
+    "Jaya": {
+      "4429530 : As a myISP Solution Architect, I want to see the Cost Price Engine UI App migrated to Angular 21": {
+        "manual": {
+          "total": 0,
+          "passed": 0,
+          "failed": 0,
+          "blocked": 0,
+          "na": 0,
+          "not_run": 0,
+          "percentages": {
+            "pass": 0,
+            "execution": 0
+          }
+        },
+        "automation": {
+          "total": 75,
+          "passed": 0,
+          "failed": 0,
+          "blocked": 0,
+          "na": 0,
+          "not_run": 75,
+          "percentages": {
+            "pass": 0,
+            "execution": 0.0
+          }
+        }
+      },
+      "4439199 : AMS OCP/DCTA: As a mySolutionPlanner developer, I should be able to get the Export/Import status tab in Available Hours screen": {
+        "manual": {
+          "total": 0,
+          "passed": 0,
+          "failed": 0,
+          "blocked": 0,
+          "na": 0,
+          "not_run": 0,
+          "percentages": {
+            "pass": 0,
+            "execution": 0
+          }
+        },
+        "automation": {
+          "total": 13,
+          "passed": 0,
+          "failed": 0,
+          "blocked": 0,
+          "na": 0,
+          "not_run": 13,
+          "percentages": {
+            "pass": 0,
+            "execution": 0.0
+          }
+        }
+      },
+      "4439323 : AMS OCP/DCTA: As a mySolutionPlanner developer, I should be able to get the Export option in Available Hours template for Staffing": {
+        "manual": {
+          "total": 0,
+          "passed": 0,
+          "failed": 0,
+          "blocked": 0,
+          "na": 0,
+          "not_run": 0,
+          "percentages": {
+            "pass": 0,
+            "execution": 0
+          }
+        },
+        "automation": {
+          "total": 16,
+          "passed": 0,
+          "failed": 0,
+          "blocked": 0,
+          "na": 0,
+          "not_run": 16,
+          "percentages": {
+            "pass": 0,
+            "execution": 0.0
+          }
+        }
+      },
+      "4439343 : AMS OCP/DCTA: As a mySolutionPlanner developer, I should be able to get the Export option in Available Hours template for PMO": {
+        "manual": {
+          "total": 0,
+          "passed": 0,
+          "failed": 0,
+          "blocked": 0,
+          "na": 0,
+          "not_run": 0,
+          "percentages": {
+            "pass": 0,
+            "execution": 0
+          }
+        },
+        "automation": {
+          "total": 15,
+          "passed": 0,
+          "failed": 0,
+          "blocked": 0,
+          "na": 0,
+          "not_run": 15,
+          "percentages": {
+            "pass": 0,
+            "execution": 0.0
+          }
+        }
+      },
+      "4439357 : AMS OCP/DCTA: As a mySolutionPlanner developer, I should be able to get the Import option in Available Hours template for Staffing": {
+        "manual": {
+          "total": 0,
+          "passed": 0,
+          "failed": 0,
+          "blocked": 0,
+          "na": 0,
+          "not_run": 0,
+          "percentages": {
+            "pass": 0,
+            "execution": 0
+          }
+        },
+        "automation": {
+          "total": 24,
+          "passed": 0,
+          "failed": 0,
+          "blocked": 0,
+          "na": 0,
+          "not_run": 24,
+          "percentages": {
+            "pass": 0,
+            "execution": 0.0
+          }
+        }
+      },
+      "4439362 : AMS OCP/DCTA: As a mySolutionPlanner developer, I should be able to get the Import option in Available Hours template for PMO": {
+        "manual": {
+          "total": 0,
+          "passed": 0,
+          "failed": 0,
+          "blocked": 0,
+          "na": 0,
+          "not_run": 0,
+          "percentages": {
+            "pass": 0,
+            "execution": 0
+          }
+        },
+        "automation": {
+          "total": 27,
+          "passed": 0,
+          "failed": 0,
+          "blocked": 0,
+          "na": 0,
+          "not_run": 27,
+          "percentages": {
+            "pass": 0,
+            "execution": 0.0
+          }
+        }
+      }
+    },
+    "Vaidheki": {
+      "4446804 : LCM Infra Assessment - Questionnaire Update for Migration Type-Based Volume Selection": {
+        "manual": {
+          "total": 0,
+          "passed": 0,
+          "failed": 0,
+          "blocked": 0,
+          "na": 0,
+          "not_run": 0,
+          "percentages": {
+            "pass": 0,
+            "execution": 0
+          }
+        },
+        "automation": {
+          "total": 51,
+          "passed": 0,
+          "failed": 0,
+          "blocked": 0,
+          "na": 0,
+          "not_run": 51,
+          "percentages": {
+            "pass": 0,
+            "execution": 0.0
+          }
+        }
+      },
+      "4446805 : SI KDA Enhancement - COTS App Replatform Support": {
+        "manual": {
+          "total": 0,
+          "passed": 0,
+          "failed": 0,
+          "blocked": 0,
+          "na": 0,
+          "not_run": 0,
+          "percentages": {
+            "pass": 0,
+            "execution": 0
+          }
+        },
+        "automation": {
+          "total": 53,
+          "passed": 0,
+          "failed": 0,
+          "blocked": 0,
+          "na": 0,
+          "not_run": 53,
+          "percentages": {
+            "pass": 0,
+            "execution": 0.0
+          }
+        }
+      },
+      "4446806 : MMP FFP Resource Template - COTS App Replatform Handling": {
+        "manual": {
+          "total": 0,
+          "passed": 0,
+          "failed": 0,
+          "blocked": 0,
+          "na": 0,
+          "not_run": 0,
+          "percentages": {
+            "pass": 0,
+            "execution": 0
+          }
+        },
+        "automation": {
+          "total": 48,
+          "passed": 0,
+          "failed": 0,
+          "blocked": 0,
+          "na": 0,
+          "not_run": 48,
+          "percentages": {
+            "pass": 0,
+            "execution": 0.0
+          }
+        }
+      },
+      "4446807 : PCW Integration - COTS App Replatform Support": {
+        "manual": {
+          "total": 0,
+          "passed": 0,
+          "failed": 0,
+          "blocked": 0,
+          "na": 0,
+          "not_run": 0,
+          "percentages": {
+            "pass": 0,
+            "execution": 0
+          }
+        },
+        "automation": {
+          "total": 50,
+          "passed": 0,
+          "failed": 0,
+          "blocked": 0,
+          "na": 0,
+          "not_run": 50,
+          "percentages": {
+            "pass": 0,
+            "execution": 0.0
+          }
+        }
+      },
+      "4446808 : Reverse Order Logic - LCM Infrastructure Migration": {
+        "manual": {
+          "total": 0,
+          "passed": 0,
+          "failed": 0,
+          "blocked": 0,
+          "na": 0,
+          "not_run": 0,
+          "percentages": {
+            "pass": 0,
+            "execution": 0
+          }
+        },
+        "automation": {
+          "total": 54,
+          "passed": 0,
+          "failed": 0,
+          "blocked": 0,
+          "na": 0,
+          "not_run": 54,
+          "percentages": {
+            "pass": 0,
+            "execution": 0.0
+          }
+        }
+      },
+      "4446809 : Reverse Order Logic Extension - LCM Infra Override": {
+        "manual": {
+          "total": 0,
+          "passed": 0,
+          "failed": 0,
+          "blocked": 0,
+          "na": 0,
+          "not_run": 0,
+          "percentages": {
+            "pass": 0,
+            "execution": 0
+          }
+        },
+        "automation": {
+          "total": 51,
+          "passed": 0,
+          "failed": 0,
+          "blocked": 0,
+          "na": 0,
+          "not_run": 51,
+          "percentages": {
+            "pass": 0,
+            "execution": 0.0
+          }
+        }
+      }
+    },
+    "Devika": {
+      "4459023 : As a user of the PMO Reporting layer report, I want to add a new column as \"Mergers and Acquisitions\" in report, so that I can see the newly added column data directly in the report.": {
+        "manual": {
+          "total": 0,
+          "passed": 0,
+          "failed": 0,
+          "blocked": 0,
+          "na": 0,
+          "not_run": 0,
+          "percentages": {
+            "pass": 0,
+            "execution": 0
+          }
+        },
+        "automation": {
+          "total": 5,
+          "passed": 0,
+          "failed": 0,
+          "blocked": 0,
+          "na": 0,
+          "not_run": 5,
+          "percentages": {
+            "pass": 0,
+            "execution": 0.0
+          }
+        }
+      },
+      "4446747 : As a AMS VT user, I want the AMSVT production URL to be updated in the Manage screen, So that the system redirects me to the correct AMSVT Link..": {
+        "manual": {
+          "total": 0,
+          "passed": 0,
+          "failed": 0,
+          "blocked": 0,
+          "na": 0,
+          "not_run": 0,
+          "percentages": {
+            "pass": 0,
+            "execution": 0
+          }
+        },
+        "automation": {
+          "total": 3,
+          "passed": 0,
+          "failed": 0,
+          "blocked": 0,
+          "na": 0,
+          "not_run": 3,
+          "percentages": {
+            "pass": 0,
+            "execution": 0.0
+          }
+        }
+      }
+    },
+    "Kavi": {
+      "4359328 : As a SA, add Role Type field in Staffing Baseline (auto-populated from Std Location Type & Service Group)": {
+        "manual": {
+          "total": 0,
+          "passed": 0,
+          "failed": 0,
+          "blocked": 0,
+          "na": 0,
+          "not_run": 0,
+          "percentages": {
+            "pass": 0,
+            "execution": 0
+          }
+        },
+        "automation": {
+          "total": 51,
+          "passed": 0,
+          "failed": 0,
+          "blocked": 0,
+          "na": 0,
+          "not_run": 51,
+          "percentages": {
+            "pass": 0,
+            "execution": 0.0
+          }
+        }
+      },
+      "4359188 : As a SA,I want the Profile city Tier field to auto-populate from the Rate Type column in the Staffing Baseline screen": {
+        "manual": {
+          "total": 0,
+          "passed": 0,
+          "failed": 0,
+          "blocked": 0,
+          "na": 0,
+          "not_run": 0,
+          "percentages": {
+            "pass": 0,
+            "execution": 0
+          }
+        },
+        "automation": {
+          "total": 35,
+          "passed": 0,
+          "failed": 0,
+          "blocked": 0,
+          "na": 0,
+          "not_run": 35,
+          "percentages": {
+            "pass": 0,
+            "execution": 0.0
+          }
+        }
+      },
+      "4377948 : As a myISP SA, I want to add new columns in the DCTA JSON file so that dynamic target pricing can be computed": {
+        "manual": {
+          "total": 0,
+          "passed": 0,
+          "failed": 0,
+          "blocked": 0,
+          "na": 0,
+          "not_run": 0,
+          "percentages": {
+            "pass": 0,
+            "execution": 0
+          }
+        },
+        "automation": {
+          "total": 27,
+          "passed": 0,
+          "failed": 0,
+          "blocked": 0,
+          "na": 0,
+          "not_run": 27,
+          "percentages": {
+            "pass": 0,
+            "execution": 0.0
+          }
+        }
+      },
+      "4359507 : As a SA I want to select standard role from an SSG-specific dropdown selection": {
+        "manual": {
+          "total": 0,
+          "passed": 0,
+          "failed": 0,
+          "blocked": 0,
+          "na": 0,
+          "not_run": 0,
+          "percentages": {
+            "pass": 0,
+            "execution": 0
+          }
+        },
+        "automation": {
+          "total": 38,
+          "passed": 0,
+          "failed": 0,
+          "blocked": 0,
+          "na": 0,
+          "not_run": 38,
+          "percentages": {
+            "pass": 0,
+            "execution": 0.0
+          }
+        }
+      },
+      "4393527 : As a myISP SA, I want to apply filter FFP Visible = False in addition to other filters while displaying Standard Role in staffing so that it is aligned with MMP standards": {
+        "manual": {
+          "total": 0,
+          "passed": 0,
+          "failed": 0,
+          "blocked": 0,
+          "na": 0,
+          "not_run": 0,
+          "percentages": {
+            "pass": 0,
+            "execution": 0
+          }
+        },
+        "automation": {
+          "total": 27,
+          "passed": 0,
+          "failed": 0,
+          "blocked": 0,
+          "na": 0,
+          "not_run": 27,
+          "percentages": {
+            "pass": 0,
+            "execution": 0.0
+          }
+        }
+      },
+      "4391224 : As a myISP SA, I want to change the logic to populate \"Role Type\" and \"Accenture Role/Rate\" in MMP FFP so that it is aligned with Dynamic Target Pricing implementation": {
+        "manual": {
+          "total": 0,
+          "passed": 0,
+          "failed": 0,
+          "blocked": 0,
+          "na": 0,
+          "not_run": 0,
+          "percentages": {
+            "pass": 0,
+            "execution": 0
+          }
+        },
+        "automation": {
+          "total": 27,
+          "passed": 0,
+          "failed": 0,
+          "blocked": 0,
+          "na": 0,
+          "not_run": 27,
+          "percentages": {
+            "pass": 0,
+            "execution": 0.0
+          }
+        }
+      },
+      "4368812 : As a SA, add Role Type field in Staffing Baseline (auto-populated from Std Location Type & Service Group) - OU changes": {
+        "manual": {
+          "total": 0,
+          "passed": 0,
+          "failed": 0,
+          "blocked": 0,
+          "na": 0,
+          "not_run": 0,
+          "percentages": {
+            "pass": 0,
+            "execution": 0
+          }
+        },
+        "automation": {
+          "total": 42,
+          "passed": 0,
+          "failed": 0,
+          "blocked": 0,
+          "na": 0,
+          "not_run": 42,
+          "percentages": {
+            "pass": 0,
+            "execution": 0.0
+          }
+        }
+      }
+    },
+    "Leena": {
+      "4429519 : As a myISP Solution Architect, I want to see the Digital Documentation - MFE App migrated to Angular 21": {
+        "manual": {
+          "total": 0,
+          "passed": 0,
+          "failed": 0,
+          "blocked": 0,
+          "na": 0,
+          "not_run": 0,
+          "percentages": {
+            "pass": 0,
+            "execution": 0
+          }
+        },
+        "automation": {
+          "total": 10,
+          "passed": 0,
+          "failed": 0,
+          "blocked": 0,
+          "na": 0,
+          "not_run": 10,
+          "percentages": {
+            "pass": 0,
+            "execution": 0.0
+          }
+        }
+      }
+    },
+    "Anand": {
+      "4359294 : As a SA, I want the Technology Tier field to auto-populate based on the selected Technology": {
+        "manual": {
+          "total": 0,
+          "passed": 0,
+          "failed": 0,
+          "blocked": 0,
+          "na": 0,
+          "not_run": 0,
+          "percentages": {
+            "pass": 0,
+            "execution": 0
+          }
+        },
+        "automation": {
+          "total": 10,
+          "passed": 0,
+          "failed": 0,
+          "blocked": 0,
+          "na": 0,
+          "not_run": 10,
+          "percentages": {
+            "pass": 0,
+            "execution": 0.0
+          }
+        }
+      },
+      "4371046 : As a Solution Architect, I want to see dynamic target pricing parameters in SDL SI DL regardless of rate card configuration": {
+        "manual": {
+          "total": 13,
+          "passed": 0,
+          "failed": 0,
+          "blocked": 0,
+          "na": 0,
+          "not_run": 13,
+          "percentages": {
+            "pass": 0,
+            "execution": 0.0
+          }
+        },
+        "automation": {
+          "total": 0,
+          "passed": 0,
+          "failed": 0,
+          "blocked": 0,
+          "na": 0,
+          "not_run": 0,
+          "percentages": {
+            "pass": 0,
+            "execution": 0
+          }
+        }
+      },
+      "4368224 : API - Save the Technology Tier, Profile City Tier, Role Type, Technology Role and Standard Role from Staffing Baseline": {
+        "manual": {
+          "total": 0,
+          "passed": 0,
+          "failed": 0,
+          "blocked": 0,
+          "na": 0,
+          "not_run": 0,
+          "percentages": {
+            "pass": 0,
+            "execution": 0
+          }
+        },
+        "automation": {
+          "total": 10,
+          "passed": 0,
+          "failed": 0,
+          "blocked": 0,
+          "na": 0,
+          "not_run": 10,
+          "percentages": {
+            "pass": 0,
+            "execution": 0.0
+          }
+        }
+      },
+      "4368862 : As a SA I want to select standard role from an SSG-specific dropdown selection- OU changes": {
+        "manual": {
+          "total": 0,
+          "passed": 0,
+          "failed": 0,
+          "blocked": 0,
+          "na": 0,
+          "not_run": 0,
+          "percentages": {
+            "pass": 0,
+            "execution": 0
+          }
+        },
+        "automation": {
+          "total": 8,
+          "passed": 0,
+          "failed": 0,
+          "blocked": 0,
+          "na": 0,
+          "not_run": 8,
+          "percentages": {
+            "pass": 0,
+            "execution": 0.0
+          }
+        }
+      },
+      "4386371 : PCW - Add Role Type Column in Staffing Baseline to populate the Role Types for SI, CON-CAS, AMS, IMS and BPMS": {
+        "manual": {
+          "total": 0,
+          "passed": 0,
+          "failed": 0,
+          "blocked": 0,
+          "na": 0,
+          "not_run": 0,
+          "percentages": {
+            "pass": 0,
+            "execution": 0
+          }
+        },
+        "automation": {
+          "total": 17,
+          "passed": 0,
+          "failed": 0,
+          "blocked": 0,
+          "na": 0,
+          "not_run": 17,
+          "percentages": {
+            "pass": 0,
+            "execution": 0.0
+          }
+        }
+      },
+      "4372847 : As a SA, add Technology & Standard Role columns in Staffing Baseline for auto-population/selection based on Tech Group & SSG.": {
+        "manual": {
+          "total": 24,
+          "passed": 0,
+          "failed": 0,
+          "blocked": 0,
+          "na": 0,
+          "not_run": 24,
+          "percentages": {
+            "pass": 0,
+            "execution": 0.0
+          }
+        },
+        "automation": {
+          "total": 0,
+          "passed": 0,
+          "failed": 0,
+          "blocked": 0,
+          "na": 0,
+          "not_run": 0,
+          "percentages": {
+            "pass": 0,
+            "execution": 0
+          }
+        }
+      },
+      "4381707 : PCW - Add Technology Role and Standard Role Column in Staffing Baseline to populate the Roles of SI, CON-CAS": {
+        "manual": {
+          "total": 0,
+          "passed": 0,
+          "failed": 0,
+          "blocked": 0,
+          "na": 0,
+          "not_run": 0,
+          "percentages": {
+            "pass": 0,
+            "execution": 0
+          }
+        },
+        "automation": {
+          "total": 29,
+          "passed": 0,
+          "failed": 0,
+          "blocked": 0,
+          "na": 0,
+          "not_run": 29,
+          "percentages": {
+            "pass": 0,
+            "execution": 0.0
+          }
+        }
+      },
+      "4368135 : API - Enhance the defaulting logics to populate 'Accenture Role/Rate' in offline MMP FFP Export": {
+        "manual": {
+          "total": 0,
+          "passed": 0,
+          "failed": 0,
+          "blocked": 0,
+          "na": 0,
+          "not_run": 0,
+          "percentages": {
+            "pass": 0,
+            "execution": 0
+          }
+        },
+        "automation": {
+          "total": 3,
+          "passed": 0,
+          "failed": 0,
+          "blocked": 0,
+          "na": 0,
+          "not_run": 3,
+          "percentages": {
+            "pass": 0,
+            "execution": 0.0
+          }
+        }
+      },
+      "4386372 : PCW - Add Profile City Tier Column in Staffing Baseline to populate the Profile City Tier value for all profiles": {
+        "manual": {
+          "total": 20,
+          "passed": 0,
+          "failed": 0,
+          "blocked": 0,
+          "na": 0,
+          "not_run": 20,
+          "percentages": {
+            "pass": 0,
+            "execution": 0.0
+          }
+        },
+        "automation": {
+          "total": 0,
+          "passed": 0,
+          "failed": 0,
+          "blocked": 0,
+          "na": 0,
+          "not_run": 0,
+          "percentages": {
+            "pass": 0,
+            "execution": 0
+          }
+        }
+      },
+      "4386373 : PCW - Rename existing 'Role Type' column in PCW 8.7 Template and Show a warning message in PCW 8.6 template": {
+        "manual": {
+          "total": 0,
+          "passed": 0,
+          "failed": 0,
+          "blocked": 0,
+          "na": 0,
+          "not_run": 0,
+          "percentages": {
+            "pass": 0,
+            "execution": 0
+          }
+        },
+        "automation": {
+          "total": 12,
+          "passed": 0,
+          "failed": 0,
+          "blocked": 0,
+          "na": 0,
+          "not_run": 12,
+          "percentages": {
+            "pass": 0,
+            "execution": 0.0
+          }
+        }
+      },
+      "4386944 : As a SA, auto-populate Profile City Tier from Rate Type in Staffing Baseline-OU Changes": {
+        "manual": {
+          "total": 0,
+          "passed": 0,
+          "failed": 0,
+          "blocked": 0,
+          "na": 0,
+          "not_run": 0,
+          "percentages": {
+            "pass": 0,
+            "execution": 0
+          }
+        },
+        "automation": {
+          "total": 9,
+          "passed": 0,
+          "failed": 0,
+          "blocked": 0,
+          "na": 0,
+          "not_run": 9,
+          "percentages": {
+            "pass": 0,
+            "execution": 0.0
+          }
+        }
+      },
+      "4386942 : As a SA, I want the Technology Tier field to auto-populate based on the selected Technology - OU Changes": {
+        "manual": {
+          "total": 0,
+          "passed": 0,
+          "failed": 0,
+          "blocked": 0,
+          "na": 0,
+          "not_run": 0,
+          "percentages": {
+            "pass": 0,
+            "execution": 0
+          }
+        },
+        "automation": {
+          "total": 8,
+          "passed": 0,
+          "failed": 0,
+          "blocked": 0,
+          "na": 0,
+          "not_run": 8,
+          "percentages": {
+            "pass": 0,
+            "execution": 0.0
+          }
+        }
+      },
+      "4395067 : PCW - Pass Role Type column to API as an input filter parameter for defaulting logics of offline MMP FFP Export": {
+        "manual": {
+          "total": 0,
+          "passed": 0,
+          "failed": 0,
+          "blocked": 0,
+          "na": 0,
+          "not_run": 0,
+          "percentages": {
+            "pass": 0,
+            "execution": 0
+          }
+        },
+        "automation": {
+          "total": 10,
+          "passed": 0,
+          "failed": 0,
+          "blocked": 0,
+          "na": 0,
+          "not_run": 10,
+          "percentages": {
+            "pass": 0,
+            "execution": 0.0
+          }
+        }
+      },
+      "4386945 : As a SA, add Technology & Standard Role columns in Staffing Baseline for auto-population/selection based on Tech Group & SSG.- OU changes": {
+        "manual": {
+          "total": 0,
+          "passed": 0,
+          "failed": 0,
+          "blocked": 0,
+          "na": 0,
+          "not_run": 0,
+          "percentages": {
+            "pass": 0,
+            "execution": 0
+          }
+        },
+        "automation": {
+          "total": 26,
+          "passed": 0,
+          "failed": 0,
+          "blocked": 0,
+          "na": 0,
+          "not_run": 26,
+          "percentages": {
+            "pass": 0,
+            "execution": 0.0
+          }
+        }
+      },
+      "4411451 : Rename existing 'Role Type' column in Staffing OU Template": {
+        "manual": {
+          "total": 0,
+          "passed": 0,
+          "failed": 0,
+          "blocked": 0,
+          "na": 0,
+          "not_run": 0,
+          "percentages": {
+            "pass": 0,
+            "execution": 0
+          }
+        },
+        "automation": {
+          "total": 4,
+          "passed": 0,
+          "failed": 0,
+          "blocked": 0,
+          "na": 0,
+          "not_run": 4,
+          "percentages": {
+            "pass": 0,
+            "execution": 0.0
+          }
+        }
+      }
+    }
+  },
+  "test_details": [
+    {
+      "id": 4468998,
+      "name": "Validate new label 'Which Solution Entities Are Involved?' on New SA request description page",
+      "suite": "4458973 : As a DFD requestor, I should get a Reinvention Partner dropdown in all the SA request forms",
+      "module": "4458973 : As a DFD requestor, I should get a Reinvention Partner dropdown in all the SA request forms",
+      "lead": "Himanshu",
+      "assigned_to": "Goriparthi, Anusha",
+      "type": "Automation",
+      "outcome": "Not Run",
+      "priority": 2,
+      "state": "Ready",
+      "bug_id": "",
+      "bug_details": [],
+      "comments": "",
+      "text_verification": "DFD",
+      "text_verification1": "",
+      "us_id": 4458973,
+      "us_title": "As a DFD requestor, I should get a Reinvention Partner dropdown in all the SA request forms",
+      "prod_sanity_status": "",
+      "automation_status": "Not Automated"
+    },
+    {
+      "id": 4468999,
+      "name": " Validate new label appears in existing/open SA requests",
+      "suite": "4458973 : As a DFD requestor, I should get a Reinvention Partner dropdown in all the SA request forms",
+      "module": "4458973 : As a DFD requestor, I should get a Reinvention Partner dropdown in all the SA request forms",
+      "lead": "Himanshu",
+      "assigned_to": "Goriparthi, Anusha",
+      "type": "Automation",
+      "outcome": "Not Run",
+      "priority": 2,
+      "state": "Ready",
+      "bug_id": "",
+      "bug_details": [],
+      "comments": "",
+      "text_verification": "DFD",
+      "text_verification1": "",
+      "us_id": 4458973,
+      "us_title": "As a DFD requestor, I should get a Reinvention Partner dropdown in all the SA request forms",
+      "prod_sanity_status": "",
+      "automation_status": "Not Automated"
+    },
+    {
+      "id": 4469000,
+      "name": "Validate 'Reinvention Partner' field appears above 'On Behalf Of' field in new SA request for all Services",
+      "suite": "4458973 : As a DFD requestor, I should get a Reinvention Partner dropdown in all the SA request forms",
+      "module": "4458973 : As a DFD requestor, I should get a Reinvention Partner dropdown in all the SA request forms",
+      "lead": "Himanshu",
+      "assigned_to": "Goriparthi, Anusha",
+      "type": "Automation",
+      "outcome": "Not Run",
+      "priority": 2,
+      "state": "Ready",
+      "bug_id": "",
+      "bug_details": [],
+      "comments": "",
+      "text_verification": "DFD",
+      "text_verification1": "",
+      "us_id": 4458973,
+      "us_title": "As a DFD requestor, I should get a Reinvention Partner dropdown in all the SA request forms",
+      "prod_sanity_status": "",
+      "automation_status": "Not Automated"
+    },
+    {
+      "id": 4469001,
+      "name": "Validate 'Reinvention Partner' field appears for multiple/all applicable Services in DFD",
+      "suite": "4458973 : As a DFD requestor, I should get a Reinvention Partner dropdown in all the SA request forms",
+      "module": "4458973 : As a DFD requestor, I should get a Reinvention Partner dropdown in all the SA request forms",
+      "lead": "Himanshu",
+      "assigned_to": "Goriparthi, Anusha",
+      "type": "Automation",
+      "outcome": "Not Run",
+      "priority": 2,
+      "state": "Ready",
+      "bug_id": "",
+      "bug_details": [],
+      "comments": "",
+      "text_verification": "DFD",
+      "text_verification1": "",
+      "us_id": 4458973,
+      "us_title": "As a DFD requestor, I should get a Reinvention Partner dropdown in all the SA request forms",
+      "prod_sanity_status": "",
+      "automation_status": "Not Automated"
+    },
+    {
+      "id": 4469002,
+      "name": " Validate all expected dropdown values are present in 'Reinvention Partner' field",
+      "suite": "4458973 : As a DFD requestor, I should get a Reinvention Partner dropdown in all the SA request forms",
+      "module": "4458973 : As a DFD requestor, I should get a Reinvention Partner dropdown in all the SA request forms",
+      "lead": "Himanshu",
+      "assigned_to": "Goriparthi, Anusha",
+      "type": "Automation",
+      "outcome": "Not Run",
+      "priority": 2,
+      "state": "Ready",
+      "bug_id": "",
+      "bug_details": [],
+      "comments": "",
+      "text_verification": "DFD",
+      "text_verification1": "",
+      "us_id": 4458973,
+      "us_title": "As a DFD requestor, I should get a Reinvention Partner dropdown in all the SA request forms",
+      "prod_sanity_status": "",
+      "automation_status": "Not Automated"
+    },
+    {
+      "id": 4469003,
+      "name": " Validate dropdown is orderd correctly with 'Not Applicable' last",
+      "suite": "4458973 : As a DFD requestor, I should get a Reinvention Partner dropdown in all the SA request forms",
+      "module": "4458973 : As a DFD requestor, I should get a Reinvention Partner dropdown in all the SA request forms",
+      "lead": "Himanshu",
+      "assigned_to": "Goriparthi, Anusha",
+      "type": "Automation",
+      "outcome": "Not Run",
+      "priority": 2,
+      "state": "Ready",
+      "bug_id": "",
+      "bug_details": [],
+      "comments": "",
+      "text_verification": "DFD",
+      "text_verification1": "",
+      "us_id": 4458973,
+      "us_title": "As a DFD requestor, I should get a Reinvention Partner dropdown in all the SA request forms",
+      "prod_sanity_status": "",
+      "automation_status": "Not Automated"
+    },
+    {
+      "id": 4469004,
+      "name": "Validate user can select multiple values in 'Reinvention Partner' dropdown",
+      "suite": "4458973 : As a DFD requestor, I should get a Reinvention Partner dropdown in all the SA request forms",
+      "module": "4458973 : As a DFD requestor, I should get a Reinvention Partner dropdown in all the SA request forms",
+      "lead": "Himanshu",
+      "assigned_to": "Goriparthi, Anusha",
+      "type": "Automation",
+      "outcome": "Not Run",
+      "priority": 2,
+      "state": "Ready",
+      "bug_id": "",
+      "bug_details": [],
+      "comments": "",
+      "text_verification": "DFD",
+      "text_verification1": "",
+      "us_id": 4458973,
+      "us_title": "As a DFD requestor, I should get a Reinvention Partner dropdown in all the SA request forms",
+      "prod_sanity_status": "",
+      "automation_status": "Not Automated"
+    },
+    {
+      "id": 4469005,
+      "name": "Validate user can deselect a previously selected value in 'Reinvention Partner' multi-select dropdown",
+      "suite": "4458973 : As a DFD requestor, I should get a Reinvention Partner dropdown in all the SA request forms",
+      "module": "4458973 : As a DFD requestor, I should get a Reinvention Partner dropdown in all the SA request forms",
+      "lead": "Himanshu",
+      "assigned_to": "Goriparthi, Anusha",
+      "type": "Automation",
+      "outcome": "Not Run",
+      "priority": 2,
+      "state": "Ready",
+      "bug_id": "",
+      "bug_details": [],
+      "comments": "",
+      "text_verification": "DFD",
+      "text_verification1": "",
+      "us_id": 4458973,
+      "us_title": "As a DFD requestor, I should get a Reinvention Partner dropdown in all the SA request forms",
+      "prod_sanity_status": "",
+      "automation_status": "Not Automated"
+    },
+    {
+      "id": 4469006,
+      "name": "Validate mandatory validation message appears when 'Reinvention Partner' is blank and user clicks 'Complete Request'",
+      "suite": "4458973 : As a DFD requestor, I should get a Reinvention Partner dropdown in all the SA request forms",
+      "module": "4458973 : As a DFD requestor, I should get a Reinvention Partner dropdown in all the SA request forms",
+      "lead": "Himanshu",
+      "assigned_to": "Goriparthi, Anusha",
+      "type": "Automation",
+      "outcome": "Not Run",
+      "priority": 2,
+      "state": "Ready",
+      "bug_id": "",
+      "bug_details": [],
+      "comments": "",
+      "text_verification": "DFD",
+      "text_verification1": "",
+      "us_id": 4458973,
+      "us_title": "As a DFD requestor, I should get a Reinvention Partner dropdown in all the SA request forms",
+      "prod_sanity_status": "",
+      "automation_status": "Not Automated"
+    },
+    {
+      "id": 4469007,
+      "name": " Validate form submits successfully when 'Reinvention Partner' is filled before clicking Complete Request",
+      "suite": "4458973 : As a DFD requestor, I should get a Reinvention Partner dropdown in all the SA request forms",
+      "module": "4458973 : As a DFD requestor, I should get a Reinvention Partner dropdown in all the SA request forms",
+      "lead": "Himanshu",
+      "assigned_to": "Goriparthi, Anusha",
+      "type": "Automation",
+      "outcome": "Not Run",
+      "priority": 2,
+      "state": "Ready",
+      "bug_id": "",
+      "bug_details": [],
+      "comments": "",
+      "text_verification": "DFD",
+      "text_verification1": "",
+      "us_id": 4458973,
+      "us_title": "As a DFD requestor, I should get a Reinvention Partner dropdown in all the SA request forms",
+      "prod_sanity_status": "",
+      "automation_status": "Not Automated"
+    },
+    {
+      "id": 4469008,
+      "name": "Validate mandatory validation appears for all applicable SA service types (not just one service)",
+      "suite": "4458973 : As a DFD requestor, I should get a Reinvention Partner dropdown in all the SA request forms",
+      "module": "4458973 : As a DFD requestor, I should get a Reinvention Partner dropdown in all the SA request forms",
+      "lead": "Himanshu",
+      "assigned_to": "Goriparthi, Anusha",
+      "type": "Automation",
+      "outcome": "Not Run",
+      "priority": 2,
+      "state": "Ready",
+      "bug_id": "",
+      "bug_details": [],
+      "comments": "",
+      "text_verification": "DFD",
+      "text_verification1": "",
+      "us_id": 4458973,
+      "us_title": "As a DFD requestor, I should get a Reinvention Partner dropdown in all the SA request forms",
+      "prod_sanity_status": "",
+      "automation_status": "Not Automated"
+    },
+    {
+      "id": 4469009,
+      "name": "Validate 'Reinvention Partner' field is editable in a valid (non-dummy) SA request",
+      "suite": "4458973 : As a DFD requestor, I should get a Reinvention Partner dropdown in all the SA request forms",
+      "module": "4458973 : As a DFD requestor, I should get a Reinvention Partner dropdown in all the SA request forms",
+      "lead": "Himanshu",
+      "assigned_to": "Goriparthi, Anusha",
+      "type": "Automation",
+      "outcome": "Not Run",
+      "priority": 2,
+      "state": "Ready",
+      "bug_id": "",
+      "bug_details": [],
+      "comments": "",
+      "text_verification": "DFD",
+      "text_verification1": "",
+      "us_id": 4458973,
+      "us_title": "As a DFD requestor, I should get a Reinvention Partner dropdown in all the SA request forms",
+      "prod_sanity_status": "",
+      "automation_status": "Not Automated"
+    },
+    {
+      "id": 4469010,
+      "name": "Validate 'Reinvention Partner' field is editable in a dummy SA request",
+      "suite": "4458973 : As a DFD requestor, I should get a Reinvention Partner dropdown in all the SA request forms",
+      "module": "4458973 : As a DFD requestor, I should get a Reinvention Partner dropdown in all the SA request forms",
+      "lead": "Himanshu",
+      "assigned_to": "Goriparthi, Anusha",
+      "type": "Automation",
+      "outcome": "Not Run",
+      "priority": 2,
+      "state": "Ready",
+      "bug_id": "",
+      "bug_details": [],
+      "comments": "",
+      "text_verification": "DFD",
+      "text_verification1": "",
+      "us_id": 4458973,
+      "us_title": "As a DFD requestor, I should get a Reinvention Partner dropdown in all the SA request forms",
+      "prod_sanity_status": "",
+      "automation_status": "Not Automated"
+    },
+    {
+      "id": 4469011,
+      "name": " Validate audit trail entry is created when 'Reinvention Partner' value is updated",
+      "suite": "4458973 : As a DFD requestor, I should get a Reinvention Partner dropdown in all the SA request forms",
+      "module": "4458973 : As a DFD requestor, I should get a Reinvention Partner dropdown in all the SA request forms",
+      "lead": "Himanshu",
+      "assigned_to": "Goriparthi, Anusha",
+      "type": "Automation",
+      "outcome": "Not Run",
+      "priority": 2,
+      "state": "Ready",
+      "bug_id": "",
+      "bug_details": [],
+      "comments": "",
+      "text_verification": "DFD",
+      "text_verification1": "",
+      "us_id": 4458973,
+      "us_title": "As a DFD requestor, I should get a Reinvention Partner dropdown in all the SA request forms",
+      "prod_sanity_status": "",
+      "automation_status": "Not Automated"
+    },
+    {
+      "id": 4469012,
+      "name": " Validate audit trail captures old value and new value accurately on multi-select change",
+      "suite": "4458973 : As a DFD requestor, I should get a Reinvention Partner dropdown in all the SA request forms",
+      "module": "4458973 : As a DFD requestor, I should get a Reinvention Partner dropdown in all the SA request forms",
+      "lead": "Himanshu",
+      "assigned_to": "Goriparthi, Anusha",
+      "type": "Automation",
+      "outcome": "Not Run",
+      "priority": 2,
+      "state": "Ready",
+      "bug_id": "",
+      "bug_details": [],
+      "comments": "",
+      "text_verification": "DFD",
+      "text_verification1": "",
+      "us_id": 4458973,
+      "us_title": "As a DFD requestor, I should get a Reinvention Partner dropdown in all the SA request forms",
+      "prod_sanity_status": "",
+      "automation_status": "Not Automated"
+    },
+    {
+      "id": 4469013,
+      "name": "Validate audit trail is NOT created when 'Reinvention Partner' value is unchanged during edit",
+      "suite": "4458973 : As a DFD requestor, I should get a Reinvention Partner dropdown in all the SA request forms",
+      "module": "4458973 : As a DFD requestor, I should get a Reinvention Partner dropdown in all the SA request forms",
+      "lead": "Himanshu",
+      "assigned_to": "Goriparthi, Anusha",
+      "type": "Automation",
+      "outcome": "Not Run",
+      "priority": 2,
+      "state": "Ready",
+      "bug_id": "",
+      "bug_details": [],
+      "comments": "",
+      "text_verification": "DFD",
+      "text_verification1": "",
+      "us_id": 4458973,
+      "us_title": "As a DFD requestor, I should get a Reinvention Partner dropdown in all the SA request forms",
+      "prod_sanity_status": "",
+      "automation_status": "Not Automated"
+    },
+    {
+      "id": 4469014,
+      "name": " Validate selecting all available values in 'Reinvention Partner' multi-select dropdown",
+      "suite": "4458973 : As a DFD requestor, I should get a Reinvention Partner dropdown in all the SA request forms",
+      "module": "4458973 : As a DFD requestor, I should get a Reinvention Partner dropdown in all the SA request forms",
+      "lead": "Himanshu",
+      "assigned_to": "Goriparthi, Anusha",
+      "type": "Automation",
+      "outcome": "Not Run",
+      "priority": 2,
+      "state": "Ready",
+      "bug_id": "",
+      "bug_details": [],
+      "comments": "",
+      "text_verification": "DFD",
+      "text_verification1": "",
+      "us_id": 4458973,
+      "us_title": "As a DFD requestor, I should get a Reinvention Partner dropdown in all the SA request forms",
+      "prod_sanity_status": "",
+      "automation_status": "Not Automated"
+    },
+    {
+      "id": 4469015,
+      "name": " Validate selecting only 'Not Applicable' as the single value is allowed",
+      "suite": "4458973 : As a DFD requestor, I should get a Reinvention Partner dropdown in all the SA request forms",
+      "module": "4458973 : As a DFD requestor, I should get a Reinvention Partner dropdown in all the SA request forms",
+      "lead": "Himanshu",
+      "assigned_to": "Goriparthi, Anusha",
+      "type": "Automation",
+      "outcome": "Not Run",
+      "priority": 2,
+      "state": "Ready",
+      "bug_id": "",
+      "bug_details": [],
+      "comments": "",
+      "text_verification": "DFD",
+      "text_verification1": "",
+      "us_id": 4458973,
+      "us_title": "As a DFD requestor, I should get a Reinvention Partner dropdown in all the SA request forms",
+      "prod_sanity_status": "",
+      "automation_status": "Not Automated"
+    },
+    {
+      "id": 4469016,
+      "name": " Validate no default value is pre-selected in 'Reinvention Partner' dropdown on new request creation",
+      "suite": "4458973 : As a DFD requestor, I should get a Reinvention Partner dropdown in all the SA request forms",
+      "module": "4458973 : As a DFD requestor, I should get a Reinvention Partner dropdown in all the SA request forms",
+      "lead": "Himanshu",
+      "assigned_to": "Goriparthi, Anusha",
+      "type": "Automation",
+      "outcome": "Not Run",
+      "priority": 2,
+      "state": "Ready",
+      "bug_id": "",
+      "bug_details": [],
+      "comments": "",
+      "text_verification": "DFD",
+      "text_verification1": "",
+      "us_id": 4458973,
+      "us_title": "As a DFD requestor, I should get a Reinvention Partner dropdown in all the SA request forms",
+      "prod_sanity_status": "",
+      "automation_status": "Not Automated"
+    },
+    {
+      "id": 4469017,
+      "name": " Validate asterisk (*) mandatory indicator is shown on 'Reinvention Partner' field label",
+      "suite": "4458973 : As a DFD requestor, I should get a Reinvention Partner dropdown in all the SA request forms",
+      "module": "4458973 : As a DFD requestor, I should get a Reinvention Partner dropdown in all the SA request forms",
+      "lead": "Himanshu",
+      "assigned_to": "Goriparthi, Anusha",
+      "type": "Automation",
+      "outcome": "Not Run",
+      "priority": 2,
+      "state": "Ready",
+      "bug_id": "",
+      "bug_details": [],
+      "comments": "",
+      "text_verification": "DFD",
+      "text_verification1": "",
+      "us_id": 4458973,
+      "us_title": "As a DFD requestor, I should get a Reinvention Partner dropdown in all the SA request forms",
+      "prod_sanity_status": "",
+      "automation_status": "Not Automated"
+    },
+    {
+      "id": 4469018,
+      "name": "Validate 'Reinvention Partner' field is editable in a Valid SA request ",
+      "suite": "4458973 : As a DFD requestor, I should get a Reinvention Partner dropdown in all the SA request forms",
+      "module": "4458973 : As a DFD requestor, I should get a Reinvention Partner dropdown in all the SA request forms",
+      "lead": "Himanshu",
+      "assigned_to": "Goriparthi, Anusha",
+      "type": "Automation",
+      "outcome": "Not Run",
+      "priority": 2,
+      "state": "Ready",
+      "bug_id": "",
+      "bug_details": [],
+      "comments": "",
+      "text_verification": "DFD",
+      "text_verification1": "",
+      "us_id": 4458973,
+      "us_title": "As a DFD requestor, I should get a Reinvention Partner dropdown in all the SA request forms",
+      "prod_sanity_status": "",
+      "automation_status": "Not Automated"
+    },
+    {
+      "id": 4469019,
+      "name": "Validate new label 'Which Solution Entities Are Involved?' on New SA request description page (Valid Request)",
+      "suite": "4458973 : As a DFD requestor, I should get a Reinvention Partner dropdown in all the SA request forms",
+      "module": "4458973 : As a DFD requestor, I should get a Reinvention Partner dropdown in all the SA request forms",
+      "lead": "Himanshu",
+      "assigned_to": "Goriparthi, Anusha",
+      "type": "Automation",
+      "outcome": "Not Run",
+      "priority": 2,
+      "state": "Ready",
+      "bug_id": "",
+      "bug_details": [],
+      "comments": "",
+      "text_verification": "DFD",
+      "text_verification1": "",
+      "us_id": 4458973,
+      "us_title": "As a DFD requestor, I should get a Reinvention Partner dropdown in all the SA request forms",
+      "prod_sanity_status": "",
+      "automation_status": "Not Automated"
+    },
+    {
+      "id": 4469020,
+      "name": "Validate 'Reinvention Partner' field appears above 'On Behalf Of' field in new SA request for all Services (Valid Request)",
+      "suite": "4458973 : As a DFD requestor, I should get a Reinvention Partner dropdown in all the SA request forms",
+      "module": "4458973 : As a DFD requestor, I should get a Reinvention Partner dropdown in all the SA request forms",
+      "lead": "Himanshu",
+      "assigned_to": "Goriparthi, Anusha",
+      "type": "Automation",
+      "outcome": "Not Run",
+      "priority": 2,
+      "state": "Ready",
+      "bug_id": "",
+      "bug_details": [],
+      "comments": "",
+      "text_verification": "DFD",
+      "text_verification1": "",
+      "us_id": 4458973,
+      "us_title": "As a DFD requestor, I should get a Reinvention Partner dropdown in all the SA request forms",
+      "prod_sanity_status": "",
+      "automation_status": "Not Automated"
+    },
+    {
+      "id": 4470770,
+      "name": "4458985_TC_001: Validate Reinvention Partner field is visible when a DFD requestor opens an existing DFD SA request created before the feature release",
+      "suite": "4458985 : AS a DFD requestor, I should get Reinvention partner field value in the existing SA requests",
+      "module": "4458985 : AS a DFD requestor, I should get Reinvention partner field value in the existing SA requests",
+      "lead": "Himanshu",
+      "assigned_to": "Ishwar Jaxanni, Manjunath",
+      "type": "Automation",
+      "outcome": "Not Run",
+      "priority": 2,
+      "state": "Ready",
+      "bug_id": "",
+      "bug_details": [],
+      "comments": "",
+      "text_verification": "DFD",
+      "text_verification1": "",
+      "us_id": 4458985,
+      "us_title": "AS a DFD requestor, I should get Reinvention partner field value in the existing SA requests",
+      "prod_sanity_status": "",
+      "automation_status": "Not Automated"
+    },
+    {
+      "id": 4470771,
+      "name": "4458985_TC_002: Validate Reinvention Partner field is present across all existing DFD SA requests â€” not just a subset",
+      "suite": "4458985 : AS a DFD requestor, I should get Reinvention partner field value in the existing SA requests",
+      "module": "4458985 : AS a DFD requestor, I should get Reinvention partner field value in the existing SA requests",
+      "lead": "Himanshu",
+      "assigned_to": "Ishwar Jaxanni, Manjunath",
+      "type": "Automation",
+      "outcome": "Not Run",
+      "priority": 2,
+      "state": "Ready",
+      "bug_id": "",
+      "bug_details": [],
+      "comments": "",
+      "text_verification": "DFD",
+      "text_verification1": "",
+      "us_id": 4458985,
+      "us_title": "AS a DFD requestor, I should get Reinvention partner field value in the existing SA requests",
+      "prod_sanity_status": "",
+      "automation_status": "Not Automated"
+    },
+    {
+      "id": 4470772,
+      "name": "4458985_TC_003: Validate Reinvention Partner field is rendered as a dropdown (not a free-text field) in existing DFD SA requests",
+      "suite": "4458985 : AS a DFD requestor, I should get Reinvention partner field value in the existing SA requests",
+      "module": "4458985 : AS a DFD requestor, I should get Reinvention partner field value in the existing SA requests",
+      "lead": "Himanshu",
+      "assigned_to": "Ishwar Jaxanni, Manjunath",
+      "type": "Automation",
+      "outcome": "Not Run",
+      "priority": 2,
+      "state": "Ready",
+      "bug_id": "",
+      "bug_details": [],
+      "comments": "",
+      "text_verification": "DFD",
+      "text_verification1": "",
+      "us_id": 4458985,
+      "us_title": "AS a DFD requestor, I should get Reinvention partner field value in the existing SA requests",
+      "prod_sanity_status": "",
+      "automation_status": "Not Automated"
+    },
+    {
+      "id": 4470773,
+      "name": "4458985_TC_004: Validate that the Reinvention Partner field shows 'Not Applicable' as the default pre-populated value in an existing DFD SA request",
+      "suite": "4458985 : AS a DFD requestor, I should get Reinvention partner field value in the existing SA requests",
+      "module": "4458985 : AS a DFD requestor, I should get Reinvention partner field value in the existing SA requests",
+      "lead": "Himanshu",
+      "assigned_to": "Ishwar Jaxanni, Manjunath",
+      "type": "Automation",
+      "outcome": "Not Run",
+      "priority": 2,
+      "state": "Ready",
+      "bug_id": "",
+      "bug_details": [],
+      "comments": "",
+      "text_verification": "DFD",
+      "text_verification1": "",
+      "us_id": 4458985,
+      "us_title": "AS a DFD requestor, I should get Reinvention partner field value in the existing SA requests",
+      "prod_sanity_status": "",
+      "automation_status": "Not Automated"
+    },
+    {
+      "id": 4470774,
+      "name": "4458985_TC_005: Validate that 'Not Applicable' default is applied uniformly to all existing DFD SA requests regardless of their current status (Active/Closed/Draft)",
+      "suite": "4458985 : AS a DFD requestor, I should get Reinvention partner field value in the existing SA requests",
+      "module": "4458985 : AS a DFD requestor, I should get Reinvention partner field value in the existing SA requests",
+      "lead": "Himanshu",
+      "assigned_to": "Ishwar Jaxanni, Manjunath",
+      "type": "Automation",
+      "outcome": "Not Run",
+      "priority": 2,
+      "state": "Ready",
+      "bug_id": "",
+      "bug_details": [],
+      "comments": "",
+      "text_verification": "DFD",
+      "text_verification1": "",
+      "us_id": 4458985,
+      "us_title": "AS a DFD requestor, I should get Reinvention partner field value in the existing SA requests",
+      "prod_sanity_status": "",
+      "automation_status": "Not Automated"
+    },
+    {
+      "id": 4470775,
+      "name": "4458985_TC_006: Validate that 'Not Applicable' is present in the dropdown options list as a selectable value for the Reinvention Partner field",
+      "suite": "4458985 : AS a DFD requestor, I should get Reinvention partner field value in the existing SA requests",
+      "module": "4458985 : AS a DFD requestor, I should get Reinvention partner field value in the existing SA requests",
+      "lead": "Himanshu",
+      "assigned_to": "Ishwar Jaxanni, Manjunath",
+      "type": "Automation",
+      "outcome": "Not Run",
+      "priority": 2,
+      "state": "Ready",
+      "bug_id": "",
+      "bug_details": [],
+      "comments": "",
+      "text_verification": "DFD",
+      "text_verification1": "",
+      "us_id": 4458985,
+      "us_title": "AS a DFD requestor, I should get Reinvention partner field value in the existing SA requests",
+      "prod_sanity_status": "",
+      "automation_status": "Not Automated"
+    },
+    {
+      "id": 4470776,
+      "name": "4458985_TC_007: Validate that a DFD requestor can edit the Reinvention Partner field in an existing DFD SA request (change from 'Not Applicable' to another value)",
+      "suite": "4458985 : AS a DFD requestor, I should get Reinvention partner field value in the existing SA requests",
+      "module": "4458985 : AS a DFD requestor, I should get Reinvention partner field value in the existing SA requests",
+      "lead": "Himanshu",
+      "assigned_to": "Ishwar Jaxanni, Manjunath",
+      "type": "Automation",
+      "outcome": "Not Run",
+      "priority": 2,
+      "state": "Ready",
+      "bug_id": "",
+      "bug_details": [],
+      "comments": "",
+      "text_verification": "DFD",
+      "text_verification1": "",
+      "us_id": 4458985,
+      "us_title": "AS a DFD requestor, I should get Reinvention partner field value in the existing SA requests",
+      "prod_sanity_status": "",
+      "automation_status": "Not Automated"
+    },
+    {
+      "id": 4470777,
+      "name": "4458985_TC_008: Validate that after editing Reinvention Partner from 'Not Applicable' to a new value and saving, the updated value is persisted when the request is reopened",
+      "suite": "4458985 : AS a DFD requestor, I should get Reinvention partner field value in the existing SA requests",
+      "module": "4458985 : AS a DFD requestor, I should get Reinvention partner field value in the existing SA requests",
+      "lead": "Himanshu",
+      "assigned_to": "Ishwar Jaxanni, Manjunath",
+      "type": "Automation",
+      "outcome": "Not Run",
+      "priority": 2,
+      "state": "Ready",
+      "bug_id": "",
+      "bug_details": [],
+      "comments": "",
+      "text_verification": "DFD",
+      "text_verification1": "",
+      "us_id": 4458985,
+      "us_title": "AS a DFD requestor, I should get Reinvention partner field value in the existing SA requests",
+      "prod_sanity_status": "",
+      "automation_status": "Not Automated"
+    },
+    {
+      "id": 4470778,
+      "name": "4458985_TC_009: Validate that the Reinvention Partner field can be changed back to 'Not Applicable' after it has been updated to another value in an existing request",
+      "suite": "4458985 : AS a DFD requestor, I should get Reinvention partner field value in the existing SA requests",
+      "module": "4458985 : AS a DFD requestor, I should get Reinvention partner field value in the existing SA requests",
+      "lead": "Himanshu",
+      "assigned_to": "Ishwar Jaxanni, Manjunath",
+      "type": "Automation",
+      "outcome": "Not Run",
+      "priority": 2,
+      "state": "Ready",
+      "bug_id": "",
+      "bug_details": [],
+      "comments": "",
+      "text_verification": "DFD",
+      "text_verification1": "",
+      "us_id": 4458985,
+      "us_title": "AS a DFD requestor, I should get Reinvention partner field value in the existing SA requests",
+      "prod_sanity_status": "",
+      "automation_status": "Not Automated"
+    },
+    {
+      "id": 4470779,
+      "name": "4458985_TC_010: Validate that a DFD requestor can select multiple values from the Reinvention Partner dropdown in an existing DFD SA request",
+      "suite": "4458985 : AS a DFD requestor, I should get Reinvention partner field value in the existing SA requests",
+      "module": "4458985 : AS a DFD requestor, I should get Reinvention partner field value in the existing SA requests",
+      "lead": "Himanshu",
+      "assigned_to": "Ishwar Jaxanni, Manjunath",
+      "type": "Automation",
+      "outcome": "Not Run",
+      "priority": 2,
+      "state": "Ready",
+      "bug_id": "",
+      "bug_details": [],
+      "comments": "",
+      "text_verification": "DFD",
+      "text_verification1": "",
+      "us_id": 4458985,
+      "us_title": "AS a DFD requestor, I should get Reinvention partner field value in the existing SA requests",
+      "prod_sanity_status": "",
+      "automation_status": "Not Automated"
+    },
+    {
+      "id": 4470780,
+      "name": "4458985_TC_011: Validate that all selected multiple values for Reinvention Partner are persisted correctly when the request is saved and reopened",
+      "suite": "4458985 : AS a DFD requestor, I should get Reinvention partner field value in the existing SA requests",
+      "module": "4458985 : AS a DFD requestor, I should get Reinvention partner field value in the existing SA requests",
+      "lead": "Himanshu",
+      "assigned_to": "Ishwar Jaxanni, Manjunath",
+      "type": "Automation",
+      "outcome": "Not Run",
+      "priority": 2,
+      "state": "Ready",
+      "bug_id": "",
+      "bug_details": [],
+      "comments": "",
+      "text_verification": "DFD",
+      "text_verification1": "",
+      "us_id": 4458985,
+      "us_title": "AS a DFD requestor, I should get Reinvention partner field value in the existing SA requests",
+      "prod_sanity_status": "",
+      "automation_status": "Not Automated"
+    },
+    {
+      "id": 4470781,
+      "name": "4458985_TC_012: Validate that an individual value can be deselected from a multi-value Reinvention Partner selection in an existing request",
+      "suite": "4458985 : AS a DFD requestor, I should get Reinvention partner field value in the existing SA requests",
+      "module": "4458985 : AS a DFD requestor, I should get Reinvention partner field value in the existing SA requests",
+      "lead": "Himanshu",
+      "assigned_to": "Ishwar Jaxanni, Manjunath",
+      "type": "Automation",
+      "outcome": "Not Run",
+      "priority": 2,
+      "state": "Ready",
+      "bug_id": "",
+      "bug_details": [],
+      "comments": "",
+      "text_verification": "DFD",
+      "text_verification1": "",
+      "us_id": 4458985,
+      "us_title": "AS a DFD requestor, I should get Reinvention partner field value in the existing SA requests",
+      "prod_sanity_status": "",
+      "automation_status": "Not Automated"
+    },
+    {
+      "id": 4470782,
+      "name": "4458985_TC_013: Validate Reinvention Partner field (with 'Not Applicable' default) appears for each service in an existing DFD SA request that has multiple services",
+      "suite": "4458985 : AS a DFD requestor, I should get Reinvention partner field value in the existing SA requests",
+      "module": "4458985 : AS a DFD requestor, I should get Reinvention partner field value in the existing SA requests",
+      "lead": "Himanshu",
+      "assigned_to": "Ishwar Jaxanni, Manjunath",
+      "type": "Automation",
+      "outcome": "Not Run",
+      "priority": 2,
+      "state": "Ready",
+      "bug_id": "",
+      "bug_details": [],
+      "comments": "",
+      "text_verification": "DFD",
+      "text_verification1": "",
+      "us_id": 4458985,
+      "us_title": "AS a DFD requestor, I should get Reinvention partner field value in the existing SA requests",
+      "prod_sanity_status": "",
+      "automation_status": "Not Automated"
+    },
+    {
+      "id": 4470783,
+      "name": "4458985_TC_014: Validate that Reinvention Partner values can be independently set for each service in an existing multi-service DFD SA request",
+      "suite": "4458985 : AS a DFD requestor, I should get Reinvention partner field value in the existing SA requests",
+      "module": "4458985 : AS a DFD requestor, I should get Reinvention partner field value in the existing SA requests",
+      "lead": "Himanshu",
+      "assigned_to": "Ishwar Jaxanni, Manjunath",
+      "type": "Automation",
+      "outcome": "Not Run",
+      "priority": 2,
+      "state": "Ready",
+      "bug_id": "",
+      "bug_details": [],
+      "comments": "",
+      "text_verification": "DFD",
+      "text_verification1": "",
+      "us_id": 4458985,
+      "us_title": "AS a DFD requestor, I should get Reinvention partner field value in the existing SA requests",
+      "prod_sanity_status": "",
+      "automation_status": "Not Automated"
+    },
+    {
+      "id": 4470784,
+      "name": "4458985_TC_015: Validate that a non-DFD requestor (read-only or viewer role) cannot edit the Reinvention Partner field in an existing DFD SA request",
+      "suite": "4458985 : AS a DFD requestor, I should get Reinvention partner field value in the existing SA requests",
+      "module": "4458985 : AS a DFD requestor, I should get Reinvention partner field value in the existing SA requests",
+      "lead": "Himanshu",
+      "assigned_to": "Ishwar Jaxanni, Manjunath",
+      "type": "Automation",
+      "outcome": "Not Run",
+      "priority": 2,
+      "state": "Ready",
+      "bug_id": "",
+      "bug_details": [],
+      "comments": "",
+      "text_verification": "DFD",
+      "text_verification1": "",
+      "us_id": 4458985,
+      "us_title": "AS a DFD requestor, I should get Reinvention partner field value in the existing SA requests",
+      "prod_sanity_status": "",
+      "automation_status": "Not Automated"
+    },
+    {
+      "id": 4470785,
+      "name": "4458985_TC_016: Validate that a DFD requestor cannot set Reinvention Partner to an invalid or free-text value â€” only dropdown values are accepted",
+      "suite": "4458985 : AS a DFD requestor, I should get Reinvention partner field value in the existing SA requests",
+      "module": "4458985 : AS a DFD requestor, I should get Reinvention partner field value in the existing SA requests",
+      "lead": "Himanshu",
+      "assigned_to": "Ishwar Jaxanni, Manjunath",
+      "type": "Automation",
+      "outcome": "Not Run",
+      "priority": 2,
+      "state": "Ready",
+      "bug_id": "",
+      "bug_details": [],
+      "comments": "",
+      "text_verification": "DFD",
+      "text_verification1": "",
+      "us_id": 4458985,
+      "us_title": "AS a DFD requestor, I should get Reinvention partner field value in the existing SA requests",
+      "prod_sanity_status": "",
+      "automation_status": "Not Automated"
+    },
+    {
+      "id": 4470786,
+      "name": "4458985_TC_017: Validate that the system does not allow saving an existing DFD SA request with the Reinvention Partner field completely blank (all values deselected)",
+      "suite": "4458985 : AS a DFD requestor, I should get Reinvention partner field value in the existing SA requests",
+      "module": "4458985 : AS a DFD requestor, I should get Reinvention partner field value in the existing SA requests",
+      "lead": "Himanshu",
+      "assigned_to": "Ishwar Jaxanni, Manjunath",
+      "type": "Automation",
+      "outcome": "Not Run",
+      "priority": 2,
+      "state": "Ready",
+      "bug_id": "",
+      "bug_details": [],
+      "comments": "",
+      "text_verification": "DFD",
+      "text_verification1": "",
+      "us_id": 4458985,
+      "us_title": "AS a DFD requestor, I should get Reinvention partner field value in the existing SA requests",
+      "prod_sanity_status": "",
+      "automation_status": "Not Automated"
+    },
+    {
+      "id": 4470787,
+      "name": "4458985_TC_018: Validate the oldest existing DFD SA request in the system has the Reinvention Partner field with 'Not Applicable' default after backfill",
+      "suite": "4458985 : AS a DFD requestor, I should get Reinvention partner field value in the existing SA requests",
+      "module": "4458985 : AS a DFD requestor, I should get Reinvention partner field value in the existing SA requests",
+      "lead": "Himanshu",
+      "assigned_to": "Ishwar Jaxanni, Manjunath",
+      "type": "Automation",
+      "outcome": "Not Run",
+      "priority": 2,
+      "state": "Ready",
+      "bug_id": "",
+      "bug_details": [],
+      "comments": "",
+      "text_verification": "DFD",
+      "text_verification1": "",
+      "us_id": 4458985,
+      "us_title": "AS a DFD requestor, I should get Reinvention partner field value in the existing SA requests",
+      "prod_sanity_status": "",
+      "automation_status": "Not Automated"
+    },
+    {
+      "id": 4470788,
+      "name": "4458985_TC_019: Validate that DFD SA requests in a Closed or Completed state are included in the backfill and show 'Not Applicable' for Reinvention Partner",
+      "suite": "4458985 : AS a DFD requestor, I should get Reinvention partner field value in the existing SA requests",
+      "module": "4458985 : AS a DFD requestor, I should get Reinvention partner field value in the existing SA requests",
+      "lead": "Himanshu",
+      "assigned_to": "Ishwar Jaxanni, Manjunath",
+      "type": "Automation",
+      "outcome": "Not Run",
+      "priority": 2,
+      "state": "Ready",
+      "bug_id": "",
+      "bug_details": [],
+      "comments": "",
+      "text_verification": "DFD",
+      "text_verification1": "",
+      "us_id": 4458985,
+      "us_title": "AS a DFD requestor, I should get Reinvention partner field value in the existing SA requests",
+      "prod_sanity_status": "",
+      "automation_status": "Not Automated"
+    },
+    {
+      "id": 4470789,
+      "name": "4458985_TC_020: Validate that a DFD SA request that was in Draft/Pending state at the time of backfill also receives the 'Not Applicable' default for Reinvention Partner",
+      "suite": "4458985 : AS a DFD requestor, I should get Reinvention partner field value in the existing SA requests",
+      "module": "4458985 : AS a DFD requestor, I should get Reinvention partner field value in the existing SA requests",
+      "lead": "Himanshu",
+      "assigned_to": "Ishwar Jaxanni, Manjunath",
+      "type": "Automation",
+      "outcome": "Not Run",
+      "priority": 2,
+      "state": "Ready",
+      "bug_id": "",
+      "bug_details": [],
+      "comments": "",
+      "text_verification": "DFD",
+      "text_verification1": "",
+      "us_id": 4458985,
+      "us_title": "AS a DFD requestor, I should get Reinvention partner field value in the existing SA requests",
+      "prod_sanity_status": "",
+      "automation_status": "Not Automated"
+    },
+    {
+      "id": 4470790,
+      "name": "4458985_TC_021: Validate that a DFD SA request created after the feature release has the Reinvention Partner field with the correct initial/default value (not 'Not Applicable' unless selected)",
+      "suite": "4458985 : AS a DFD requestor, I should get Reinvention partner field value in the existing SA requests",
+      "module": "4458985 : AS a DFD requestor, I should get Reinvention partner field value in the existing SA requests",
+      "lead": "Himanshu",
+      "assigned_to": "Ishwar Jaxanni, Manjunath",
+      "type": "Automation",
+      "outcome": "Not Run",
+      "priority": 2,
+      "state": "Ready",
+      "bug_id": "",
+      "bug_details": [],
+      "comments": "",
+      "text_verification": "DFD",
+      "text_verification1": "",
+      "us_id": 4458985,
+      "us_title": "AS a DFD requestor, I should get Reinvention partner field value in the existing SA requests",
+      "prod_sanity_status": "",
+      "automation_status": "Not Automated"
+    },
+    {
+      "id": 4470791,
+      "name": "4458985_TC_022: Validate the Reinvention Partner dropdown options list is complete and contains all expected partner values (not just 'Not Applicable')",
+      "suite": "4458985 : AS a DFD requestor, I should get Reinvention partner field value in the existing SA requests",
+      "module": "4458985 : AS a DFD requestor, I should get Reinvention partner field value in the existing SA requests",
+      "lead": "Himanshu",
+      "assigned_to": "Ishwar Jaxanni, Manjunath",
+      "type": "Automation",
+      "outcome": "Not Run",
+      "priority": 2,
+      "state": "Ready",
+      "bug_id": "",
+      "bug_details": [],
+      "comments": "",
+      "text_verification": "DFD",
+      "text_verification1": "",
+      "us_id": 4458985,
+      "us_title": "AS a DFD requestor, I should get Reinvention partner field value in the existing SA requests",
+      "prod_sanity_status": "",
+      "automation_status": "Not Automated"
+    },
+    {
+      "id": 4470792,
+      "name": "4458985_TC_023: Validate that if two users open the same existing DFD SA request simultaneously and each edits Reinvention Partner to different values, the last save is applied without silent data loss",
+      "suite": "4458985 : AS a DFD requestor, I should get Reinvention partner field value in the existing SA requests",
+      "module": "4458985 : AS a DFD requestor, I should get Reinvention partner field value in the existing SA requests",
+      "lead": "Himanshu",
+      "assigned_to": "Ishwar Jaxanni, Manjunath",
+      "type": "Automation",
+      "outcome": "Not Run",
+      "priority": 2,
+      "state": "Ready",
+      "bug_id": "",
+      "bug_details": [],
+      "comments": "",
+      "text_verification": "DFD",
+      "text_verification1": "",
+      "us_id": 4458985,
+      "us_title": "AS a DFD requestor, I should get Reinvention partner field value in the existing SA requests",
+      "prod_sanity_status": "",
+      "automation_status": "Not Automated"
+    },
+    {
+      "id": 4470793,
+      "name": "4458985_TC_024: Validate session timeout during edit of Reinvention Partner in an existing request â€” changes are not silently saved",
+      "suite": "4458985 : AS a DFD requestor, I should get Reinvention partner field value in the existing SA requests",
+      "module": "4458985 : AS a DFD requestor, I should get Reinvention partner field value in the existing SA requests",
+      "lead": "Himanshu",
+      "assigned_to": "Ishwar Jaxanni, Manjunath",
+      "type": "Automation",
+      "outcome": "Not Run",
+      "priority": 2,
+      "state": "Ready",
+      "bug_id": "",
+      "bug_details": [],
+      "comments": "",
+      "text_verification": "DFD",
+      "text_verification1": "",
+      "us_id": 4458985,
+      "us_title": "AS a DFD requestor, I should get Reinvention partner field value in the existing SA requests",
+      "prod_sanity_status": "",
+      "automation_status": "Not Automated"
+    },
+    {
+      "id": 4470794,
+      "name": "4458985_TC_025: Validate that discarding changes to Reinvention Partner (clicking Cancel) in an existing request reverts the field to its saved value",
+      "suite": "4458985 : AS a DFD requestor, I should get Reinvention partner field value in the existing SA requests",
+      "module": "4458985 : AS a DFD requestor, I should get Reinvention partner field value in the existing SA requests",
+      "lead": "Himanshu",
+      "assigned_to": "Ishwar Jaxanni, Manjunath",
+      "type": "Automation",
+      "outcome": "Not Run",
+      "priority": 2,
+      "state": "Ready",
+      "bug_id": "",
+      "bug_details": [],
+      "comments": "",
+      "text_verification": "DFD",
+      "text_verification1": "",
+      "us_id": 4458985,
+      "us_title": "AS a DFD requestor, I should get Reinvention partner field value in the existing SA requests",
+      "prod_sanity_status": "",
+      "automation_status": "Not Automated"
+    },
+    {
+      "id": 4470795,
+      "name": "4458985_TC_026: Validate that the Reinvention Partner field in an existing request is correctly displayed on mobile/tablet screen sizes",
+      "suite": "4458985 : AS a DFD requestor, I should get Reinvention partner field value in the existing SA requests",
+      "module": "4458985 : AS a DFD requestor, I should get Reinvention partner field value in the existing SA requests",
+      "lead": "Himanshu",
+      "assigned_to": "Ishwar Jaxanni, Manjunath",
+      "type": "Automation",
+      "outcome": "Not Run",
+      "priority": 2,
+      "state": "Ready",
+      "bug_id": "",
+      "bug_details": [],
+      "comments": "",
+      "text_verification": "DFD",
+      "text_verification1": "",
+      "us_id": 4458985,
+      "us_title": "AS a DFD requestor, I should get Reinvention partner field value in the existing SA requests",
+      "prod_sanity_status": "",
+      "automation_status": "Not Automated"
+    },
+    {
+      "id": 4470796,
+      "name": "4458985_TC_027: Validate that editing the Reinvention Partner field in an existing DFD SA request is captured in the request's audit/history log",
+      "suite": "4458985 : AS a DFD requestor, I should get Reinvention partner field value in the existing SA requests",
+      "module": "4458985 : AS a DFD requestor, I should get Reinvention partner field value in the existing SA requests",
+      "lead": "Himanshu",
+      "assigned_to": "Ishwar Jaxanni, Manjunath",
+      "type": "Automation",
+      "outcome": "Not Run",
+      "priority": 2,
+      "state": "Ready",
+      "bug_id": "",
+      "bug_details": [],
+      "comments": "",
+      "text_verification": "DFD",
+      "text_verification1": "",
+      "us_id": 4458985,
+      "us_title": "AS a DFD requestor, I should get Reinvention partner field value in the existing SA requests",
+      "prod_sanity_status": "",
+      "automation_status": "Not Automated"
+    },
+    {
+      "id": 4470797,
+      "name": "4458985_TC_028: Validate that the one-time backfill update (setting 'Not Applicable') is either recorded in the audit log or clearly distinguishable from manual user edits",
+      "suite": "4458985 : AS a DFD requestor, I should get Reinvention partner field value in the existing SA requests",
+      "module": "4458985 : AS a DFD requestor, I should get Reinvention partner field value in the existing SA requests",
+      "lead": "Himanshu",
+      "assigned_to": "Ishwar Jaxanni, Manjunath",
+      "type": "Automation",
+      "outcome": "Not Run",
+      "priority": 2,
+      "state": "Ready",
+      "bug_id": "",
+      "bug_details": [],
+      "comments": "",
+      "text_verification": "DFD",
+      "text_verification1": "",
+      "us_id": 4458985,
+      "us_title": "AS a DFD requestor, I should get Reinvention partner field value in the existing SA requests",
+      "prod_sanity_status": "",
+      "automation_status": "Not Automated"
+    },
+    {
+      "id": 4470798,
+      "name": "4458985_TC_029: Validate that all existing fields in a DFD SA request retain their original values after the backfill â€” no other field is modified",
+      "suite": "4458985 : AS a DFD requestor, I should get Reinvention partner field value in the existing SA requests",
+      "module": "4458985 : AS a DFD requestor, I should get Reinvention partner field value in the existing SA requests",
+      "lead": "Himanshu",
+      "assigned_to": "Ishwar Jaxanni, Manjunath",
+      "type": "Automation",
+      "outcome": "Not Run",
+      "priority": 2,
+      "state": "Ready",
+      "bug_id": "",
+      "bug_details": [],
+      "comments": "",
+      "text_verification": "DFD",
+      "text_verification1": "",
+      "us_id": 4458985,
+      "us_title": "AS a DFD requestor, I should get Reinvention partner field value in the existing SA requests",
+      "prod_sanity_status": "",
+      "automation_status": "Not Automated"
+    },
+    {
+      "id": 4470799,
+      "name": "4458985_TC_030: Validate that the existing DFD SA request list/search functionality continues to work correctly after the Reinvention Partner backfill",
+      "suite": "4458985 : AS a DFD requestor, I should get Reinvention partner field value in the existing SA requests",
+      "module": "4458985 : AS a DFD requestor, I should get Reinvention partner field value in the existing SA requests",
+      "lead": "Himanshu",
+      "assigned_to": "Ishwar Jaxanni, Manjunath",
+      "type": "Automation",
+      "outcome": "Not Run",
+      "priority": 2,
+      "state": "Ready",
+      "bug_id": "",
+      "bug_details": [],
+      "comments": "",
+      "text_verification": "DFD",
+      "text_verification1": "",
+      "us_id": 4458985,
+      "us_title": "AS a DFD requestor, I should get Reinvention partner field value in the existing SA requests",
+      "prod_sanity_status": "",
+      "automation_status": "Not Automated"
+    },
+    {
+      "id": 4470800,
+      "name": "4458985_TC_031: Validate that existing DFD SA requests can still be submitted, approved, or closed after the Reinvention Partner field is added â€” no workflow disruption",
+      "suite": "4458985 : AS a DFD requestor, I should get Reinvention partner field value in the existing SA requests",
+      "module": "4458985 : AS a DFD requestor, I should get Reinvention partner field value in the existing SA requests",
+      "lead": "Himanshu",
+      "assigned_to": "Ishwar Jaxanni, Manjunath",
+      "type": "Automation",
+      "outcome": "Not Run",
+      "priority": 2,
+      "state": "Ready",
+      "bug_id": "",
+      "bug_details": [],
+      "comments": "",
+      "text_verification": "DFD",
+      "text_verification1": "",
+      "us_id": 4458985,
+      "us_title": "AS a DFD requestor, I should get Reinvention partner field value in the existing SA requests",
+      "prod_sanity_status": "",
+      "automation_status": "Not Automated"
+    },
+    {
+      "id": 4470801,
+      "name": "4458985_TC_032: Validate that SA notification emails for existing DFD SA requests still work correctly after the backfill and Reinvention Partner is included in the mail (per US 4458995)",
+      "suite": "4458985 : AS a DFD requestor, I should get Reinvention partner field value in the existing SA requests",
+      "module": "4458985 : AS a DFD requestor, I should get Reinvention partner field value in the existing SA requests",
+      "lead": "Himanshu",
+      "assigned_to": "Ishwar Jaxanni, Manjunath",
+      "type": "Automation",
+      "outcome": "Not Run",
+      "priority": 2,
+      "state": "Ready",
+      "bug_id": "",
+      "bug_details": [],
+      "comments": "",
+      "text_verification": "DFD",
+      "text_verification1": "",
+      "us_id": 4458985,
+      "us_title": "AS a DFD requestor, I should get Reinvention partner field value in the existing SA requests",
+      "prod_sanity_status": "",
+      "automation_status": "Not Automated"
+    },
+    {
+      "id": 4470802,
+      "name": "4458985_TC_033: Validate that existing DFD SA requests can be filtered or searched by Reinvention Partner value (if filter is supported)",
+      "suite": "4458985 : AS a DFD requestor, I should get Reinvention partner field value in the existing SA requests",
+      "module": "4458985 : AS a DFD requestor, I should get Reinvention partner field value in the existing SA requests",
+      "lead": "Himanshu",
+      "assigned_to": "Ishwar Jaxanni, Manjunath",
+      "type": "Automation",
+      "outcome": "Not Run",
+      "priority": 2,
+      "state": "Ready",
+      "bug_id": "",
+      "bug_details": [],
+      "comments": "",
+      "text_verification": "DFD",
+      "text_verification1": "",
+      "us_id": 4458985,
+      "us_title": "AS a DFD requestor, I should get Reinvention partner field value in the existing SA requests",
+      "prod_sanity_status": "",
+      "automation_status": "Not Automated"
+    },
+    {
+      "id": 4470803,
+      "name": "4458985_TC_034: Validate that after a DFD requestor updates Reinvention Partner in an existing request, the updated value appears correctly in the request list/grid view",
+      "suite": "4458985 : AS a DFD requestor, I should get Reinvention partner field value in the existing SA requests",
+      "module": "4458985 : AS a DFD requestor, I should get Reinvention partner field value in the existing SA requests",
+      "lead": "Himanshu",
+      "assigned_to": "Ishwar Jaxanni, Manjunath",
+      "type": "Automation",
+      "outcome": "Not Run",
+      "priority": 2,
+      "state": "Ready",
+      "bug_id": "",
+      "bug_details": [],
+      "comments": "",
+      "text_verification": "DFD",
+      "text_verification1": "",
+      "us_id": 4458985,
+      "us_title": "AS a DFD requestor, I should get Reinvention partner field value in the existing SA requests",
+      "prod_sanity_status": "",
+      "automation_status": "Not Automated"
+    },
+    {
+      "id": 4470476,
+      "name": "4458995_TC_001: Validate Reinvention Partner field with a value is included in the SA notification mail when a new DFD SA request is created",
+      "suite": "4458995 : As a DFD requestor, I should get Reinvention Partner field in SA mail templates when request is created/edited",
+      "module": "4458995 : As a DFD requestor, I should get Reinvention Partner field in SA mail templates when request is created/edited",
+      "lead": "Himanshu",
+      "assigned_to": "Ishwar Jaxanni, Manjunath",
+      "type": "Automation",
+      "outcome": "Not Run",
+      "priority": 2,
+      "state": "Ready",
+      "bug_id": "",
+      "bug_details": [],
+      "comments": "",
+      "text_verification": "DFD",
+      "text_verification1": "",
+      "us_id": 4458995,
+      "us_title": "As a DFD requestor, I should get Reinvention Partner field in SA mail templates when request is created/edited",
+      "prod_sanity_status": "",
+      "automation_status": "Not Automated"
+    },
+    {
+      "id": 4470477,
+      "name": "4458995_TC_002: Validate Reinvention Partner field appears in the service details section (not the header/footer) of the SA mail on request creation",
+      "suite": "4458995 : As a DFD requestor, I should get Reinvention Partner field in SA mail templates when request is created/edited",
+      "module": "4458995 : As a DFD requestor, I should get Reinvention Partner field in SA mail templates when request is created/edited",
+      "lead": "Himanshu",
+      "assigned_to": "Ishwar Jaxanni, Manjunath",
+      "type": "Automation",
+      "outcome": "Not Run",
+      "priority": 2,
+      "state": "Ready",
+      "bug_id": "",
+      "bug_details": [],
+      "comments": "",
+      "text_verification": "DFD",
+      "text_verification1": "",
+      "us_id": 4458995,
+      "us_title": "As a DFD requestor, I should get Reinvention Partner field in SA mail templates when request is created/edited",
+      "prod_sanity_status": "",
+      "automation_status": "Not Automated"
+    },
+    {
+      "id": 4470478,
+      "name": "4458995_TC_003: Validate Reinvention Partner field label and value are correctly formatted in the SA mail on request creation",
+      "suite": "4458995 : As a DFD requestor, I should get Reinvention Partner field in SA mail templates when request is created/edited",
+      "module": "4458995 : As a DFD requestor, I should get Reinvention Partner field in SA mail templates when request is created/edited",
+      "lead": "Himanshu",
+      "assigned_to": "Ishwar Jaxanni, Manjunath",
+      "type": "Automation",
+      "outcome": "Not Run",
+      "priority": 2,
+      "state": "Ready",
+      "bug_id": "",
+      "bug_details": [],
+      "comments": "",
+      "text_verification": "DFD",
+      "text_verification1": "",
+      "us_id": 4458995,
+      "us_title": "As a DFD requestor, I should get Reinvention Partner field in SA mail templates when request is created/edited",
+      "prod_sanity_status": "",
+      "automation_status": "Not Automated"
+    },
+    {
+      "id": 4470479,
+      "name": "4458995_TC_004: Validate Reinvention Partner field of the newly added service is captured in SA mail when a service is added to an existing DFD request",
+      "suite": "4458995 : As a DFD requestor, I should get Reinvention Partner field in SA mail templates when request is created/edited",
+      "module": "4458995 : As a DFD requestor, I should get Reinvention Partner field in SA mail templates when request is created/edited",
+      "lead": "Himanshu",
+      "assigned_to": "Ishwar Jaxanni, Manjunath",
+      "type": "Automation",
+      "outcome": "Not Run",
+      "priority": 2,
+      "state": "Ready",
+      "bug_id": "",
+      "bug_details": [],
+      "comments": "",
+      "text_verification": "DFD",
+      "text_verification1": "",
+      "us_id": 4458995,
+      "us_title": "As a DFD requestor, I should get Reinvention Partner field in SA mail templates when request is created/edited",
+      "prod_sanity_status": "",
+      "automation_status": "Not Automated"
+    },
+    {
+      "id": 4470480,
+      "name": "4458995_TC_005: Validate SA mail on service addition shows Reinvention Partner for the new service only and does not duplicate it for previously existing services",
+      "suite": "4458995 : As a DFD requestor, I should get Reinvention Partner field in SA mail templates when request is created/edited",
+      "module": "4458995 : As a DFD requestor, I should get Reinvention Partner field in SA mail templates when request is created/edited",
+      "lead": "Himanshu",
+      "assigned_to": "Ishwar Jaxanni, Manjunath",
+      "type": "Automation",
+      "outcome": "Not Run",
+      "priority": 2,
+      "state": "Ready",
+      "bug_id": "",
+      "bug_details": [],
+      "comments": "",
+      "text_verification": "DFD",
+      "text_verification1": "",
+      "us_id": 4458995,
+      "us_title": "As a DFD requestor, I should get Reinvention Partner field in SA mail templates when request is created/edited",
+      "prod_sanity_status": "",
+      "automation_status": "Not Automated"
+    },
+    {
+      "id": 4470481,
+      "name": "4458995_TC_006: Validate that editing the Reinvention Partner field on an existing DFD SA request triggers an SA notification email",
+      "suite": "4458995 : As a DFD requestor, I should get Reinvention Partner field in SA mail templates when request is created/edited",
+      "module": "4458995 : As a DFD requestor, I should get Reinvention Partner field in SA mail templates when request is created/edited",
+      "lead": "Himanshu",
+      "assigned_to": "Ishwar Jaxanni, Manjunath",
+      "type": "Automation",
+      "outcome": "Not Run",
+      "priority": 2,
+      "state": "Ready",
+      "bug_id": "",
+      "bug_details": [],
+      "comments": "",
+      "text_verification": "DFD",
+      "text_verification1": "",
+      "us_id": 4458995,
+      "us_title": "As a DFD requestor, I should get Reinvention Partner field in SA mail templates when request is created/edited",
+      "prod_sanity_status": "",
+      "automation_status": "Not Automated"
+    },
+    {
+      "id": 4470482,
+      "name": "4458995_TC_007: Validate that the Reinvention Partner field is highlighted in the SA notification email when it has been edited, consistent with how other edited fields are highlighted",
+      "suite": "4458995 : As a DFD requestor, I should get Reinvention Partner field in SA mail templates when request is created/edited",
+      "module": "4458995 : As a DFD requestor, I should get Reinvention Partner field in SA mail templates when request is created/edited",
+      "lead": "Himanshu",
+      "assigned_to": "Ishwar Jaxanni, Manjunath",
+      "type": "Automation",
+      "outcome": "Not Run",
+      "priority": 2,
+      "state": "Ready",
+      "bug_id": "",
+      "bug_details": [],
+      "comments": "",
+      "text_verification": "DFD",
+      "text_verification1": "",
+      "us_id": 4458995,
+      "us_title": "As a DFD requestor, I should get Reinvention Partner field in SA mail templates when request is created/edited",
+      "prod_sanity_status": "",
+      "automation_status": "Not Automated"
+    },
+    {
+      "id": 4470483,
+      "name": "4458995_TC_008: Validate that only fields that were edited receive the highlight â€” unedited fields including Reinvention Partner do not get highlighted when only other fields are edited",
+      "suite": "4458995 : As a DFD requestor, I should get Reinvention Partner field in SA mail templates when request is created/edited",
+      "module": "4458995 : As a DFD requestor, I should get Reinvention Partner field in SA mail templates when request is created/edited",
+      "lead": "Himanshu",
+      "assigned_to": "Ishwar Jaxanni, Manjunath",
+      "type": "Automation",
+      "outcome": "Not Run",
+      "priority": 2,
+      "state": "Ready",
+      "bug_id": "",
+      "bug_details": [],
+      "comments": "",
+      "text_verification": "DFD",
+      "text_verification1": "",
+      "us_id": 4458995,
+      "us_title": "As a DFD requestor, I should get Reinvention Partner field in SA mail templates when request is created/edited",
+      "prod_sanity_status": "",
+      "automation_status": "Not Automated"
+    },
+    {
+      "id": 4470484,
+      "name": "4458995_TC_009: Validate that the SA notification email reflects the new/updated value of Reinvention Partner after the field is updated",
+      "suite": "4458995 : As a DFD requestor, I should get Reinvention Partner field in SA mail templates when request is created/edited",
+      "module": "4458995 : As a DFD requestor, I should get Reinvention Partner field in SA mail templates when request is created/edited",
+      "lead": "Himanshu",
+      "assigned_to": "Ishwar Jaxanni, Manjunath",
+      "type": "Automation",
+      "outcome": "Not Run",
+      "priority": 2,
+      "state": "Ready",
+      "bug_id": "",
+      "bug_details": [],
+      "comments": "",
+      "text_verification": "DFD",
+      "text_verification1": "",
+      "us_id": 4458995,
+      "us_title": "As a DFD requestor, I should get Reinvention Partner field in SA mail templates when request is created/edited",
+      "prod_sanity_status": "",
+      "automation_status": "Not Automated"
+    },
+    {
+      "id": 4470485,
+      "name": "4458995_TC_010: Validate that updating Reinvention Partner multiple times in succession results in the latest value being captured in the most recent SA mail",
+      "suite": "4458995 : As a DFD requestor, I should get Reinvention Partner field in SA mail templates when request is created/edited",
+      "module": "4458995 : As a DFD requestor, I should get Reinvention Partner field in SA mail templates when request is created/edited",
+      "lead": "Himanshu",
+      "assigned_to": "Ishwar Jaxanni, Manjunath",
+      "type": "Automation",
+      "outcome": "Not Run",
+      "priority": 2,
+      "state": "Ready",
+      "bug_id": "",
+      "bug_details": [],
+      "comments": "",
+      "text_verification": "DFD",
+      "text_verification1": "",
+      "us_id": 4458995,
+      "us_title": "As a DFD requestor, I should get Reinvention Partner field in SA mail templates when request is created/edited",
+      "prod_sanity_status": "",
+      "automation_status": "Not Automated"
+    },
+    {
+      "id": 4470486,
+      "name": "4458995_TC_011: Validate Reinvention Partner field is present in the service details section for every service when an SA request contains multiple services",
+      "suite": "4458995 : As a DFD requestor, I should get Reinvention Partner field in SA mail templates when request is created/edited",
+      "module": "4458995 : As a DFD requestor, I should get Reinvention Partner field in SA mail templates when request is created/edited",
+      "lead": "Himanshu",
+      "assigned_to": "Ishwar Jaxanni, Manjunath",
+      "type": "Automation",
+      "outcome": "Not Run",
+      "priority": 2,
+      "state": "Ready",
+      "bug_id": "",
+      "bug_details": [],
+      "comments": "",
+      "text_verification": "DFD",
+      "text_verification1": "",
+      "us_id": 4458995,
+      "us_title": "As a DFD requestor, I should get Reinvention Partner field in SA mail templates when request is created/edited",
+      "prod_sanity_status": "",
+      "automation_status": "Not Automated"
+    },
+    {
+      "id": 4470487,
+      "name": "4458995_TC_012: Validate Reinvention Partner field position is consistent across all service sections in the SA mail for a multi-service request",
+      "suite": "4458995 : As a DFD requestor, I should get Reinvention Partner field in SA mail templates when request is created/edited",
+      "module": "4458995 : As a DFD requestor, I should get Reinvention Partner field in SA mail templates when request is created/edited",
+      "lead": "Himanshu",
+      "assigned_to": "Ishwar Jaxanni, Manjunath",
+      "type": "Automation",
+      "outcome": "Not Run",
+      "priority": 2,
+      "state": "Ready",
+      "bug_id": "",
+      "bug_details": [],
+      "comments": "",
+      "text_verification": "DFD",
+      "text_verification1": "",
+      "us_id": 4458995,
+      "us_title": "As a DFD requestor, I should get Reinvention Partner field in SA mail templates when request is created/edited",
+      "prod_sanity_status": "",
+      "automation_status": "Not Automated"
+    },
+    {
+      "id": 4470488,
+      "name": "4458995_TC_013: Validate SA mail behaviour when Reinvention Partner field is left empty during new DFD SA request creation",
+      "suite": "4458995 : As a DFD requestor, I should get Reinvention Partner field in SA mail templates when request is created/edited",
+      "module": "4458995 : As a DFD requestor, I should get Reinvention Partner field in SA mail templates when request is created/edited",
+      "lead": "Himanshu",
+      "assigned_to": "Ishwar Jaxanni, Manjunath",
+      "type": "Automation",
+      "outcome": "Not Run",
+      "priority": 2,
+      "state": "Ready",
+      "bug_id": "",
+      "bug_details": [],
+      "comments": "",
+      "text_verification": "DFD",
+      "text_verification1": "",
+      "us_id": 4458995,
+      "us_title": "As a DFD requestor, I should get Reinvention Partner field in SA mail templates when request is created/edited",
+      "prod_sanity_status": "",
+      "automation_status": "Not Automated"
+    },
+    {
+      "id": 4470489,
+      "name": "4458995_TC_014: Validate SA mail is not sent without a trigger â€” editing fields unrelated to Reinvention Partner and saving should still produce a properly formatted email (Reinvention Partner field shown, not highlighted)",
+      "suite": "4458995 : As a DFD requestor, I should get Reinvention Partner field in SA mail templates when request is created/edited",
+      "module": "4458995 : As a DFD requestor, I should get Reinvention Partner field in SA mail templates when request is created/edited",
+      "lead": "Himanshu",
+      "assigned_to": "Ishwar Jaxanni, Manjunath",
+      "type": "Automation",
+      "outcome": "Not Run",
+      "priority": 2,
+      "state": "Ready",
+      "bug_id": "",
+      "bug_details": [],
+      "comments": "",
+      "text_verification": "DFD",
+      "text_verification1": "",
+      "us_id": 4458995,
+      "us_title": "As a DFD requestor, I should get Reinvention Partner field in SA mail templates when request is created/edited",
+      "prod_sanity_status": "",
+      "automation_status": "Not Automated"
+    },
+    {
+      "id": 4470490,
+      "name": "4458995_TC_015: Validate no duplicate SA emails are sent when Reinvention Partner field is updated once",
+      "suite": "4458995 : As a DFD requestor, I should get Reinvention Partner field in SA mail templates when request is created/edited",
+      "module": "4458995 : As a DFD requestor, I should get Reinvention Partner field in SA mail templates when request is created/edited",
+      "lead": "Himanshu",
+      "assigned_to": "Ishwar Jaxanni, Manjunath",
+      "type": "Automation",
+      "outcome": "Not Run",
+      "priority": 2,
+      "state": "Ready",
+      "bug_id": "",
+      "bug_details": [],
+      "comments": "",
+      "text_verification": "DFD",
+      "text_verification1": "",
+      "us_id": 4458995,
+      "us_title": "As a DFD requestor, I should get Reinvention Partner field in SA mail templates when request is created/edited",
+      "prod_sanity_status": "",
+      "automation_status": "Not Automated"
+    },
+    {
+      "id": 4470491,
+      "name": "4458995_TC_016: Validate Reinvention Partner field with a very long string value is captured correctly in the SA mail without truncation or layout breakage",
+      "suite": "4458995 : As a DFD requestor, I should get Reinvention Partner field in SA mail templates when request is created/edited",
+      "module": "4458995 : As a DFD requestor, I should get Reinvention Partner field in SA mail templates when request is created/edited",
+      "lead": "Himanshu",
+      "assigned_to": "Ishwar Jaxanni, Manjunath",
+      "type": "Automation",
+      "outcome": "Not Run",
+      "priority": 2,
+      "state": "Ready",
+      "bug_id": "",
+      "bug_details": [],
+      "comments": "",
+      "text_verification": "DFD",
+      "text_verification1": "",
+      "us_id": 4458995,
+      "us_title": "As a DFD requestor, I should get Reinvention Partner field in SA mail templates when request is created/edited",
+      "prod_sanity_status": "",
+      "automation_status": "Not Automated"
+    },
+    {
+      "id": 4470492,
+      "name": "4458995_TC_017: Validate Reinvention Partner field value containing special characters is captured and displayed correctly in the SA mail",
+      "suite": "4458995 : As a DFD requestor, I should get Reinvention Partner field in SA mail templates when request is created/edited",
+      "module": "4458995 : As a DFD requestor, I should get Reinvention Partner field in SA mail templates when request is created/edited",
+      "lead": "Himanshu",
+      "assigned_to": "Ishwar Jaxanni, Manjunath",
+      "type": "Automation",
+      "outcome": "Not Run",
+      "priority": 2,
+      "state": "Ready",
+      "bug_id": "",
+      "bug_details": [],
+      "comments": "",
+      "text_verification": "DFD",
+      "text_verification1": "",
+      "us_id": 4458995,
+      "us_title": "As a DFD requestor, I should get Reinvention Partner field in SA mail templates when request is created/edited",
+      "prod_sanity_status": "",
+      "automation_status": "Not Automated"
+    },
+    {
+      "id": 4470493,
+      "name": "4458995_TC_018: Validate SA mail is correctly formatted when a request has the maximum allowed number of services and each service has a Reinvention Partner value",
+      "suite": "4458995 : As a DFD requestor, I should get Reinvention Partner field in SA mail templates when request is created/edited",
+      "module": "4458995 : As a DFD requestor, I should get Reinvention Partner field in SA mail templates when request is created/edited",
+      "lead": "Himanshu",
+      "assigned_to": "Ishwar Jaxanni, Manjunath",
+      "type": "Automation",
+      "outcome": "Not Run",
+      "priority": 2,
+      "state": "Ready",
+      "bug_id": "",
+      "bug_details": [],
+      "comments": "",
+      "text_verification": "DFD",
+      "text_verification1": "",
+      "us_id": 4458995,
+      "us_title": "As a DFD requestor, I should get Reinvention Partner field in SA mail templates when request is created/edited",
+      "prod_sanity_status": "",
+      "automation_status": "Not Automated"
+    },
+    {
+      "id": 4470494,
+      "name": "4458995_TC_019: Validate Reinvention Partner field with a single-character value is captured correctly in the SA mail",
+      "suite": "4458995 : As a DFD requestor, I should get Reinvention Partner field in SA mail templates when request is created/edited",
+      "module": "4458995 : As a DFD requestor, I should get Reinvention Partner field in SA mail templates when request is created/edited",
+      "lead": "Himanshu",
+      "assigned_to": "Ishwar Jaxanni, Manjunath",
+      "type": "Automation",
+      "outcome": "Not Run",
+      "priority": 2,
+      "state": "Ready",
+      "bug_id": "",
+      "bug_details": [],
+      "comments": "",
+      "text_verification": "DFD",
+      "text_verification1": "",
+      "us_id": 4458995,
+      "us_title": "As a DFD requestor, I should get Reinvention Partner field in SA mail templates when request is created/edited",
+      "prod_sanity_status": "",
+      "automation_status": "Not Automated"
+    },
+    {
+      "id": 4470495,
+      "name": "4458995_TC_020: Validate the SA mail is not triggered if Reinvention Partner field edit is made but then the change is discarded/cancelled",
+      "suite": "4458995 : As a DFD requestor, I should get Reinvention Partner field in SA mail templates when request is created/edited",
+      "module": "4458995 : As a DFD requestor, I should get Reinvention Partner field in SA mail templates when request is created/edited",
+      "lead": "Himanshu",
+      "assigned_to": "Ishwar Jaxanni, Manjunath",
+      "type": "Automation",
+      "outcome": "Not Run",
+      "priority": 2,
+      "state": "Ready",
+      "bug_id": "",
+      "bug_details": [],
+      "comments": "",
+      "text_verification": "DFD",
+      "text_verification1": "",
+      "us_id": 4458995,
+      "us_title": "As a DFD requestor, I should get Reinvention Partner field in SA mail templates when request is created/edited",
+      "prod_sanity_status": "",
+      "automation_status": "Not Automated"
+    },
+    {
+      "id": 4470496,
+      "name": "4458995_TC_021: Validate the SA notification email is well-formed HTML and displays correctly in an email client (Outlook/web) when Reinvention Partner is included",
+      "suite": "4458995 : As a DFD requestor, I should get Reinvention Partner field in SA mail templates when request is created/edited",
+      "module": "4458995 : As a DFD requestor, I should get Reinvention Partner field in SA mail templates when request is created/edited",
+      "lead": "Himanshu",
+      "assigned_to": "Ishwar Jaxanni, Manjunath",
+      "type": "Automation",
+      "outcome": "Not Run",
+      "priority": 2,
+      "state": "Ready",
+      "bug_id": "",
+      "bug_details": [],
+      "comments": "",
+      "text_verification": "DFD",
+      "text_verification1": "",
+      "us_id": 4458995,
+      "us_title": "As a DFD requestor, I should get Reinvention Partner field in SA mail templates when request is created/edited",
+      "prod_sanity_status": "",
+      "automation_status": "Not Automated"
+    },
+    {
+      "id": 4470497,
+      "name": "4458995_TC_022: Validate that Reinvention Partner field and value in the SA mail matches what was entered in the DFD SA request form (data integrity)",
+      "suite": "4458995 : As a DFD requestor, I should get Reinvention Partner field in SA mail templates when request is created/edited",
+      "module": "4458995 : As a DFD requestor, I should get Reinvention Partner field in SA mail templates when request is created/edited",
+      "lead": "Himanshu",
+      "assigned_to": "Ishwar Jaxanni, Manjunath",
+      "type": "Automation",
+      "outcome": "Not Run",
+      "priority": 2,
+      "state": "Ready",
+      "bug_id": "",
+      "bug_details": [],
+      "comments": "",
+      "text_verification": "DFD",
+      "text_verification1": "",
+      "us_id": 4458995,
+      "us_title": "As a DFD requestor, I should get Reinvention Partner field in SA mail templates when request is created/edited",
+      "prod_sanity_status": "",
+      "automation_status": "Not Automated"
+    },
+    {
+      "id": 4470498,
+      "name": "4458995_TC_023: Validate SA mail behaviour when the Reinvention Partner field is updated to the same existing value (no-change update)",
+      "suite": "4458995 : As a DFD requestor, I should get Reinvention Partner field in SA mail templates when request is created/edited",
+      "module": "4458995 : As a DFD requestor, I should get Reinvention Partner field in SA mail templates when request is created/edited",
+      "lead": "Himanshu",
+      "assigned_to": "Ishwar Jaxanni, Manjunath",
+      "type": "Automation",
+      "outcome": "Not Run",
+      "priority": 2,
+      "state": "Ready",
+      "bug_id": "",
+      "bug_details": [],
+      "comments": "",
+      "text_verification": "DFD",
+      "text_verification1": "",
+      "us_id": 4458995,
+      "us_title": "As a DFD requestor, I should get Reinvention Partner field in SA mail templates when request is created/edited",
+      "prod_sanity_status": "",
+      "automation_status": "Not Automated"
+    },
+    {
+      "id": 4470499,
+      "name": "4458995_TC_024: Validate that all existing fields in the SA mail template are still present and correctly populated after adding the Reinvention Partner field",
+      "suite": "4458995 : As a DFD requestor, I should get Reinvention Partner field in SA mail templates when request is created/edited",
+      "module": "4458995 : As a DFD requestor, I should get Reinvention Partner field in SA mail templates when request is created/edited",
+      "lead": "Himanshu",
+      "assigned_to": "Ishwar Jaxanni, Manjunath",
+      "type": "Automation",
+      "outcome": "Not Run",
+      "priority": 2,
+      "state": "Ready",
+      "bug_id": "",
+      "bug_details": [],
+      "comments": "",
+      "text_verification": "DFD",
+      "text_verification1": "",
+      "us_id": 4458995,
+      "us_title": "As a DFD requestor, I should get Reinvention Partner field in SA mail templates when request is created/edited",
+      "prod_sanity_status": "",
+      "automation_status": "Not Automated"
+    },
+    {
+      "id": 4470500,
+      "name": "4458995_TC_025: Validate the email highlighting behaviour for existing fields is not impacted by the Reinvention Partner change â€” other edited fields are still highlighted correctly",
+      "suite": "4458995 : As a DFD requestor, I should get Reinvention Partner field in SA mail templates when request is created/edited",
+      "module": "4458995 : As a DFD requestor, I should get Reinvention Partner field in SA mail templates when request is created/edited",
+      "lead": "Himanshu",
+      "assigned_to": "Ishwar Jaxanni, Manjunath",
+      "type": "Automation",
+      "outcome": "Not Run",
+      "priority": 2,
+      "state": "Ready",
+      "bug_id": "",
+      "bug_details": [],
+      "comments": "",
+      "text_verification": "DFD",
+      "text_verification1": "",
+      "us_id": 4458995,
+      "us_title": "As a DFD requestor, I should get Reinvention Partner field in SA mail templates when request is created/edited",
+      "prod_sanity_status": "",
+      "automation_status": "Not Automated"
+    },
+    {
+      "id": 4470501,
+      "name": "4458995_TC_026: Validate that SA mail is triggered for all other field edits as before and the email trigger mechanism is not broken by the Reinvention Partner addition",
+      "suite": "4458995 : As a DFD requestor, I should get Reinvention Partner field in SA mail templates when request is created/edited",
+      "module": "4458995 : As a DFD requestor, I should get Reinvention Partner field in SA mail templates when request is created/edited",
+      "lead": "Himanshu",
+      "assigned_to": "Ishwar Jaxanni, Manjunath",
+      "type": "Automation",
+      "outcome": "Not Run",
+      "priority": 2,
+      "state": "Ready",
+      "bug_id": "",
+      "bug_details": [],
+      "comments": "",
+      "text_verification": "DFD",
+      "text_verification1": "",
+      "us_id": 4458995,
+      "us_title": "As a DFD requestor, I should get Reinvention Partner field in SA mail templates when request is created/edited",
+      "prod_sanity_status": "",
+      "automation_status": "Not Automated"
+    },
+    {
+      "id": 4470502,
+      "name": "4458995_TC_027: Validate the SA mail template used for 'Operations' service type includes the Reinvention Partner field per the Operations.pdf reference attachment",
+      "suite": "4458995 : As a DFD requestor, I should get Reinvention Partner field in SA mail templates when request is created/edited",
+      "module": "4458995 : As a DFD requestor, I should get Reinvention Partner field in SA mail templates when request is created/edited",
+      "lead": "Himanshu",
+      "assigned_to": "Ishwar Jaxanni, Manjunath",
+      "type": "Automation",
+      "outcome": "Not Run",
+      "priority": 2,
+      "state": "Ready",
+      "bug_id": "",
+      "bug_details": [],
+      "comments": "",
+      "text_verification": "DFD",
+      "text_verification1": "",
+      "us_id": 4458995,
+      "us_title": "As a DFD requestor, I should get Reinvention Partner field in SA mail templates when request is created/edited",
+      "prod_sanity_status": "",
+      "automation_status": "Not Automated"
+    },
+    {
+      "id": 4470503,
+      "name": "4458995_TC_028: Validate the SA mail template used for 'Song SA' service type includes the Reinvention Partner field per the Song SA.pdf reference attachment",
+      "suite": "4458995 : As a DFD requestor, I should get Reinvention Partner field in SA mail templates when request is created/edited",
+      "module": "4458995 : As a DFD requestor, I should get Reinvention Partner field in SA mail templates when request is created/edited",
+      "lead": "Himanshu",
+      "assigned_to": "Ishwar Jaxanni, Manjunath",
+      "type": "Automation",
+      "outcome": "Not Run",
+      "priority": 2,
+      "state": "Ready",
+      "bug_id": "",
+      "bug_details": [],
+      "comments": "",
+      "text_verification": "DFD",
+      "text_verification1": "",
+      "us_id": 4458995,
+      "us_title": "As a DFD requestor, I should get Reinvention Partner field in SA mail templates when request is created/edited",
+      "prod_sanity_status": "",
+      "automation_status": "Not Automated"
+    },
+    {
+      "id": 4470504,
+      "name": "4458995_TC_029: Validate all expected SA mail recipients receive the notification email containing the Reinvention Partner field when a new DFD request is created",
+      "suite": "4458995 : As a DFD requestor, I should get Reinvention Partner field in SA mail templates when request is created/edited",
+      "module": "4458995 : As a DFD requestor, I should get Reinvention Partner field in SA mail templates when request is created/edited",
+      "lead": "Himanshu",
+      "assigned_to": "Ishwar Jaxanni, Manjunath",
+      "type": "Automation",
+      "outcome": "Not Run",
+      "priority": 2,
+      "state": "Ready",
+      "bug_id": "",
+      "bug_details": [],
+      "comments": "",
+      "text_verification": "DFD",
+      "text_verification1": "",
+      "us_id": 4458995,
+      "us_title": "As a DFD requestor, I should get Reinvention Partner field in SA mail templates when request is created/edited",
+      "prod_sanity_status": "",
+      "automation_status": "Not Automated"
+    },
+    {
+      "id": 4470505,
+      "name": "4458995_TC_030: Validate that the SA notification email subject line clearly identifies the request and is not changed or broken by the Reinvention Partner addition",
+      "suite": "4458995 : As a DFD requestor, I should get Reinvention Partner field in SA mail templates when request is created/edited",
+      "module": "4458995 : As a DFD requestor, I should get Reinvention Partner field in SA mail templates when request is created/edited",
+      "lead": "Himanshu",
+      "assigned_to": "Ishwar Jaxanni, Manjunath",
+      "type": "Automation",
+      "outcome": "Not Run",
+      "priority": 2,
+      "state": "Ready",
+      "bug_id": "",
+      "bug_details": [],
+      "comments": "",
+      "text_verification": "DFD",
+      "text_verification1": "",
+      "us_id": 4458995,
+      "us_title": "As a DFD requestor, I should get Reinvention Partner field in SA mail templates when request is created/edited",
+      "prod_sanity_status": "",
+      "automation_status": "Not Automated"
+    },
+    {
+      "id": 4470506,
+      "name": "4458995_TC_031: Validate the history/audit log of the DFD SA request shows the Reinvention Partner field change when it is edited",
+      "suite": "4458995 : As a DFD requestor, I should get Reinvention Partner field in SA mail templates when request is created/edited",
+      "module": "4458995 : As a DFD requestor, I should get Reinvention Partner field in SA mail templates when request is created/edited",
+      "lead": "Himanshu",
+      "assigned_to": "Ishwar Jaxanni, Manjunath",
+      "type": "Automation",
+      "outcome": "Not Run",
+      "priority": 2,
+      "state": "Ready",
+      "bug_id": "",
+      "bug_details": [],
+      "comments": "",
+      "text_verification": "DFD",
+      "text_verification1": "",
+      "us_id": 4458995,
+      "us_title": "As a DFD requestor, I should get Reinvention Partner field in SA mail templates when request is created/edited",
+      "prod_sanity_status": "",
+      "automation_status": "Not Automated"
+    },
+    {
+      "id": 4470507,
+      "name": "4458995_TC_032: Validate the DFD SA request form UI correctly displays and allows editing of the Reinvention Partner field for a DFD requestor",
+      "suite": "4458995 : As a DFD requestor, I should get Reinvention Partner field in SA mail templates when request is created/edited",
+      "module": "4458995 : As a DFD requestor, I should get Reinvention Partner field in SA mail templates when request is created/edited",
+      "lead": "Himanshu",
+      "assigned_to": "Ishwar Jaxanni, Manjunath",
+      "type": "Automation",
+      "outcome": "Not Run",
+      "priority": 2,
+      "state": "Ready",
+      "bug_id": "",
+      "bug_details": [],
+      "comments": "",
+      "text_verification": "DFD",
+      "text_verification1": "",
+      "us_id": 4458995,
+      "us_title": "As a DFD requestor, I should get Reinvention Partner field in SA mail templates when request is created/edited",
+      "prod_sanity_status": "",
+      "automation_status": "Not Automated"
+    },
+    {
+      "id": 4469251,
+      "name": "Validate CDAT dashboard loads successfully with all widgets",
+      "suite": "4429521 : As a myISP Solution Architect, I want to see the CDAT - MFE App migrated to Angular 21",
+      "module": "4429521 : As a myISP Solution Architect, I want to see the CDAT - MFE App migrated to Angular 21",
+      "lead": "Rajeshwari",
+      "assigned_to": "Iqbal, Jabeen",
+      "type": "Automation",
+      "outcome": "Not Run",
+      "priority": 2,
+      "state": "Ready",
+      "bug_id": "",
+      "bug_details": [],
+      "comments": "",
+      "text_verification": "CDAT ",
+      "text_verification1": "",
+      "us_id": 4429521,
+      "us_title": "As a myISP Solution Architect, I want to see the CDAT - MFE App migrated to Angular 21",
+      "prod_sanity_status": "",
+      "automation_status": "Not Automated"
+    },
+    {
+      "id": 4469256,
+      "name": " Validate deal creation workflow functions correctly",
+      "suite": "4429521 : As a myISP Solution Architect, I want to see the CDAT - MFE App migrated to Angular 21",
+      "module": "4429521 : As a myISP Solution Architect, I want to see the CDAT - MFE App migrated to Angular 21",
+      "lead": "Rajeshwari",
+      "assigned_to": "Iqbal, Jabeen",
+      "type": "Automation",
+      "outcome": "Not Run",
+      "priority": 2,
+      "state": "Ready",
+      "bug_id": "",
+      "bug_details": [],
+      "comments": "",
+      "text_verification": "CDAT ",
+      "text_verification1": "",
+      "us_id": 4429521,
+      "us_title": "As a myISP Solution Architect, I want to see the CDAT - MFE App migrated to Angular 21",
+      "prod_sanity_status": "",
+      "automation_status": "Not Automated"
+    },
+    {
+      "id": 4469257,
+      "name": "Validate deal editing functionality",
+      "suite": "4429521 : As a myISP Solution Architect, I want to see the CDAT - MFE App migrated to Angular 21",
+      "module": "4429521 : As a myISP Solution Architect, I want to see the CDAT - MFE App migrated to Angular 21",
+      "lead": "Rajeshwari",
+      "assigned_to": "Iqbal, Jabeen",
+      "type": "Automation",
+      "outcome": "Not Run",
+      "priority": 2,
+      "state": "Ready",
+      "bug_id": "",
+      "bug_details": [],
+      "comments": "",
+      "text_verification": "CDAT ",
+      "text_verification1": "",
+      "us_id": 4429521,
+      "us_title": "As a myISP Solution Architect, I want to see the CDAT - MFE App migrated to Angular 21",
+      "prod_sanity_status": "",
+      "automation_status": "Not Automated"
+    },
+    {
+      "id": 4469258,
+      "name": "Validate search and filter functionality",
+      "suite": "4429521 : As a myISP Solution Architect, I want to see the CDAT - MFE App migrated to Angular 21",
+      "module": "4429521 : As a myISP Solution Architect, I want to see the CDAT - MFE App migrated to Angular 21",
+      "lead": "Rajeshwari",
+      "assigned_to": "Iqbal, Jabeen",
+      "type": "Automation",
+      "outcome": "Not Run",
+      "priority": 2,
+      "state": "Ready",
+      "bug_id": "",
+      "bug_details": [],
+      "comments": "",
+      "text_verification": "CDAT ",
+      "text_verification1": "",
+      "us_id": 4429521,
+      "us_title": "As a myISP Solution Architect, I want to see the CDAT - MFE App migrated to Angular 21",
+      "prod_sanity_status": "",
+      "automation_status": "Not Automated"
+    },
+    {
+      "id": 4469259,
+      "name": "Validate data grid sorting and pagination",
+      "suite": "4429521 : As a myISP Solution Architect, I want to see the CDAT - MFE App migrated to Angular 21",
+      "module": "4429521 : As a myISP Solution Architect, I want to see the CDAT - MFE App migrated to Angular 21",
+      "lead": "Rajeshwari",
+      "assigned_to": "Iqbal, Jabeen",
+      "type": "Automation",
+      "outcome": "Not Run",
+      "priority": 2,
+      "state": "Ready",
+      "bug_id": "",
+      "bug_details": [],
+      "comments": "",
+      "text_verification": "CDAT ",
+      "text_verification1": "",
+      "us_id": 4429521,
+      "us_title": "As a myISP Solution Architect, I want to see the CDAT - MFE App migrated to Angular 21",
+      "prod_sanity_status": "",
+      "automation_status": "Not Automated"
+    },
+    {
+      "id": 4469260,
+      "name": "Validate primary navigation menu structure and links",
+      "suite": "4429521 : As a myISP Solution Architect, I want to see the CDAT - MFE App migrated to Angular 21",
+      "module": "4429521 : As a myISP Solution Architect, I want to see the CDAT - MFE App migrated to Angular 21",
+      "lead": "Rajeshwari",
+      "assigned_to": "Iqbal, Jabeen",
+      "type": "Automation",
+      "outcome": "Not Run",
+      "priority": 2,
+      "state": "Ready",
+      "bug_id": "",
+      "bug_details": [],
+      "comments": "",
+      "text_verification": "CDAT ",
+      "text_verification1": "",
+      "us_id": 4429521,
+      "us_title": "As a myISP Solution Architect, I want to see the CDAT - MFE App migrated to Angular 21",
+      "prod_sanity_status": "",
+      "automation_status": "Not Automated"
+    },
+    {
+      "id": 4469261,
+      "name": "Validate multi-step deal workflow navigation",
+      "suite": "4429521 : As a myISP Solution Architect, I want to see the CDAT - MFE App migrated to Angular 21",
+      "module": "4429521 : As a myISP Solution Architect, I want to see the CDAT - MFE App migrated to Angular 21",
+      "lead": "Rajeshwari",
+      "assigned_to": "Iqbal, Jabeen",
+      "type": "Automation",
+      "outcome": "Not Run",
+      "priority": 2,
+      "state": "Ready",
+      "bug_id": "",
+      "bug_details": [],
+      "comments": "",
+      "text_verification": "CDAT ",
+      "text_verification1": "",
+      "us_id": 4429521,
+      "us_title": "As a myISP Solution Architect, I want to see the CDAT - MFE App migrated to Angular 21",
+      "prod_sanity_status": "",
+      "automation_status": "Not Automated"
+    },
+    {
+      "id": 4469262,
+      "name": "Validate contextual actions and quick links",
+      "suite": "4429521 : As a myISP Solution Architect, I want to see the CDAT - MFE App migrated to Angular 21",
+      "module": "4429521 : As a myISP Solution Architect, I want to see the CDAT - MFE App migrated to Angular 21",
+      "lead": "Rajeshwari",
+      "assigned_to": "Iqbal, Jabeen",
+      "type": "Automation",
+      "outcome": "Not Run",
+      "priority": 2,
+      "state": "Ready",
+      "bug_id": "",
+      "bug_details": [],
+      "comments": "",
+      "text_verification": "CDAT ",
+      "text_verification1": "",
+      "us_id": 4429521,
+      "us_title": "As a myISP Solution Architect, I want to see the CDAT - MFE App migrated to Angular 21",
+      "prod_sanity_status": "",
+      "automation_status": "Not Automated"
+    },
+    {
+      "id": 4469263,
+      "name": "Validate deal assessment workflow end-to-end",
+      "suite": "4429521 : As a myISP Solution Architect, I want to see the CDAT - MFE App migrated to Angular 21",
+      "module": "4429521 : As a myISP Solution Architect, I want to see the CDAT - MFE App migrated to Angular 21",
+      "lead": "Rajeshwari",
+      "assigned_to": "Iqbal, Jabeen",
+      "type": "Automation",
+      "outcome": "Not Run",
+      "priority": 2,
+      "state": "Ready",
+      "bug_id": "",
+      "bug_details": [],
+      "comments": "",
+      "text_verification": "CDAT ",
+      "text_verification1": "",
+      "us_id": 4429521,
+      "us_title": "As a myISP Solution Architect, I want to see the CDAT - MFE App migrated to Angular 21",
+      "prod_sanity_status": "",
+      "automation_status": "Not Automated"
+    },
+    {
+      "id": 4469264,
+      "name": "Validate report generation and export functionality",
+      "suite": "4429521 : As a myISP Solution Architect, I want to see the CDAT - MFE App migrated to Angular 21",
+      "module": "4429521 : As a myISP Solution Architect, I want to see the CDAT - MFE App migrated to Angular 21",
+      "lead": "Rajeshwari",
+      "assigned_to": "Iqbal, Jabeen",
+      "type": "Automation",
+      "outcome": "Not Run",
+      "priority": 2,
+      "state": "Ready",
+      "bug_id": "",
+      "bug_details": [],
+      "comments": "",
+      "text_verification": "CDAT ",
+      "text_verification1": "",
+      "us_id": 4429521,
+      "us_title": "As a myISP Solution Architect, I want to see the CDAT - MFE App migrated to Angular 21",
+      "prod_sanity_status": "",
+      "automation_status": "Not Automated"
+    },
+    {
+      "id": 4469265,
+      "name": "Validate user role and permission management",
+      "suite": "4429521 : As a myISP Solution Architect, I want to see the CDAT - MFE App migrated to Angular 21",
+      "module": "4429521 : As a myISP Solution Architect, I want to see the CDAT - MFE App migrated to Angular 21",
+      "lead": "Rajeshwari",
+      "assigned_to": "Iqbal, Jabeen",
+      "type": "Automation",
+      "outcome": "Not Run",
+      "priority": 2,
+      "state": "Ready",
+      "bug_id": "",
+      "bug_details": [],
+      "comments": "",
+      "text_verification": "CDAT ",
+      "text_verification1": "",
+      "us_id": 4429521,
+      "us_title": "As a myISP Solution Architect, I want to see the CDAT - MFE App migrated to Angular 21",
+      "prod_sanity_status": "",
+      "automation_status": "Not Automated"
+    }
+  ]
+}
