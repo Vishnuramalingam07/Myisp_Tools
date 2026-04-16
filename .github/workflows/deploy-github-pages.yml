@@ -40,8 +40,9 @@ jobs:
           cp index.html _site/
           cp demo_dashboard.html _site/
           cp sample_reports.html _site/
+          cp report.html _site/
           
-          # Copy sample reports (if they exist)
+          # Copy ALL generated reports
           cp Production_execution_report_*.html _site/ 2>/dev/null || true
           
           # Copy documentation
