@@ -5809,44 +5809,38 @@ def main():
         us_bug_map=us_bug_map,
     )
     
-    # Export data to JSON for GitHub-hosted live dashboard
+    # Generate live_report.html with tabbed format (for GitHub Pages deployment)
+    print(f"   → Generating live_report.html (tabbed format)...")
+    live_report_file = report_gen.generate_html_file(filename='live_report.html', dashboard_style=False)
+    
+    # Export data to JSON for backup/API access
     json_file = report_gen.export_to_json()
     
-    # Generate dashboard-style HTML report (timestamped)
+    # Also create timestamped archive copy
     timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
-    report_file = f"Production_execution_report_{timestamp}.html"
-    print(f"   → Generating {report_file} (dashboard style)...")
-    report_gen.generate_html_file(filename=report_file, dashboard_style=True)
-    
-    # Generate standalone report with embedded JSON for local viewing
-    print(f"   → Generating standalone_report.html (embedded data for local viewing)...")
-    try:
-        import create_standalone_report
-        if create_standalone_report.create_standalone_report('latest_report.json', 'standalone_report.html'):
-            print(f"   ✓ Created: standalone_report.html")
-    except Exception as e:
-        print(f"   ⚠️  Could not generate standalone report: {e}")
-        print(f"   ℹ️  Run 'python create_standalone_report.py' manually if needed")
-    
-    # Note: live_report.html is a template that fetches latest_report.json
-    #       It should NOT be overwritten - it's for GitHub Pages deployment
+    archive_file = f"Production_execution_report_{timestamp}.html"
+    print(f"   → Creating archive: {archive_file}...")
+    report_gen.generate_html_file(filename=archive_file, dashboard_style=False)
     
     # --- Add this block after report_file is generated ---
     # Set your local OneDrive sync folder path here:
     sharepoint_sync_folder = r"C:\Users\hajara.ayyubkhan\OneDrive - Accenture\Prod\Prod Execution Report"
-    report_gen.save_to_onedrive_sync(report_file, sharepoint_sync_folder)
+    report_gen.save_to_onedrive_sync(live_report_file, sharepoint_sync_folder)
     # -----------------------------------------------------
+    
     
     print("\n" + "=" * 80)
     print("✅ REPORT GENERATION COMPLETED")
     print("=" * 80)
     print(f"\n📄 Generated Files:")
-    print(f"   ✅ {report_file} - Dashboard snapshot (opens directly)")
-    print(f"   ✅ standalone_report.html - Works with file:// protocol")
-    print(f"   ✅ latest_report.json - Data file (124 KB)")
-    print(f"\n🌐 GitHub Pages Live Dashboard:")
-    print(f"   📊 live_report.html - Auto-refreshing template")
-    print(f"   🔗 https://vishnuramalingam07.github.io/Myisp_Tools/live_report.html")
+    print(f"   ✅ live_report.html - Tabbed format (GitHub Pages)")
+    print(f"   ✅ {archive_file} - Timestamped archive")
+    print(f"   ✅ latest_report.json - Data backup")
+    print(f"\n🌐 To Update Live Report:")
+    print(f"   1. Run: python ProdSanity_Report.py")
+    print(f"   2. Commit: git add live_report.html latest_report.json")
+    print(f"   3. Push: git commit -m \"Update report\" && git push")
+    print(f"   4. View: https://vishnuramalingam07.github.io/Myisp_Tools/live_report.html")
     print(f"\n📊 Total Test Cases: {len(test_data)}")
     
     # Summary statistics
