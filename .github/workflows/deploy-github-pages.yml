@@ -34,38 +34,24 @@ jobs:
 
       - name: Create deployment directory
         run: |
-          mkdir -p _site/Prod_Sanity_Report
+          mkdir -p _site
           
           # Copy static HTML files
-          cp Prod_Sanity_Report/index.html _site/Prod_Sanity_Report/
-          cp Prod_Sanity_Report/demo_dashboard.html _site/Prod_Sanity_Report/
-          cp Prod_Sanity_Report/sample_reports.html _site/Prod_Sanity_Report/
+          cp index.html _site/
+          cp demo_dashboard.html _site/
+          cp sample_reports.html _site/
           
           # Copy sample reports (if they exist)
-          cp Prod_Sanity_Report/Production_execution_report_*.html _site/Prod_Sanity_Report/ 2>/dev/null || true
+          cp Production_execution_report_*.html _site/ 2>/dev/null || true
           
           # Copy documentation
-          cp Prod_Sanity_Report/README.md _site/Prod_Sanity_Report/
-          cp Prod_Sanity_Report/QUICK_START.md _site/Prod_Sanity_Report/
-          cp Prod_Sanity_Report/SETUP_GUIDE.md _site/Prod_Sanity_Report/
-          cp Prod_Sanity_Report/GITHUB_PAGES_DEPLOYMENT.md _site/Prod_Sanity_Report/
-          
-          # Create root index.html for redirect
-          cat > _site/index.html << 'EOF'
-          <!DOCTYPE html>
-          <html>
-          <head>
-            <meta http-equiv="refresh" content="0; url=Prod_Sanity_Report/">
-            <title>Redirecting...</title>
-          </head>
-          <body>
-            <p>Redirecting to <a href="Prod_Sanity_Report/">Prod_Sanity_Report</a>...</p>
-          </body>
-          </html>
-          EOF
+          cp README.md _site/
+          cp QUICK_START.md _site/
+          cp SETUP_GUIDE.md _site/
+          cp GITHUB_PAGES_DEPLOYMENT.md _site/
           
           echo "✅ Deployment files prepared"
-          ls -la _site/Prod_Sanity_Report/
+          ls -la _site/
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
