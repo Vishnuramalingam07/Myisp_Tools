@@ -5154,6 +5154,102 @@ class CustomHTMLReportGenerator:
         
         print(f"\n✅ Report generated: {filename}")
         return filename
+    
+    def export_to_json(self, filename="latest_report.json"):
+        """Export report data to JSON format for GitHub-hosted live dashboard"""
+        print(f"\n📊 Exporting data to JSON...")
+        
+        # Organize data
+        organized_data = self.organize_data_by_lead_module()
+        grand_totals = self.calculate_grand_totals(organized_data)
+        
+        # Calculate statistics
+        manual_count = sum(1 for t in self.test_data if t['type'].lower() == 'manual')
+        auto_count = sum(1 for t in self.test_data if t['type'].lower() == 'automation')
+        
+        # Outcome counts
+        outcomes = {}
+        for test in self.test_data:
+            outcome = test['outcome']
+            outcomes[outcome] = outcomes.get(outcome, 0) + 1
+        
+        # Filter bugs (same logic as report)
+        allowed_states = {
+            'new', 'active', 'blocked', 'ready to deploy', 'resolved', 
+            'ba clarification', 're-open', 'blocked in pt', 'blocked in uat', 'deferred'
+        }
+        filtered_bugs = [bug for bug in self.bug_data if bug['state'].lower() in allowed_states]
+        
+        # Build JSON structure
+        export_data = {
+            "generated_at": datetime.now().isoformat(),
+            "timestamp_display": self.timestamp,
+            "suite_name": self.suite_name,
+            "statistics": {
+                "total_tests": len(self.test_data),
+                "manual_tests": manual_count,
+                "automation_tests": auto_count,
+                "outcomes": outcomes,
+                "grand_totals": {
+                    "manual": {
+                        "total": grand_totals['manual']['total'],
+                        "passed": grand_totals['manual']['passed'],
+                        "failed": grand_totals['manual']['failed'],
+                        "blocked": grand_totals['manual']['blocked'],
+                        "na": grand_totals['manual']['na'],
+                        "not_run": grand_totals['manual']['not_run'],
+                        "pass_percentage": round(self.calculate_grand_total_percentages(grand_totals['manual'])[0], 2),
+                        "execution_percentage": round(self.calculate_grand_total_percentages(grand_totals['manual'])[1], 2)
+                    },
+                    "automation": {
+                        "total": grand_totals['automation']['total'],
+                        "passed": grand_totals['automation']['passed'],
+                        "failed": grand_totals['automation']['failed'],
+                        "blocked": grand_totals['automation']['blocked'],
+                        "na": grand_totals['automation']['na'],
+                        "not_run": grand_totals['automation']['not_run'],
+                        "pass_percentage": round(self.calculate_grand_total_percentages(grand_totals['automation'])[0], 2),
+                        "execution_percentage": round(self.calculate_grand_total_percentages(grand_totals['automation'])[1], 2)
+                    }
+                }
+            },
+            "bugs": {
+                "total_from_query": len(self.bug_data),
+                "filtered_count": len(filtered_bugs),
+                "bugs_list": filtered_bugs
+            },
+            "tests_by_lead_module": {},
+            "test_details": self.test_data[:100]  # First 100 tests for dashboard preview
+        }
+        
+        # Add organized data by lead/module
+        for lead, modules in organized_data.items():
+            export_data["tests_by_lead_module"][lead] = {}
+            for module, types in modules.items():
+                export_data["tests_by_lead_module"][lead][module] = {
+                    "manual": {
+                        **types['manual'],
+                        "percentages": {
+                            "pass": round(self.calculate_percentages(types['manual'])[0], 2),
+                            "execution": round(self.calculate_percentages(types['manual'])[1], 2)
+                        }
+                    },
+                    "automation": {
+                        **types['automation'],
+                        "percentages": {
+                            "pass": round(self.calculate_percentages(types['automation'])[0], 2),
+                            "execution": round(self.calculate_percentages(types['automation'])[1], 2)
+                        }
+                    }
+                }
+        
+        # Save to file
+        with open(filename, 'w', encoding='utf-8') as f:
+            json.dump(export_data, f, indent=2, ensure_ascii=False)
+        
+        print(f"   ✅ JSON exported: {filename}")
+        print(f"   📏 File size: {os.path.getsize(filename) / 1024:.2f} KB")
+        return filename
 
     @staticmethod
     def save_to_onedrive_sync(local_file, sharepoint_sync_folder):
@@ -5308,6 +5404,9 @@ def main():
         us_bug_map=us_bug_map,
     )
     report_file = report_gen.generate_html_file()
+    
+    # Export data to JSON for GitHub-hosted live dashboard
+    json_file = report_gen.export_to_json()
     
     # --- Add this block after report_file is generated ---
     # Set your local OneDrive sync folder path here:

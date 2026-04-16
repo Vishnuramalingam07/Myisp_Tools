@@ -1,0 +1,627 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Live Production Execution Report</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .header {
+            background: white;
+            border-radius: 12px;
+            padding: 30px;
+            margin-bottom: 20px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+        }
+
+        .header h1 {
+            color: #2d3748;
+            font-size: 28px;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .live-indicator {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: #10b981;
+            color: white;
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-size: 14px;
+            font-weight: 600;
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        .live-dot {
+            width: 8px;
+            height: 8px;
+            background: white;
+            border-radius: 50%;
+            animation: blink 1.5s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+
+        @keyframes blink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.3; }
+        }
+
+        .offline-indicator {
+            background: #ef4444;
+        }
+
+        .subtitle {
+            color: #718096;
+            font-size: 14px;
+            margin-top: 8px;
+        }
+
+        .last-update {
+            color: #4a5568;
+            font-size: 14px;
+            margin-top: 12px;
+            font-weight: 500;
+        }
+
+        .controls {
+            margin-top: 20px;
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+            align-items: center;
+        }
+
+        .btn {
+            background: #667eea;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn:hover {
+            background: #5a67d8;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
+        }
+
+        .btn:active {
+            transform: translateY(0);
+        }
+
+        .btn-outline {
+            background: white;
+            color: #667eea;
+            border: 2px solid #667eea;
+        }
+
+        .btn-outline:hover {
+            background: #667eea;
+            color: white;
+        }
+
+        .refresh-options {
+            display: flex;
+            gap: 8px;
+        }
+
+        .refresh-option {
+            padding: 8px 14px;
+            border-radius: 6px;
+            background: #f7fafc;
+            border: 2px solid #e2e8f0;
+            cursor: pointer;
+            font-size: 13px;
+            transition: all 0.2s;
+        }
+
+        .refresh-option.active {
+            background: #667eea;
+            color: white;
+            border-color: #667eea;
+        }
+
+        .countdown {
+            color: #718096;
+            font-size: 13px;
+            padding: 8px 12px;
+            background: #f7fafc;
+            border-radius: 6px;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+
+        .stat-card {
+            background: white;
+            border-radius: 12px;
+            padding: 24px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .stat-value {
+            font-size: 36px;
+            font-weight: bold;
+            color: #2d3748;
+            margin: 8px 0;
+        }
+
+        .stat-label {
+            color: #718096;
+            font-size: 14px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .stat-icon {
+            font-size: 24px;
+            margin-bottom: 8px;
+        }
+
+        .progress-bar {
+            height: 8px;
+            background: #e2e8f0;
+            border-radius: 4px;
+            overflow: hidden;
+            margin-top: 12px;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #10b981, #059669);
+            transition: width 0.5s ease;
+        }
+
+        .table-container {
+            background: white;
+            border-radius: 12px;
+            padding: 30px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+            overflow-x: auto;
+        }
+
+        .table-container h2 {
+            color: #2d3748;
+            margin-bottom: 20px;
+            font-size: 22px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        thead th {
+            background: #f7fafc;
+            color: #2d3748;
+            font-weight: 600;
+            text-align: left;
+            padding: 12px 16px;
+            border-bottom: 2px solid #e2e8f0;
+            font-size: 14px;
+        }
+
+        tbody td {
+            padding: 12px 16px;
+            border-bottom: 1px solid #e2e8f0;
+            color: #4a5568;
+            font-size: 14px;
+        }
+
+        tbody tr:hover {
+            background: #f7fafc;
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 4px 10px;
+            border-radius: 12px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        .badge-passed { background: #d1fae5; color: #065f46; }
+        .badge-failed { background: #fee2e2; color: #991b1b; }
+        .badge-blocked { background: #fef3c7; color: #92400e; }
+        .badge-na { background: #e0e7ff; color: #3730a3; }
+        .badge-notrun { background: #f3f4f6; color: #374151; }
+
+        .error-message {
+            background: #fee2e2;
+            color: #991b1b;
+            padding: 16px 20px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            border-left: 4px solid #dc2626;
+        }
+
+        .loading {
+            text-align: center;
+            padding: 40px;
+            color: white;
+            font-size: 18px;
+        }
+
+        .spinner {
+            border: 4px solid rgba(255,255,255,0.3);
+            border-top: 4px solid white;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 20px;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Loading State -->
+        <div id="loading" class="loading">
+            <div class="spinner"></div>
+            <div>Loading latest report data...</div>
+        </div>
+
+        <!-- Main Content (hidden until data loads) -->
+        <div id="content" style="display: none;">
+            <!-- Header -->
+            <div class="header">
+                <h1>
+                    🚀 Production Execution Report
+                    <span id="liveIndicator" class="live-indicator">
+                        <span class="live-dot"></span>
+                        LIVE
+                    </span>
+                </h1>
+                <div class="subtitle" id="suiteName">Loading...</div>
+                <div class="last-update">
+                    Last updated: <strong id="lastUpdate">--</strong>
+                </div>
+
+                <div class="controls">
+                    <button class="btn" onclick="refreshData()">
+                        🔄 Refresh Now
+                    </button>
+                    <button class="btn btn-outline" onclick="exportToJSON()">
+                        📥 Export JSON
+                    </button>
+                    
+                    <div class="refresh-options">
+                        <div class="refresh-option active" data-interval="30" onclick="setRefreshInterval(30)">
+                            30s
+                        </div>
+                        <div class="refresh-option" data-interval="60" onclick="setRefreshInterval(60)">
+                            1min
+                        </div>
+                        <div class="refresh-option" data-interval="300" onclick="setRefreshInterval(300)">
+                            5min
+                        </div>
+                        <div class="refresh-option" data-interval="0" onclick="setRefreshInterval(0)">
+                            Manual
+                        </div>
+                    </div>
+
+                    <div class="countdown" id="countdown">Next update in 30s</div>
+                </div>
+            </div>
+
+            <!-- Error Message -->
+            <div id="errorMessage" class="error-message" style="display: none;"></div>
+
+            <!-- Statistics Cards -->
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-icon">📊</div>
+                    <div class="stat-label">Total Tests</div>
+                    <div class="stat-value" id="totalTests">0</div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-icon">✏️</div>
+                    <div class="stat-label">Manual Tests</div>
+                    <div class="stat-value" id="manualTests">0</div>
+                    <div class="progress-bar">
+                        <div class="progress-fill" id="manualProgress" style="width: 0%"></div>
+                    </div>
+                    <div class="subtitle" style="margin-top: 8px;">
+                        Pass: <strong id="manualPass">0%</strong> | 
+                        Exec: <strong id="manualExec">0%</strong>
+                    </div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-icon">🤖</div>
+                    <div class="stat-label">Automation Tests</div>
+                    <div class="stat-value" id="autoTests">0</div>
+                    <div class="progress-bar">
+                        <div class="progress-fill" id="autoProgress" style="width: 0%"></div>
+                    </div>
+                    <div class="subtitle" style="margin-top: 8px;">
+                        Pass: <strong id="autoPass">0%</strong> | 
+                        Exec: <strong id="autoExec">0%</strong>
+                    </div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-icon">🐛</div>
+                    <div class="stat-label">Active Bugs</div>
+                    <div class="stat-value" id="totalBugs">0</div>
+                    <div class="subtitle" style="margin-top: 8px;">
+                        From query: <strong id="bugsFromQuery">0</strong>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Test Outcomes Table -->
+            <div class="table-container">
+                <h2>📈 Test Outcomes Summary</h2>
+                <table id="outcomesTable">
+                    <thead>
+                        <tr>
+                            <th>Outcome</th>
+                            <th>Count</th>
+                            <th>Percentage</th>
+                        </tr>
+                    </thead>
+                    <tbody></tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Configuration - GitHub raw JSON file URL
+        const GITHUB_JSON_URL = 'https://raw.githubusercontent.com/Vishnuramalingam07/Myisp_Tools/main/latest_report.json';
+        
+        let refreshInterval = 30; // seconds
+        let countdownTimer = null;
+        let refreshTimer = null;
+        let currentData = null;
+
+        // Initialize on page load
+        document.addEventListener('DOMContentLoaded', () => {
+            refreshData();
+            startAutoRefresh();
+        });
+
+        // Fetch data from GitHub (JSON file)
+        async function refreshData() {
+            try {
+                // Add cache-busting parameter to force fresh data
+                const url = `${GITHUB_JSON_URL}?t=${Date.now()}`;
+                const response = await fetch(url, {
+                    cache: 'no-cache',
+                    headers: {
+                        'Cache-Control': 'no-cache'
+                    }
+                });
+
+                if (!response.ok) {
+                    throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+                }
+
+                const data = await response.json();
+                currentData = data;
+                
+                // Hide loading, show content
+                document.getElementById('loading').style.display = 'none';
+                document.getElementById('content').style.display = 'block';
+                document.getElementById('errorMessage').style.display = 'none';
+                
+                // Update UI
+                updateDashboard(data);
+                
+                // Update live indicator to show success
+                const indicator = document.getElementById('liveIndicator');
+                indicator.className = 'live-indicator';
+                indicator.innerHTML = '<span class="live-dot"></span>LIVE';
+                
+            } catch (error) {
+                console.error('Error fetching data:', error);
+                showError(`Failed to load data: ${error.message}. ${refreshInterval > 0 ? 'Retrying in ' + refreshInterval + 's...' : 'Please refresh manually.'}`);
+                
+                // Update live indicator to show offline
+                const indicator = document.getElementById('liveIndicator');
+                indicator.className = 'live-indicator offline-indicator';
+                indicator.innerHTML = '<span class="live-dot"></span>OFFLINE';
+            }
+        }
+
+        // Update dashboard with new data
+        function updateDashboard(data) {
+            // Update header
+            document.getElementById('suiteName').textContent = data.suite_name;
+            document.getElementById('lastUpdate').textContent = data.timestamp_display;
+
+            // Update statistics
+            const stats = data.statistics;
+            document.getElementById('totalTests').textContent = stats.total_tests.toLocaleString();
+            document.getElementById('manualTests').textContent = stats.manual_tests.toLocaleString();
+            document.getElementById('autoTests').textContent = stats.automation_tests.toLocaleString();
+            document.getElementById('totalBugs').textContent = data.bugs.filtered_count.toLocaleString();
+            document.getElementById('bugsFromQuery').textContent = data.bugs.total_from_query.toLocaleString();
+
+            // Update manual test metrics
+            const manual = stats.grand_totals.manual;
+            document.getElementById('manualPass').textContent = manual.pass_percentage.toFixed(1) + '%';
+            document.getElementById('manualExec').textContent = manual.execution_percentage.toFixed(1) + '%';
+            document.getElementById('manualProgress').style.width = manual.pass_percentage + '%';
+
+            // Update automation test metrics
+            const auto = stats.grand_totals.automation;
+            document.getElementById('autoPass').textContent = auto.pass_percentage.toFixed(1) + '%';
+            document.getElementById('autoExec').textContent = auto.execution_percentage.toFixed(1) + '%';
+            document.getElementById('autoProgress').style.width = auto.pass_percentage + '%';
+
+            // Update outcomes table
+            updateOutcomesTable(stats.outcomes, stats.total_tests);
+        }
+
+        // Update outcomes table
+        function updateOutcomesTable(outcomes, total) {
+            const tbody = document.querySelector('#outcomesTable tbody');
+            tbody.innerHTML = '';
+
+            // Sort outcomes by count (descending)
+            const sortedOutcomes = Object.entries(outcomes).sort((a, b) => b[1] - a[1]);
+
+            sortedOutcomes.forEach(([outcome, count]) => {
+                const percentage = ((count / total) * 100).toFixed(1);
+                const badgeClass = getBadgeClass(outcome);
+                
+                const row = `
+                    <tr>
+                        <td><span class="badge ${badgeClass}">${outcome}</span></td>
+                        <td><strong>${count.toLocaleString()}</strong></td>
+                        <td>${percentage}%</td>
+                    </tr>
+                `;
+                tbody.innerHTML += row;
+            });
+        }
+
+        // Get badge class for outcome
+        function getBadgeClass(outcome) {
+            const outcomeLower = outcome.toLowerCase();
+            if (outcomeLower.includes('pass')) return 'badge-passed';
+            if (outcomeLower.includes('fail')) return 'badge-failed';
+            if (outcomeLower.includes('block')) return 'badge-blocked';
+            if (outcomeLower.includes('not applicable') || outcomeLower === 'na') return 'badge-na';
+            return 'badge-notrun';
+        }
+
+        // Show error message
+        function showError(message) {
+            const errorDiv = document.getElementById('errorMessage');
+            errorDiv.textContent = message;
+            errorDiv.style.display = 'block';
+            
+            // Also show content if data was previously loaded
+            if (currentData) {
+                document.getElementById('content').style.display = 'block';
+                document.getElementById('loading').style.display = 'none';
+            }
+        }
+
+        // Set refresh interval
+        function setRefreshInterval(seconds) {
+            refreshInterval = seconds;
+            
+            // Update active state
+            document.querySelectorAll('.refresh-option').forEach(opt => {
+                opt.classList.remove('active');
+                if (parseInt(opt.dataset.interval) === seconds) {
+                    opt.classList.add('active');
+                }
+            });
+
+            // Restart auto-refresh
+            stopAutoRefresh();
+            if (seconds > 0) {
+                startAutoRefresh();
+            } else {
+                document.getElementById('countdown').textContent = 'Manual refresh mode';
+            }
+        }
+
+        // Start auto-refresh
+        function startAutoRefresh() {
+            if (refreshInterval === 0) return;
+
+            let secondsLeft = refreshInterval;
+            
+            // Update countdown every second
+            countdownTimer = setInterval(() => {
+                secondsLeft--;
+                if (secondsLeft <= 0) {
+                    secondsLeft = refreshInterval;
+                    refreshData();
+                }
+                updateCountdown(secondsLeft);
+            }, 1000);
+
+            updateCountdown(refreshInterval);
+        }
+
+        // Stop auto-refresh
+        function stopAutoRefresh() {
+            if (countdownTimer) {
+                clearInterval(countdownTimer);
+                countdownTimer = null;
+            }
+        }
+
+        // Update countdown display
+        function updateCountdown(seconds) {
+            const minutes = Math.floor(seconds / 60);
+            const secs = seconds % 60;
+            const timeStr = minutes > 0 
+                ? `${minutes}m ${secs}s`
+                : `${secs}s`;
+            document.getElementById('countdown').textContent = `Next update in ${timeStr}`;
+        }
+
+        // Export to JSON
+        function exportToJSON() {
+            if (!currentData) {
+                alert('No data available to export');
+                return;
+            }
+
+            const dataStr = JSON.stringify(currentData, null, 2);
+            const blob = new Blob([dataStr], { type: 'application/json' });
+            const url = URL.createObjectURL(blob);
+            const link = document.createElement('a');
+            link.href = url;
+            link.download = `production_report_${new Date().toISOString().split('T')[0]}.json`;
+            link.click();
+            URL.revokeObjectURL(url);
+        }
+    </script>
+</body>
+</html>
