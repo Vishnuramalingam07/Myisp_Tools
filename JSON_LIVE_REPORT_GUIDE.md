@@ -157,7 +157,8 @@ python ProdSanity_Report.py; if($?) { git add latest_report.json; git commit -m 
 | Item | URL |
 |------|-----|
 | **Live Dashboard** | https://Vishnuramalingam07.github.io/Myisp_Tools/live_report.html |
-| **JSON Data** | https://raw.githubusercontent.com/Vishnuramalingam07/Myisp_Tools/main/latest_report.json |
+| **JSON Data (relative)** | `/latest_report.json` (served by GitHub Pages) |
+| **JSON Data (GitHub raw)** | https://raw.githubusercontent.com/Vishnuramalingam07/Myisp_Tools/main/latest_report.json |
 | **GitHub Repo** | https://github.com/Vishnuramalingam07/Myisp_Tools |
 | **Static Reports** | https://Vishnuramalingam07.github.io/Myisp_Tools/ |
 

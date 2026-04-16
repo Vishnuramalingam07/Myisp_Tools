@@ -415,8 +415,8 @@
     </div>
 
     <script>
-        // Configuration - GitHub raw JSON file URL
-        const GITHUB_JSON_URL = 'https://raw.githubusercontent.com/Vishnuramalingam07/Myisp_Tools/main/latest_report.json';
+        // Configuration - Use relative path since both files are on GitHub Pages
+        const JSON_FILE = './latest_report.json';
         
         let refreshInterval = 30; // seconds
         let countdownTimer = null;
@@ -429,11 +429,11 @@
             startAutoRefresh();
         });
 
-        // Fetch data from GitHub (JSON file)
+        // Fetch data from JSON file
         async function refreshData() {
             try {
                 // Add cache-busting parameter to force fresh data
-                const url = `${GITHUB_JSON_URL}?t=${Date.now()}`;
+                const url = `${JSON_FILE}?t=${Date.now()}`;
                 const response = await fetch(url, {
                     cache: 'no-cache',
                     headers: {
