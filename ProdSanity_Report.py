@@ -5796,7 +5796,7 @@ def main():
             print(f"   ℹ️  Continuing with report generation...")
     
     # Generate HTML report
-    print(f"\n📝 Generating HTML Report...")
+    print(f"\n📝 Generating HTML Reports...")
     report_gen = CustomHTMLReportGenerator(
         test_data,
         plan_info,
@@ -5808,10 +5808,28 @@ def main():
         prod_sanity_defects,
         us_bug_map=us_bug_map,
     )
-    report_file = report_gen.generate_html_file()
     
     # Export data to JSON for GitHub-hosted live dashboard
     json_file = report_gen.export_to_json()
+    
+    # Generate dashboard-style HTML report (timestamped)
+    timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+    report_file = f"Production_execution_report_{timestamp}.html"
+    print(f"   → Generating {report_file} (dashboard style)...")
+    report_gen.generate_html_file(filename=report_file, dashboard_style=True)
+    
+    # Generate standalone report with embedded JSON for local viewing
+    print(f"   → Generating standalone_report.html (embedded data for local viewing)...")
+    try:
+        import create_standalone_report
+        if create_standalone_report.create_standalone_report('latest_report.json', 'standalone_report.html'):
+            print(f"   ✓ Created: standalone_report.html")
+    except Exception as e:
+        print(f"   ⚠️  Could not generate standalone report: {e}")
+        print(f"   ℹ️  Run 'python create_standalone_report.py' manually if needed")
+    
+    # Note: live_report.html is a template that fetches latest_report.json
+    #       It should NOT be overwritten - it's for GitHub Pages deployment
     
     # --- Add this block after report_file is generated ---
     # Set your local OneDrive sync folder path here:
@@ -5822,8 +5840,14 @@ def main():
     print("\n" + "=" * 80)
     print("✅ REPORT GENERATION COMPLETED")
     print("=" * 80)
-    print(f"\n📄 Report Location: {report_file}")
-    print(f"📊 Total Test Cases: {len(test_data)}")
+    print(f"\n📄 Generated Files:")
+    print(f"   ✅ {report_file} - Dashboard snapshot (opens directly)")
+    print(f"   ✅ standalone_report.html - Works with file:// protocol")
+    print(f"   ✅ latest_report.json - Data file (124 KB)")
+    print(f"\n🌐 GitHub Pages Live Dashboard:")
+    print(f"   📊 live_report.html - Auto-refreshing template")
+    print(f"   🔗 https://vishnuramalingam07.github.io/Myisp_Tools/live_report.html")
+    print(f"\n📊 Total Test Cases: {len(test_data)}")
     
     # Summary statistics
     manual_count = sum(1 for t in test_data if t['type'].lower() == 'manual')

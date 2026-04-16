@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-04-17T00:40:13.059217",
-  "timestamp_display": "April 17, 2026 at 00:40:13",
+  "generated_at": "2026-04-17T01:11:37.497639",
+  "timestamp_display": "April 17, 2026 at 01:11:37",
   "suite_name": "Prod Execution",
   "statistics": {
     "total_tests": 1074,
@@ -510,32 +510,6 @@
       }
     },
     "Devika": {
-      "4459023 : As a user of the PMO Reporting layer report, I want to add a new column as \"Mergers and Acquisitions\" in report, so that I can see the newly added column data directly in the report.": {
-        "manual": {
-          "total": 0,
-          "passed": 0,
-          "failed": 0,
-          "blocked": 0,
-          "na": 0,
-          "not_run": 0,
-          "percentages": {
-            "pass": 0,
-            "execution": 0
-          }
-        },
-        "automation": {
-          "total": 5,
-          "passed": 0,
-          "failed": 0,
-          "blocked": 0,
-          "na": 0,
-          "not_run": 5,
-          "percentages": {
-            "pass": 0,
-            "execution": 0.0
-          }
-        }
-      },
       "4446747 : As a AMS VT user, I want the AMSVT production URL to be updated in the Manage screen, So that the system redirects me to the correct AMSVT Link..": {
         "manual": {
           "total": 0,
@@ -556,6 +530,32 @@
           "blocked": 0,
           "na": 0,
           "not_run": 3,
+          "percentages": {
+            "pass": 0,
+            "execution": 0.0
+          }
+        }
+      },
+      "4459023 : As a user of the PMO Reporting layer report, I want to add a new column as \"Mergers and Acquisitions\" in report, so that I can see the newly added column data directly in the report.": {
+        "manual": {
+          "total": 0,
+          "passed": 0,
+          "failed": 0,
+          "blocked": 0,
+          "na": 0,
+          "not_run": 0,
+          "percentages": {
+            "pass": 0,
+            "execution": 0
+          }
+        },
+        "automation": {
+          "total": 5,
+          "passed": 0,
+          "failed": 0,
+          "blocked": 0,
+          "na": 0,
+          "not_run": 5,
           "percentages": {
             "pass": 0,
             "execution": 0.0
@@ -616,6 +616,58 @@
           }
         }
       },
+      "4391224 : As a myISP SA, I want to change the logic to populate \"Role Type\" and \"Accenture Role/Rate\" in MMP FFP so that it is aligned with Dynamic Target Pricing implementation": {
+        "manual": {
+          "total": 0,
+          "passed": 0,
+          "failed": 0,
+          "blocked": 0,
+          "na": 0,
+          "not_run": 0,
+          "percentages": {
+            "pass": 0,
+            "execution": 0
+          }
+        },
+        "automation": {
+          "total": 27,
+          "passed": 0,
+          "failed": 0,
+          "blocked": 0,
+          "na": 0,
+          "not_run": 27,
+          "percentages": {
+            "pass": 0,
+            "execution": 0.0
+          }
+        }
+      },
+      "4359507 : As a SA I want to select standard role from an SSG-specific dropdown selection": {
+        "manual": {
+          "total": 0,
+          "passed": 0,
+          "failed": 0,
+          "blocked": 0,
+          "na": 0,
+          "not_run": 0,
+          "percentages": {
+            "pass": 0,
+            "execution": 0
+          }
+        },
+        "automation": {
+          "total": 38,
+          "passed": 0,
+          "failed": 0,
+          "blocked": 0,
+          "na": 0,
+          "not_run": 38,
+          "percentages": {
+            "pass": 0,
+            "execution": 0.0
+          }
+        }
+      },
       "4377948 : As a myISP SA, I want to add new columns in the DCTA JSON file so that dynamic target pricing can be computed": {
         "manual": {
           "total": 0,
@@ -668,32 +720,6 @@
           }
         }
       },
-      "4359507 : As a SA I want to select standard role from an SSG-specific dropdown selection": {
-        "manual": {
-          "total": 0,
-          "passed": 0,
-          "failed": 0,
-          "blocked": 0,
-          "na": 0,
-          "not_run": 0,
-          "percentages": {
-            "pass": 0,
-            "execution": 0
-          }
-        },
-        "automation": {
-          "total": 38,
-          "passed": 0,
-          "failed": 0,
-          "blocked": 0,
-          "na": 0,
-          "not_run": 38,
-          "percentages": {
-            "pass": 0,
-            "execution": 0.0
-          }
-        }
-      },
       "4368812 : As a SA, add Role Type field in Staffing Baseline (auto-populated from Std Location Type & Service Group) - OU changes": {
         "manual": {
           "total": 0,
@@ -719,61 +745,9 @@
             "execution": 0.0
           }
         }
-      },
-      "4391224 : As a myISP SA, I want to change the logic to populate \"Role Type\" and \"Accenture Role/Rate\" in MMP FFP so that it is aligned with Dynamic Target Pricing implementation": {
-        "manual": {
-          "total": 0,
-          "passed": 0,
-          "failed": 0,
-          "blocked": 0,
-          "na": 0,
-          "not_run": 0,
-          "percentages": {
-            "pass": 0,
-            "execution": 0
-          }
-        },
-        "automation": {
-          "total": 27,
-          "passed": 0,
-          "failed": 0,
-          "blocked": 0,
-          "na": 0,
-          "not_run": 27,
-          "percentages": {
-            "pass": 0,
-            "execution": 0.0
-          }
-        }
       }
     },
     "Anand": {
-      "4359294 : As a SA, I want the Technology Tier field to auto-populate based on the selected Technology": {
-        "manual": {
-          "total": 0,
-          "passed": 0,
-          "failed": 0,
-          "blocked": 0,
-          "na": 0,
-          "not_run": 0,
-          "percentages": {
-            "pass": 0,
-            "execution": 0
-          }
-        },
-        "automation": {
-          "total": 10,
-          "passed": 0,
-          "failed": 0,
-          "blocked": 0,
-          "na": 0,
-          "not_run": 10,
-          "percentages": {
-            "pass": 0,
-            "execution": 0.0
-          }
-        }
-      },
       "4368135 : API - Enhance the defaulting logics to populate 'Accenture Role/Rate' in offline MMP FFP Export": {
         "manual": {
           "total": 0,
@@ -852,32 +826,6 @@
           }
         }
       },
-      "4372847 : As a SA, add Technology & Standard Role columns in Staffing Baseline for auto-population/selection based on Tech Group & SSG.": {
-        "manual": {
-          "total": 24,
-          "passed": 0,
-          "failed": 0,
-          "blocked": 0,
-          "na": 0,
-          "not_run": 24,
-          "percentages": {
-            "pass": 0,
-            "execution": 0.0
-          }
-        },
-        "automation": {
-          "total": 0,
-          "passed": 0,
-          "failed": 0,
-          "blocked": 0,
-          "na": 0,
-          "not_run": 0,
-          "percentages": {
-            "pass": 0,
-            "execution": 0
-          }
-        }
-      },
       "4371046 : As a Solution Architect, I want to see dynamic target pricing parameters in SDL SI DL regardless of rate card configuration": {
         "manual": {
           "total": 13,
@@ -904,40 +852,14 @@
           }
         }
       },
-      "4386371 : PCW - Add Role Type Column in Staffing Baseline to populate the Role Types for SI, CON-CAS, AMS, IMS and BPMS": {
+      "4372847 : As a SA, add Technology & Standard Role columns in Staffing Baseline for auto-population/selection based on Tech Group & SSG.": {
         "manual": {
-          "total": 0,
+          "total": 24,
           "passed": 0,
           "failed": 0,
           "blocked": 0,
           "na": 0,
-          "not_run": 0,
-          "percentages": {
-            "pass": 0,
-            "execution": 0
-          }
-        },
-        "automation": {
-          "total": 17,
-          "passed": 0,
-          "failed": 0,
-          "blocked": 0,
-          "na": 0,
-          "not_run": 17,
-          "percentages": {
-            "pass": 0,
-            "execution": 0.0
-          }
-        }
-      },
-      "4386372 : PCW - Add Profile City Tier Column in Staffing Baseline to populate the Profile City Tier value for all profiles": {
-        "manual": {
-          "total": 20,
-          "passed": 0,
-          "failed": 0,
-          "blocked": 0,
-          "na": 0,
-          "not_run": 20,
+          "not_run": 24,
           "percentages": {
             "pass": 0,
             "execution": 0.0
@@ -982,33 +904,7 @@
           }
         }
       },
-      "4386373 : PCW - Rename existing 'Role Type' column in PCW 8.7 Template and Show a warning message in PCW 8.6 template": {
-        "manual": {
-          "total": 0,
-          "passed": 0,
-          "failed": 0,
-          "blocked": 0,
-          "na": 0,
-          "not_run": 0,
-          "percentages": {
-            "pass": 0,
-            "execution": 0
-          }
-        },
-        "automation": {
-          "total": 12,
-          "passed": 0,
-          "failed": 0,
-          "blocked": 0,
-          "na": 0,
-          "not_run": 12,
-          "percentages": {
-            "pass": 0,
-            "execution": 0.0
-          }
-        }
-      },
-      "4395067 : PCW - Pass Role Type column to API as an input filter parameter for defaulting logics of offline MMP FFP Export": {
+      "4359294 : As a SA, I want the Technology Tier field to auto-populate based on the selected Technology": {
         "manual": {
           "total": 0,
           "passed": 0,
@@ -1034,7 +930,33 @@
           }
         }
       },
-      "4386944 : As a SA, auto-populate Profile City Tier from Rate Type in Staffing Baseline-OU Changes": {
+      "4386372 : PCW - Add Profile City Tier Column in Staffing Baseline to populate the Profile City Tier value for all profiles": {
+        "manual": {
+          "total": 20,
+          "passed": 0,
+          "failed": 0,
+          "blocked": 0,
+          "na": 0,
+          "not_run": 20,
+          "percentages": {
+            "pass": 0,
+            "execution": 0.0
+          }
+        },
+        "automation": {
+          "total": 0,
+          "passed": 0,
+          "failed": 0,
+          "blocked": 0,
+          "na": 0,
+          "not_run": 0,
+          "percentages": {
+            "pass": 0,
+            "execution": 0
+          }
+        }
+      },
+      "4386373 : PCW - Rename existing 'Role Type' column in PCW 8.7 Template and Show a warning message in PCW 8.6 template": {
         "manual": {
           "total": 0,
           "passed": 0,
@@ -1048,12 +970,12 @@
           }
         },
         "automation": {
-          "total": 9,
+          "total": 12,
           "passed": 0,
           "failed": 0,
           "blocked": 0,
           "na": 0,
-          "not_run": 9,
+          "not_run": 12,
           "percentages": {
             "pass": 0,
             "execution": 0.0
@@ -1086,7 +1008,7 @@
           }
         }
       },
-      "4386945 : As a SA, add Technology & Standard Role columns in Staffing Baseline for auto-population/selection based on Tech Group & SSG.- OU changes": {
+      "4386371 : PCW - Add Role Type Column in Staffing Baseline to populate the Role Types for SI, CON-CAS, AMS, IMS and BPMS": {
         "manual": {
           "total": 0,
           "passed": 0,
@@ -1100,12 +1022,64 @@
           }
         },
         "automation": {
-          "total": 26,
+          "total": 17,
           "passed": 0,
           "failed": 0,
           "blocked": 0,
           "na": 0,
-          "not_run": 26,
+          "not_run": 17,
+          "percentages": {
+            "pass": 0,
+            "execution": 0.0
+          }
+        }
+      },
+      "4386944 : As a SA, auto-populate Profile City Tier from Rate Type in Staffing Baseline-OU Changes": {
+        "manual": {
+          "total": 0,
+          "passed": 0,
+          "failed": 0,
+          "blocked": 0,
+          "na": 0,
+          "not_run": 0,
+          "percentages": {
+            "pass": 0,
+            "execution": 0
+          }
+        },
+        "automation": {
+          "total": 9,
+          "passed": 0,
+          "failed": 0,
+          "blocked": 0,
+          "na": 0,
+          "not_run": 9,
+          "percentages": {
+            "pass": 0,
+            "execution": 0.0
+          }
+        }
+      },
+      "4395067 : PCW - Pass Role Type column to API as an input filter parameter for defaulting logics of offline MMP FFP Export": {
+        "manual": {
+          "total": 0,
+          "passed": 0,
+          "failed": 0,
+          "blocked": 0,
+          "na": 0,
+          "not_run": 0,
+          "percentages": {
+            "pass": 0,
+            "execution": 0
+          }
+        },
+        "automation": {
+          "total": 10,
+          "passed": 0,
+          "failed": 0,
+          "blocked": 0,
+          "na": 0,
+          "not_run": 10,
           "percentages": {
             "pass": 0,
             "execution": 0.0
@@ -1132,6 +1106,32 @@
           "blocked": 0,
           "na": 0,
           "not_run": 4,
+          "percentages": {
+            "pass": 0,
+            "execution": 0.0
+          }
+        }
+      },
+      "4386945 : As a SA, add Technology & Standard Role columns in Staffing Baseline for auto-population/selection based on Tech Group & SSG.- OU changes": {
+        "manual": {
+          "total": 0,
+          "passed": 0,
+          "failed": 0,
+          "blocked": 0,
+          "na": 0,
+          "not_run": 0,
+          "percentages": {
+            "pass": 0,
+            "execution": 0
+          }
+        },
+        "automation": {
+          "total": 26,
+          "passed": 0,
+          "failed": 0,
+          "blocked": 0,
+          "na": 0,
+          "not_run": 26,
           "percentages": {
             "pass": 0,
             "execution": 0.0
