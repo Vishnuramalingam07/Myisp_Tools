@@ -431,9 +431,12 @@
 
         // Fetch data from JSON file
         async function refreshData() {
+            console.log('🔄 refreshData() called');
             try {
                 // Add cache-busting parameter to force fresh data
                 const url = `${JSON_FILE}?t=${Date.now()}`;
+                console.log('📡 Fetching:', url);
+                
                 const response = await fetch(url, {
                     cache: 'no-cache',
                     headers: {
@@ -441,11 +444,14 @@
                     }
                 });
 
+                console.log('📥 Response status:', response.status);
+                
                 if (!response.ok) {
                     throw new Error(`HTTP ${response.status}: ${response.statusText}`);
                 }
 
                 const data = await response.json();
+                console.log('✅ Data loaded:', data.statistics.total_tests, 'tests');
                 currentData = data;
                 
                 // Hide loading, show content
