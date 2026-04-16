@@ -43,15 +43,19 @@ jobs:
           cp report.html _site/
           cp live_report.html _site/
           
+          # Copy JSON data for live dashboard
+          cp latest_report.json _site/ 2>/dev/null || echo "⚠️  latest_report.json not found (run ProdSanity_Report.py to generate)"
+          
           # Copy ALL generated reports
           cp Production_execution_report_*.html _site/ 2>/dev/null || true
           
           # Copy documentation
-          cp README.md _site/
-          cp QUICK_START.md _site/
-          cp SETUP_GUIDE.md _site/
-          cp GITHUB_PAGES_DEPLOYMENT.md _site/
-          cp LIVE_REPORT_DEPLOYMENT.md _site/
+          cp README.md _site/ 2>/dev/null || true
+          cp QUICK_START.md _site/ 2>/dev/null || true
+          cp SETUP_GUIDE.md _site/ 2>/dev/null || true
+          cp GITHUB_PAGES_DEPLOYMENT.md _site/ 2>/dev/null || true
+          cp LIVE_REPORT_DEPLOYMENT.md _site/ 2>/dev/null || true
+          cp JSON_LIVE_REPORT_GUIDE.md _site/ 2>/dev/null || true
           
           echo "✅ Deployment files prepared"
           ls -la _site/
