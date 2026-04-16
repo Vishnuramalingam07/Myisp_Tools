@@ -30,6 +30,7 @@ Thumbs.db
 Production_execution_report_*.html
 !Production_execution_report_20260416_202718.html
 !Production_execution_report_20260416_211611.html
+standalone_report.html
 
 # Database
 *.db
