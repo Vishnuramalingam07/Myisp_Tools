@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-04-17T01:21:21.925276",
-  "timestamp_display": "April 17, 2026 at 01:21:21",
+  "generated_at": "2026-04-17T01:26:01.404775",
+  "timestamp_display": "April 17, 2026 at 01:26:01",
   "suite_name": "Prod Execution",
   "statistics": {
     "total_tests": 1074,
@@ -481,190 +481,6 @@
         }
       }
     },
-    "Kavi": {
-      "4359188 : As a SA,I want the Profile city Tier field to auto-populate from the Rate Type column in the Staffing Baseline screen": {
-        "manual": {
-          "total": 0,
-          "passed": 0,
-          "failed": 0,
-          "blocked": 0,
-          "na": 0,
-          "not_run": 0,
-          "percentages": {
-            "pass": 0,
-            "execution": 0
-          }
-        },
-        "automation": {
-          "total": 35,
-          "passed": 0,
-          "failed": 0,
-          "blocked": 0,
-          "na": 0,
-          "not_run": 35,
-          "percentages": {
-            "pass": 0,
-            "execution": 0.0
-          }
-        }
-      },
-      "4359328 : As a SA, add Role Type field in Staffing Baseline (auto-populated from Std Location Type & Service Group)": {
-        "manual": {
-          "total": 0,
-          "passed": 0,
-          "failed": 0,
-          "blocked": 0,
-          "na": 0,
-          "not_run": 0,
-          "percentages": {
-            "pass": 0,
-            "execution": 0
-          }
-        },
-        "automation": {
-          "total": 51,
-          "passed": 0,
-          "failed": 0,
-          "blocked": 0,
-          "na": 0,
-          "not_run": 51,
-          "percentages": {
-            "pass": 0,
-            "execution": 0.0
-          }
-        }
-      },
-      "4368812 : As a SA, add Role Type field in Staffing Baseline (auto-populated from Std Location Type & Service Group) - OU changes": {
-        "manual": {
-          "total": 0,
-          "passed": 0,
-          "failed": 0,
-          "blocked": 0,
-          "na": 0,
-          "not_run": 0,
-          "percentages": {
-            "pass": 0,
-            "execution": 0
-          }
-        },
-        "automation": {
-          "total": 42,
-          "passed": 0,
-          "failed": 0,
-          "blocked": 0,
-          "na": 0,
-          "not_run": 42,
-          "percentages": {
-            "pass": 0,
-            "execution": 0.0
-          }
-        }
-      },
-      "4391224 : As a myISP SA, I want to change the logic to populate \"Role Type\" and \"Accenture Role/Rate\" in MMP FFP so that it is aligned with Dynamic Target Pricing implementation": {
-        "manual": {
-          "total": 0,
-          "passed": 0,
-          "failed": 0,
-          "blocked": 0,
-          "na": 0,
-          "not_run": 0,
-          "percentages": {
-            "pass": 0,
-            "execution": 0
-          }
-        },
-        "automation": {
-          "total": 27,
-          "passed": 0,
-          "failed": 0,
-          "blocked": 0,
-          "na": 0,
-          "not_run": 27,
-          "percentages": {
-            "pass": 0,
-            "execution": 0.0
-          }
-        }
-      },
-      "4393527 : As a myISP SA, I want to apply filter FFP Visible = False in addition to other filters while displaying Standard Role in staffing so that it is aligned with MMP standards": {
-        "manual": {
-          "total": 0,
-          "passed": 0,
-          "failed": 0,
-          "blocked": 0,
-          "na": 0,
-          "not_run": 0,
-          "percentages": {
-            "pass": 0,
-            "execution": 0
-          }
-        },
-        "automation": {
-          "total": 27,
-          "passed": 0,
-          "failed": 0,
-          "blocked": 0,
-          "na": 0,
-          "not_run": 27,
-          "percentages": {
-            "pass": 0,
-            "execution": 0.0
-          }
-        }
-      },
-      "4359507 : As a SA I want to select standard role from an SSG-specific dropdown selection": {
-        "manual": {
-          "total": 0,
-          "passed": 0,
-          "failed": 0,
-          "blocked": 0,
-          "na": 0,
-          "not_run": 0,
-          "percentages": {
-            "pass": 0,
-            "execution": 0
-          }
-        },
-        "automation": {
-          "total": 38,
-          "passed": 0,
-          "failed": 0,
-          "blocked": 0,
-          "na": 0,
-          "not_run": 38,
-          "percentages": {
-            "pass": 0,
-            "execution": 0.0
-          }
-        }
-      },
-      "4377948 : As a myISP SA, I want to add new columns in the DCTA JSON file so that dynamic target pricing can be computed": {
-        "manual": {
-          "total": 0,
-          "passed": 0,
-          "failed": 0,
-          "blocked": 0,
-          "na": 0,
-          "not_run": 0,
-          "percentages": {
-            "pass": 0,
-            "execution": 0
-          }
-        },
-        "automation": {
-          "total": 27,
-          "passed": 0,
-          "failed": 0,
-          "blocked": 0,
-          "na": 0,
-          "not_run": 27,
-          "percentages": {
-            "pass": 0,
-            "execution": 0.0
-          }
-        }
-      }
-    },
     "Leena": {
       "4429519 : As a myISP Solution Architect, I want to see the Digital Documentation - MFE App migrated to Angular 21": {
         "manual": {
@@ -747,6 +563,190 @@
         }
       }
     },
+    "Kavi": {
+      "4359507 : As a SA I want to select standard role from an SSG-specific dropdown selection": {
+        "manual": {
+          "total": 0,
+          "passed": 0,
+          "failed": 0,
+          "blocked": 0,
+          "na": 0,
+          "not_run": 0,
+          "percentages": {
+            "pass": 0,
+            "execution": 0
+          }
+        },
+        "automation": {
+          "total": 38,
+          "passed": 0,
+          "failed": 0,
+          "blocked": 0,
+          "na": 0,
+          "not_run": 38,
+          "percentages": {
+            "pass": 0,
+            "execution": 0.0
+          }
+        }
+      },
+      "4359328 : As a SA, add Role Type field in Staffing Baseline (auto-populated from Std Location Type & Service Group)": {
+        "manual": {
+          "total": 0,
+          "passed": 0,
+          "failed": 0,
+          "blocked": 0,
+          "na": 0,
+          "not_run": 0,
+          "percentages": {
+            "pass": 0,
+            "execution": 0
+          }
+        },
+        "automation": {
+          "total": 51,
+          "passed": 0,
+          "failed": 0,
+          "blocked": 0,
+          "na": 0,
+          "not_run": 51,
+          "percentages": {
+            "pass": 0,
+            "execution": 0.0
+          }
+        }
+      },
+      "4368812 : As a SA, add Role Type field in Staffing Baseline (auto-populated from Std Location Type & Service Group) - OU changes": {
+        "manual": {
+          "total": 0,
+          "passed": 0,
+          "failed": 0,
+          "blocked": 0,
+          "na": 0,
+          "not_run": 0,
+          "percentages": {
+            "pass": 0,
+            "execution": 0
+          }
+        },
+        "automation": {
+          "total": 42,
+          "passed": 0,
+          "failed": 0,
+          "blocked": 0,
+          "na": 0,
+          "not_run": 42,
+          "percentages": {
+            "pass": 0,
+            "execution": 0.0
+          }
+        }
+      },
+      "4359188 : As a SA,I want the Profile city Tier field to auto-populate from the Rate Type column in the Staffing Baseline screen": {
+        "manual": {
+          "total": 0,
+          "passed": 0,
+          "failed": 0,
+          "blocked": 0,
+          "na": 0,
+          "not_run": 0,
+          "percentages": {
+            "pass": 0,
+            "execution": 0
+          }
+        },
+        "automation": {
+          "total": 35,
+          "passed": 0,
+          "failed": 0,
+          "blocked": 0,
+          "na": 0,
+          "not_run": 35,
+          "percentages": {
+            "pass": 0,
+            "execution": 0.0
+          }
+        }
+      },
+      "4377948 : As a myISP SA, I want to add new columns in the DCTA JSON file so that dynamic target pricing can be computed": {
+        "manual": {
+          "total": 0,
+          "passed": 0,
+          "failed": 0,
+          "blocked": 0,
+          "na": 0,
+          "not_run": 0,
+          "percentages": {
+            "pass": 0,
+            "execution": 0
+          }
+        },
+        "automation": {
+          "total": 27,
+          "passed": 0,
+          "failed": 0,
+          "blocked": 0,
+          "na": 0,
+          "not_run": 27,
+          "percentages": {
+            "pass": 0,
+            "execution": 0.0
+          }
+        }
+      },
+      "4393527 : As a myISP SA, I want to apply filter FFP Visible = False in addition to other filters while displaying Standard Role in staffing so that it is aligned with MMP standards": {
+        "manual": {
+          "total": 0,
+          "passed": 0,
+          "failed": 0,
+          "blocked": 0,
+          "na": 0,
+          "not_run": 0,
+          "percentages": {
+            "pass": 0,
+            "execution": 0
+          }
+        },
+        "automation": {
+          "total": 27,
+          "passed": 0,
+          "failed": 0,
+          "blocked": 0,
+          "na": 0,
+          "not_run": 27,
+          "percentages": {
+            "pass": 0,
+            "execution": 0.0
+          }
+        }
+      },
+      "4391224 : As a myISP SA, I want to change the logic to populate \"Role Type\" and \"Accenture Role/Rate\" in MMP FFP so that it is aligned with Dynamic Target Pricing implementation": {
+        "manual": {
+          "total": 0,
+          "passed": 0,
+          "failed": 0,
+          "blocked": 0,
+          "na": 0,
+          "not_run": 0,
+          "percentages": {
+            "pass": 0,
+            "execution": 0
+          }
+        },
+        "automation": {
+          "total": 27,
+          "passed": 0,
+          "failed": 0,
+          "blocked": 0,
+          "na": 0,
+          "not_run": 27,
+          "percentages": {
+            "pass": 0,
+            "execution": 0.0
+          }
+        }
+      }
+    },
     "Anand": {
       "4359294 : As a SA, I want the Technology Tier field to auto-populate based on the selected Technology": {
         "manual": {
@@ -800,6 +800,32 @@
           }
         }
       },
+      "4368862 : As a SA I want to select standard role from an SSG-specific dropdown selection- OU changes": {
+        "manual": {
+          "total": 0,
+          "passed": 0,
+          "failed": 0,
+          "blocked": 0,
+          "na": 0,
+          "not_run": 0,
+          "percentages": {
+            "pass": 0,
+            "execution": 0
+          }
+        },
+        "automation": {
+          "total": 8,
+          "passed": 0,
+          "failed": 0,
+          "blocked": 0,
+          "na": 0,
+          "not_run": 8,
+          "percentages": {
+            "pass": 0,
+            "execution": 0.0
+          }
+        }
+      },
       "4368135 : API - Enhance the defaulting logics to populate 'Accenture Role/Rate' in offline MMP FFP Export": {
         "manual": {
           "total": 0,
@@ -820,6 +846,58 @@
           "blocked": 0,
           "na": 0,
           "not_run": 3,
+          "percentages": {
+            "pass": 0,
+            "execution": 0.0
+          }
+        }
+      },
+      "4371046 : As a Solution Architect, I want to see dynamic target pricing parameters in SDL SI DL regardless of rate card configuration": {
+        "manual": {
+          "total": 13,
+          "passed": 0,
+          "failed": 0,
+          "blocked": 0,
+          "na": 0,
+          "not_run": 13,
+          "percentages": {
+            "pass": 0,
+            "execution": 0.0
+          }
+        },
+        "automation": {
+          "total": 0,
+          "passed": 0,
+          "failed": 0,
+          "blocked": 0,
+          "na": 0,
+          "not_run": 0,
+          "percentages": {
+            "pass": 0,
+            "execution": 0
+          }
+        }
+      },
+      "4386371 : PCW - Add Role Type Column in Staffing Baseline to populate the Role Types for SI, CON-CAS, AMS, IMS and BPMS": {
+        "manual": {
+          "total": 0,
+          "passed": 0,
+          "failed": 0,
+          "blocked": 0,
+          "na": 0,
+          "not_run": 0,
+          "percentages": {
+            "pass": 0,
+            "execution": 0
+          }
+        },
+        "automation": {
+          "total": 17,
+          "passed": 0,
+          "failed": 0,
+          "blocked": 0,
+          "na": 0,
+          "not_run": 17,
           "percentages": {
             "pass": 0,
             "execution": 0.0
@@ -852,110 +930,6 @@
           }
         }
       },
-      "4371046 : As a Solution Architect, I want to see dynamic target pricing parameters in SDL SI DL regardless of rate card configuration": {
-        "manual": {
-          "total": 13,
-          "passed": 0,
-          "failed": 0,
-          "blocked": 0,
-          "na": 0,
-          "not_run": 13,
-          "percentages": {
-            "pass": 0,
-            "execution": 0.0
-          }
-        },
-        "automation": {
-          "total": 0,
-          "passed": 0,
-          "failed": 0,
-          "blocked": 0,
-          "na": 0,
-          "not_run": 0,
-          "percentages": {
-            "pass": 0,
-            "execution": 0
-          }
-        }
-      },
-      "4368862 : As a SA I want to select standard role from an SSG-specific dropdown selection- OU changes": {
-        "manual": {
-          "total": 0,
-          "passed": 0,
-          "failed": 0,
-          "blocked": 0,
-          "na": 0,
-          "not_run": 0,
-          "percentages": {
-            "pass": 0,
-            "execution": 0
-          }
-        },
-        "automation": {
-          "total": 8,
-          "passed": 0,
-          "failed": 0,
-          "blocked": 0,
-          "na": 0,
-          "not_run": 8,
-          "percentages": {
-            "pass": 0,
-            "execution": 0.0
-          }
-        }
-      },
-      "4381707 : PCW - Add Technology Role and Standard Role Column in Staffing Baseline to populate the Roles of SI, CON-CAS": {
-        "manual": {
-          "total": 0,
-          "passed": 0,
-          "failed": 0,
-          "blocked": 0,
-          "na": 0,
-          "not_run": 0,
-          "percentages": {
-            "pass": 0,
-            "execution": 0
-          }
-        },
-        "automation": {
-          "total": 29,
-          "passed": 0,
-          "failed": 0,
-          "blocked": 0,
-          "na": 0,
-          "not_run": 29,
-          "percentages": {
-            "pass": 0,
-            "execution": 0.0
-          }
-        }
-      },
-      "4386371 : PCW - Add Role Type Column in Staffing Baseline to populate the Role Types for SI, CON-CAS, AMS, IMS and BPMS": {
-        "manual": {
-          "total": 0,
-          "passed": 0,
-          "failed": 0,
-          "blocked": 0,
-          "na": 0,
-          "not_run": 0,
-          "percentages": {
-            "pass": 0,
-            "execution": 0
-          }
-        },
-        "automation": {
-          "total": 17,
-          "passed": 0,
-          "failed": 0,
-          "blocked": 0,
-          "na": 0,
-          "not_run": 17,
-          "percentages": {
-            "pass": 0,
-            "execution": 0.0
-          }
-        }
-      },
       "4386372 : PCW - Add Profile City Tier Column in Staffing Baseline to populate the Profile City Tier value for all profiles": {
         "manual": {
           "total": 20,
@@ -982,7 +956,7 @@
           }
         }
       },
-      "4386944 : As a SA, auto-populate Profile City Tier from Rate Type in Staffing Baseline-OU Changes": {
+      "4381707 : PCW - Add Technology Role and Standard Role Column in Staffing Baseline to populate the Roles of SI, CON-CAS": {
         "manual": {
           "total": 0,
           "passed": 0,
@@ -996,38 +970,12 @@
           }
         },
         "automation": {
-          "total": 9,
+          "total": 29,
           "passed": 0,
           "failed": 0,
           "blocked": 0,
           "na": 0,
-          "not_run": 9,
-          "percentages": {
-            "pass": 0,
-            "execution": 0.0
-          }
-        }
-      },
-      "4386942 : As a SA, I want the Technology Tier field to auto-populate based on the selected Technology - OU Changes": {
-        "manual": {
-          "total": 0,
-          "passed": 0,
-          "failed": 0,
-          "blocked": 0,
-          "na": 0,
-          "not_run": 0,
-          "percentages": {
-            "pass": 0,
-            "execution": 0
-          }
-        },
-        "automation": {
-          "total": 8,
-          "passed": 0,
-          "failed": 0,
-          "blocked": 0,
-          "na": 0,
-          "not_run": 8,
+          "not_run": 29,
           "percentages": {
             "pass": 0,
             "execution": 0.0
@@ -1060,7 +1008,7 @@
           }
         }
       },
-      "4386945 : As a SA, add Technology & Standard Role columns in Staffing Baseline for auto-population/selection based on Tech Group & SSG.- OU changes": {
+      "4386944 : As a SA, auto-populate Profile City Tier from Rate Type in Staffing Baseline-OU Changes": {
         "manual": {
           "total": 0,
           "passed": 0,
@@ -1074,12 +1022,12 @@
           }
         },
         "automation": {
-          "total": 26,
+          "total": 9,
           "passed": 0,
           "failed": 0,
           "blocked": 0,
           "na": 0,
-          "not_run": 26,
+          "not_run": 9,
           "percentages": {
             "pass": 0,
             "execution": 0.0
@@ -1106,6 +1054,58 @@
           "blocked": 0,
           "na": 0,
           "not_run": 4,
+          "percentages": {
+            "pass": 0,
+            "execution": 0.0
+          }
+        }
+      },
+      "4386945 : As a SA, add Technology & Standard Role columns in Staffing Baseline for auto-population/selection based on Tech Group & SSG.- OU changes": {
+        "manual": {
+          "total": 0,
+          "passed": 0,
+          "failed": 0,
+          "blocked": 0,
+          "na": 0,
+          "not_run": 0,
+          "percentages": {
+            "pass": 0,
+            "execution": 0
+          }
+        },
+        "automation": {
+          "total": 26,
+          "passed": 0,
+          "failed": 0,
+          "blocked": 0,
+          "na": 0,
+          "not_run": 26,
+          "percentages": {
+            "pass": 0,
+            "execution": 0.0
+          }
+        }
+      },
+      "4386942 : As a SA, I want the Technology Tier field to auto-populate based on the selected Technology - OU Changes": {
+        "manual": {
+          "total": 0,
+          "passed": 0,
+          "failed": 0,
+          "blocked": 0,
+          "na": 0,
+          "not_run": 0,
+          "percentages": {
+            "pass": 0,
+            "execution": 0
+          }
+        },
+        "automation": {
+          "total": 8,
+          "passed": 0,
+          "failed": 0,
+          "blocked": 0,
+          "na": 0,
+          "not_run": 8,
           "percentages": {
             "pass": 0,
             "execution": 0.0
