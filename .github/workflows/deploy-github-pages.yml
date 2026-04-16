@@ -41,6 +41,7 @@ jobs:
           cp demo_dashboard.html _site/
           cp sample_reports.html _site/
           cp report.html _site/
+          cp live_report.html _site/
           
           # Copy ALL generated reports
           cp Production_execution_report_*.html _site/ 2>/dev/null || true
@@ -50,6 +51,7 @@ jobs:
           cp QUICK_START.md _site/
           cp SETUP_GUIDE.md _site/
           cp GITHUB_PAGES_DEPLOYMENT.md _site/
+          cp LIVE_REPORT_DEPLOYMENT.md _site/
           
           echo "✅ Deployment files prepared"
           ls -la _site/
