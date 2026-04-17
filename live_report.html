@@ -935,12 +935,11 @@ const GOOGLE_SHEETS_CONFIG = {
     API_KEY: 'AIzaSyCqVIcsGui9z0X2BUa3UJmRSnfpHII3YfA',
     SPREADSHEET_ID: '1hKJxhyYu7XiA0rG21zW_DTv_7IX9Cot3GXLnEHVrNTs',
     SHEET_NAMES: {
-        summary: 'Summary',
-        execution: 'Execution',
-        bugAnalysis: 'BugAnalysis',
-        coverage: 'Coverage',
-        regressions: 'Regressions',
-        testCases: 'TestCases'
+        prodSanityTab: 'Prod Sanity Scenarios',
+        prodUSSanityTab: 'Prod US Sanity',
+        insprintStatusTab: 'Insprint US Prod Status',
+        readyForProdBugTab: 'Ready for Prod Bug',
+        prodSanityDefectsTab: 'Leadwise Prod Sanity Status'
     }
 };
 
@@ -1002,97 +1001,21 @@ class GoogleSheetsAPI {
     }
     objectToSheetData(tabId, data) {
         const timestamp = new Date().toISOString();
-        switch (tabId) {
-            case 'summary':
-                return [
-                    ['Field', 'Value', 'Last Updated'],
-                    ['Total Test Cases', data.totalTestCases || '', timestamp],
-                    ['Pass', data.pass || '', timestamp],
-                    ['Fail', data.fail || '', timestamp],
-                    ['Not Run', data.notRun || '', timestamp],
-                    ['Pass Rate', data.passRate || '', timestamp],
-                    ['Execution Time', data.executionTime || '', timestamp],
-                    ['Environment', data.environment || '', timestamp],
-                    ['Build Version', data.buildVersion || '', timestamp],
-                    ['Comments', data.comments || '', timestamp]
-                ];
-            case 'execution':
-                return [
-                    ['Field', 'Value', 'Last Updated'],
-                    ['Start Time', data.startTime || '', timestamp],
-                    ['End Time', data.endTime || '', timestamp],
-                    ['Duration', data.duration || '', timestamp],
-                    ['Executed By', data.executedBy || '', timestamp],
-                    ['Test Suite', data.testSuite || '', timestamp],
-                    ['Platform', data.platform || '', timestamp],
-                    ['Browser', data.browser || '', timestamp]
-                ];
-            case 'bugAnalysis':
-                return [
-                    ['Field', 'Value', 'Last Updated'],
-                    ['Total Bugs', data.totalBugs || '', timestamp],
-                    ['Critical', data.critical || '', timestamp],
-                    ['High', data.high || '', timestamp],
-                    ['Medium', data.medium || '', timestamp],
-                    ['Low', data.low || '', timestamp],
-                    ['Fixed', data.fixed || '', timestamp],
-                    ['Open', data.open || '', timestamp]
-                ];
-            case 'coverage':
-                return [
-                    ['Field', 'Value', 'Last Updated'],
-                    ['Code Coverage %', data.codeCoverage || '', timestamp],
-                    ['Feature Coverage %', data.featureCoverage || '', timestamp],
-                    ['Automation Coverage %', data.automationCoverage || '', timestamp],
-                    ['Modules Tested', data.modulesTested || '', timestamp],
-                    ['Total Modules', data.totalModules || '', timestamp]
-                ];
-            case 'regressions':
-                return [
-                    ['Field', 'Value', 'Last Updated'],
-                    ['New Regressions', data.newRegressions || '', timestamp],
-                    ['Fixed Regressions', data.fixedRegressions || '', timestamp],
-                    ['Open Regressions', data.openRegressions || '', timestamp],
-                    ['Regression Details', data.regressionDetails || '', timestamp]
-                ];
-            case 'testCases':
-                const headers = ['Test ID', 'Test Name', 'Status', 'Priority', 'Duration', 'Last Updated'];
-                const rows = (data.testCases || []).map(tc => [
-                    tc.id || '', tc.name || '', tc.status || '', tc.priority || '', tc.duration || '', timestamp
-                ]);
-                return [headers, ...rows];
-            default:
-                return [['Data', 'Last Updated'], [JSON.stringify(data), timestamp]];
-        }
+        // Simple approach: store entire data as JSON with timestamp
+        return [
+            ['Tab ID', 'Data JSON', 'Last Updated'],
+            [tabId, JSON.stringify(data), timestamp]
+        ];
     }
     sheetDataToObject(tabId, values) {
-        if (!values || values.length === 0) return {};
-        switch (tabId) {
-            case 'summary':
-            case 'execution':
-            case 'bugAnalysis':
-            case 'coverage':
-            case 'regressions':
-                const data = {};
-                for (let i = 1; i < values.length; i++) {
-                    const [field, value] = values[i];
-                    const key = field.replace(/\s+/g, '').replace(/^./, str => str.toLowerCase());
-                    data[key] = value;
-                }
-                return data;
-            case 'testCases':
-                const testCases = [];
-                for (let i = 1; i < values.length; i++) {
-                    const [id, name, status, priority, duration] = values[i];
-                    testCases.push({ id, name, status, priority, duration });
-                }
-                return { testCases };
-            default:
-                try {
-                    return JSON.parse(values[1][0] || '{}');
-                } catch {
-                    return {};
-                }
+        if (!values || values.length < 2) return {};
+        try {
+            // Extract JSON from second row
+            const dataJson = values[1][1];
+            return JSON.parse(dataJson || '{}');
+        } catch (error) {
+            console.error('Error parsing sheet data:', error);
+            return {};
         }
     }
     getSheetName(tabId) {
