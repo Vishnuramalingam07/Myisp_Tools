@@ -1,0 +1,7 @@
+{
+  "range": "Prod Sanity Scenarios!A1:C2",
+  "values": [
+    ["Tab ID", "Data JSON", "Last Updated"],
+    ["test", "{\"status\":\"testing\"}", "2026-04-17T12:00:00Z"]
+  ]
+}

@@ -1,11 +1,12 @@
-# Core dependencies
+# Core dependencies for collaborative live report
+flask>=3.0.0
+flask-cors>=4.0.0
+
+# Optional: For generating reports from Azure DevOps
 requests>=2.31.0
 openpyxl>=3.1.2
 python-dotenv>=1.0.0
 
-# Optional: PostgreSQL integration
-psycopg2-binary>=2.9.9
-
-# Optional: Live dashboard (Flask API)
-flask>=3.0.0
-flask-cors>=4.0.0
+# Optional: PostgreSQL integration (only if you need historical report database)
+# Uncomment below if you want database features:
+# psycopg2-binary>=2.9.9

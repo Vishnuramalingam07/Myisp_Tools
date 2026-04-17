@@ -56,3 +56,4 @@ config.local.py
 *credentials*.json
 *.pem
 *.key
+shared_report_data.json

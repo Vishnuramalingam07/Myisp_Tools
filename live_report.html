@@ -929,103 +929,111 @@
     <script src="https://cdn.jsdelivr.net/npm/exceljs@4.3.0/dist/exceljs.min.js"></script>
     <script>
 // ============================================
-// GOOGLE SHEETS API CONFIGURATION - EMBEDDED
+// FIREBASE REALTIME DATABASE CONFIGURATION - EMBEDDED
 // ============================================
-const GOOGLE_SHEETS_CONFIG = {
-    API_KEY: 'AIzaSyCqVIcsGui9z0X2BUa3UJmRSnfpHII3YfA',
-    SPREADSHEET_ID: '1hKJxhyYu7XiA0rG21zW_DTv_7IX9Cot3GXLnEHVrNTs',
-    SHEET_NAMES: {
-        prodSanityTab: 'Prod Sanity Scenarios',
-        prodUSSanityTab: 'Prod US Sanity',
-        insprintStatusTab: 'Insprint US Prod Status',
-        readyForProdBugTab: 'Ready for Prod Bug',
-        prodSanityDefectsTab: 'Leadwise Prod Sanity Status'
-    }
+// SETUP INSTRUCTIONS: See FIREBASE_SETUP.md for detailed guide
+// 1. Go to https://console.firebase.google.com/
+// 2. Create project → Realtime Database → Test mode
+// 3. Get config from Project Settings → Your apps → Web
+// 4. Replace values below with YOUR Firebase config
+
+const FIREBASE_CONFIG = {
+    apiKey: "YOUR_FIREBASE_API_KEY",
+    authDomain: "YOUR_PROJECT.firebaseapp.com",
+    databaseURL: "https://YOUR_PROJECT-default-rtdb.firebaseio.com",
+    projectId: "YOUR_PROJECT_ID",
+    storageBucket: "YOUR_PROJECT.appspot.com",
+    messagingSenderId: "YOUR_MESSAGING_SENDER_ID",
+    appId: "YOUR_APP_ID"
 };
 
-class GoogleSheetsAPI {
+class FirebaseAPI {
     constructor(config) {
-        this.apiKey = config.API_KEY;
-        this.spreadsheetId = config.SPREADSHEET_ID;
-        this.baseUrl = 'https://sheets.googleapis.com/v4/spreadsheets';
+        this.config = config;
+        this.databaseURL = config.databaseURL;
+        this.initialized = false;
+    }
+    async initialize() {
+        if (this.initialized) return;
+        this.initialized = true;
+        console.log('✓ Firebase REST API ready');
     }
     async saveTabData(tabId, data) {
+        await this.initialize();
         try {
-            const sheetName = this.getSheetName(tabId);
-            const range = `${sheetName}!A1`;
-            const values = this.objectToSheetData(tabId, data);
-            const url = `${this.baseUrl}/${this.spreadsheetId}/values/${range}?valueInputOption=RAW&key=${this.apiKey}`;
+            const timestamp = new Date().toISOString();
+            const dataToSave = {
+                ...data,
+                _lastUpdated: timestamp,
+                _tabId: tabId
+            };
+            const url = `${this.databaseURL}/prodSanityReport/${tabId}.json`;
             const response = await fetch(url, {
                 method: 'PUT',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ range: range, values: values })
+                body: JSON.stringify(dataToSave)
             });
             if (!response.ok) {
                 const error = await response.json();
-                throw new Error(`Sheets API Error: ${error.error.message}`);
+                throw new Error(`Firebase Error: ${error.error || 'Unknown error'}`);
             }
-            return await response.json();
+            const result = await response.json();
+            console.log(`✓ Saved ${tabId} to Firebase`);
+            return result;
         } catch (error) {
-            console.error('Error saving to Google Sheets:', error);
+            console.error('Error saving to Firebase:', error);
             throw error;
         }
     }
     async loadTabData(tabId) {
+        await this.initialize();
         try {
-            const sheetName = this.getSheetName(tabId);
-            const range = `${sheetName}!A1:Z1000`;
-            const url = `${this.baseUrl}/${this.spreadsheetId}/values/${range}?key=${this.apiKey}`;
+            const url = `${this.databaseURL}/prodSanityReport/${tabId}.json`;
             const response = await fetch(url);
             if (!response.ok) {
                 const error = await response.json();
-                throw new Error(`Sheets API Error: ${error.error.message}`);
+                throw new Error(`Firebase Error: ${error.error || 'Unknown error'}`);
             }
-            const result = await response.json();
-            return this.sheetDataToObject(tabId, result.values || []);
+            const data = await response.json();
+            if (data && typeof data === 'object') {
+                delete data._lastUpdated;
+                delete data._tabId;
+            }
+            return data;
         } catch (error) {
-            console.error('Error loading from Google Sheets:', error);
+            console.error('Error loading from Firebase:', error);
             return null;
         }
     }
     async getAllData() {
-        const allData = {};
-        for (const [tabId, sheetName] of Object.entries(GOOGLE_SHEETS_CONFIG.SHEET_NAMES)) {
-            try {
-                allData[tabId] = await this.loadTabData(tabId);
-            } catch (error) {
-                console.error(`Error loading ${tabId}:`, error);
-                allData[tabId] = null;
-            }
-        }
-        return allData;
-    }
-    objectToSheetData(tabId, data) {
-        const timestamp = new Date().toISOString();
-        // Simple approach: store entire data as JSON with timestamp
-        return [
-            ['Tab ID', 'Data JSON', 'Last Updated'],
-            [tabId, JSON.stringify(data), timestamp]
-        ];
-    }
-    sheetDataToObject(tabId, values) {
-        if (!values || values.length < 2) return {};
+        await this.initialize();
         try {
-            // Extract JSON from second row
-            const dataJson = values[1][1];
-            return JSON.parse(dataJson || '{}');
+            const url = `${this.databaseURL}/prodSanityReport.json`;
+            const response = await fetch(url);
+            if (!response.ok) return {};
+            const allData = await response.json();
+            return allData || {};
         } catch (error) {
-            console.error('Error parsing sheet data:', error);
+            console.error('Error loading all data from Firebase:', error);
             return {};
         }
     }
-    getSheetName(tabId) {
-        return GOOGLE_SHEETS_CONFIG.SHEET_NAMES[tabId] || tabId;
-    }
     isConfigured() {
-        return this.apiKey !== 'YOUR_API_KEY_HERE' && this.spreadsheetId !== 'YOUR_SPREADSHEET_ID_HERE';
+        return this.config.apiKey !== 'YOUR_FIREBASE_API_KEY' && 
+               this.config.databaseURL !== 'https://YOUR_PROJECT-default-rtdb.firebaseio.com';
+    }
+    async testConnection() {
+        try {
+            const url = `${this.databaseURL}/.json`;
+            const response = await fetch(url);
+            return response.ok;
+        } catch (error) {
+            console.error('Firebase connection test failed:', error);
+            return false;
+        }
     }
 }
-const sheetsAPI = new GoogleSheetsAPI(GOOGLE_SHEETS_CONFIG);
+const firebaseAPI = new FirebaseAPI(FIREBASE_CONFIG);
     </script>
 </head>
 <body>
@@ -4404,15 +4412,15 @@ const sheetsAPI = new GoogleSheetsAPI(GOOGLE_SHEETS_CONFIG);
                 // Save locally first
                 localStorage.setItem('tabSave_' + tabId, JSON.stringify(data));
                 
-                // Try to sync with Google Sheets for collaborative editing
-                if (syncEnabled && sheetsAPI.isConfigured()) {
+                // Try to sync with Firebase for collaborative editing
+                if (syncEnabled && firebaseAPI.isConfigured()) {
                     try {
-                        await sheetsAPI.saveTabData(tabId, data);
+                        await firebaseAPI.saveTabData(tabId, data);
                         lastSyncTime[tabId] = new Date().toISOString();
                         
                         if (btn) {
                             const orig = btn.innerHTML;
-                            btn.innerHTML = '&#10003; Synced to Google Sheets';
+                            btn.innerHTML = '&#10003; Synced to Firebase';
                             btn.classList.add('saved');
                             setTimeout(function() {
                                 btn.innerHTML = orig;
@@ -4429,15 +4437,15 @@ const sheetsAPI = new GoogleSheetsAPI(GOOGLE_SHEETS_CONFIG);
                             console.log('Could not refresh pivot tables:', e);
                         }
                         
-                        updateSyncStatus(true, 'Synced with Google Sheets');
+                        updateSyncStatus(true, 'Synced with Firebase');
                         return;
                     } catch (syncError) {
-                        console.warn('Google Sheets sync failed, saved locally:', syncError);
-                        updateSyncStatus(false, 'Sync failed - configure Google Sheets API');
+                        console.warn('Firebase sync failed, saved locally:', syncError);
+                        updateSyncStatus(false, 'Sync failed - configure Firebase');
                     }
-                } else if (!sheetsAPI.isConfigured()) {
-                    console.warn('Google Sheets API not configured. Update google-sheets-config.js');
-                    updateSyncStatus(false, 'Not configured - see google-sheets-config.js');
+                } else if (!firebaseAPI.isConfigured()) {
+                    console.warn('Firebase not configured. See FIREBASE_SETUP.md');
+                    updateSyncStatus(false, 'Not configured - see FIREBASE_SETUP.md');
                 }
                 
                 // Fallback: local save success message
@@ -4461,19 +4469,19 @@ const sheetsAPI = new GoogleSheetsAPI(GOOGLE_SHEETS_CONFIG);
             
             let data = null;
             
-            // Try to load from Google Sheets first
-            if (syncEnabled && sheetsAPI.isConfigured()) {
+            // Try to load from Firebase first
+            if (syncEnabled && firebaseAPI.isConfigured()) {
                 try {
-                    const sheetData = await sheetsAPI.loadTabData(tabId);
+                    const sheetData = await firebaseAPI.loadTabData(tabId);
                     if (sheetData && Object.keys(sheetData).length > 0) {
                         data = sheetData;
                         lastSyncTime[tabId] = new Date().toISOString();
-                        // Update localStorage with Google Sheets data
+                        // Update localStorage with Firebase data
                         localStorage.setItem('tabSave_' + tabId, JSON.stringify(data));
-                        updateSyncStatus(true, 'Loaded from Google Sheets');
+                        updateSyncStatus(true, 'Loaded from Firebase');
                     }
                 } catch (syncError) {
-                    console.warn('Failed to load from Google Sheets, using local data:', syncError);
+                    console.warn('Failed to load from Firebase, using local data:', syncError);
                     updateSyncStatus(false, 'Load failed - check configuration');
                 }
             }
@@ -4505,7 +4513,7 @@ const sheetsAPI = new GoogleSheetsAPI(GOOGLE_SHEETS_CONFIG);
         // Checks server every 5 seconds for changes from other users
         // ============================================================
         async function pollForUpdates() {
-            if (!sheetsAPI.isConfigured()) {
+            if (!firebaseAPI.isConfigured()) {
                 return; // Skip polling if not configured
             }
             
@@ -4513,7 +4521,7 @@ const sheetsAPI = new GoogleSheetsAPI(GOOGLE_SHEETS_CONFIG);
             
             for (const tabId of tabIds) {
                 try {
-                    const sheetData = await sheetsAPI.loadTabData(tabId);
+                    const sheetData = await firebaseAPI.loadTabData(tabId);
                     if (sheetData && Object.keys(sheetData).length > 0) {
                         // Check if we have local data to compare
                         const localData = localStorage.getItem('tabSave_' + tabId);
@@ -5222,19 +5230,24 @@ const sheetsAPI = new GoogleSheetsAPI(GOOGLE_SHEETS_CONFIG);
         }
         
         async function testServerConnection() {
-            // Check if Google Sheets API is configured
-            if (sheetsAPI.isConfigured()) {
+            // Check if Firebase is configured
+            if (firebaseAPI.isConfigured()) {
                 try {
-                    // Try a simple read to verify API works
-                    await sheetsAPI.loadTabData('prodSanityTab');
-                    updateSyncStatus('online', 'Google Sheets Connected');
-                    syncEnabled = true;
+                    // Try connection test
+                    const connected = await firebaseAPI.testConnection();
+                    if (connected) {
+                        updateSyncStatus('online', '✓ Firebase Connected');
+                        syncEnabled = true;
+                    } else {
+                        updateSyncStatus('offline', 'Firebase Connection Failed');
+                        syncEnabled = false;
+                    }
                 } catch (error) {
-                    updateSyncStatus('offline', 'Google Sheets Error - Check Config');
+                    updateSyncStatus('offline', 'Firebase Error - Check Config');
                     syncEnabled = false;
                 }
             } else {
-                updateSyncStatus('offline', 'Not Configured - See google-sheets-config.js');
+                updateSyncStatus('offline', 'Not Configured - See FIREBASE_SETUP.md');
                 syncEnabled = false;
             }
         }

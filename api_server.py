@@ -1,12 +1,10 @@
 """
 Flask API Server for Test Execution Reports
-Serves data from PostgreSQL database to HTML frontend
+Collaborative editing powered by JSON file storage
 """
 
 from flask import Flask, jsonify, request, send_from_directory
 from flask_cors import CORS
-import psycopg2
-from psycopg2.extras import RealDictCursor
 from datetime import datetime
 import os
 import json
@@ -17,17 +15,27 @@ CORS(app)  # Enable CORS for all routes
 # Shared data storage file
 SHARED_DATA_FILE = 'shared_report_data.json'
 
-# Database configuration
-DB_CONFIG = {
-    'host': 'localhost',
-    'port': 5432,
-    'database': 'myisp_tools',
-    'user': 'postgres',
-    'password': 'postgres123'
-}
+# Optional: Database configuration (only needed for historical reports)
+# Collaborative sync does NOT require database
+try:
+    import psycopg2
+    from psycopg2.extras import RealDictCursor
+    DB_CONFIG = {
+        'host': 'localhost',
+        'port': 5432,
+        'database': 'myisp_tools',
+        'user': 'postgres',
+        'password': 'postgres123'
+    }
+    DB_AVAILABLE = True
+except ImportError:
+    DB_AVAILABLE = False
+    print("⚠️  Database modules not installed. Collaborative sync will work without database.")
 
 def get_db_connection():
-    """Create database connection"""
+    """Create database connection (optional - only for historical reports)"""
+    if not DB_AVAILABLE:
+        return None
     try:
         conn = psycopg2.connect(**DB_CONFIG)
         return conn
@@ -267,8 +275,18 @@ def get_all_shared_data():
         return jsonify({'success': False, 'error': str(e)}), 500
 
 if __name__ == '__main__':
-    print("🚀 Starting API Server...")
-    print(f"📊 Database: {DB_CONFIG['database']} @ {DB_CONFIG['host']}:{DB_CONFIG['port']}")
+    print("🚀 Starting Collaborative Live Report API Server...")
+    print(f"💾 Storage: {SHARED_DATA_FILE} (JSON file)")
+    if DB_AVAILABLE:
+        print(f"📊 Database: Optional - Available for historical reports")
+    else:
+        print(f"📊 Database: Not installed (not needed for collaboration)")
     print(f"🌐 Server: http://localhost:5000")
-    print(f"📡 API Endpoint: http://localhost:5000/api/test-data/latest")
+    print(f"📡 Collaborative API: http://localhost:5000/api/shared-data")
+    print(f"✅ Ready for collaborative editing!s")
+    else:
+        print(f"📊 Database: Not installed (not needed for collaboration)")
+    print(f"🌐 Server: http://localhost:5000")
+    print(f"📡 Collaborative API: http://localhost:5000/api/shared-data")
+    print(f"✅ Ready for collaborative editing!")
     app.run(debug=True, host='0.0.0.0', port=5000)
