@@ -5151,26 +5151,41 @@ const firebaseAPI = new FirebaseAPI(FIREBASE_CONFIG);
             console.log('firebaseAPI.isConfigured():', firebaseAPI.isConfigured());
             console.log('Active tab:', active.id);
             
-            // LOAD latest data from Firebase first, then export
+            // CRITICAL FIX: Load ALL editable tabs from Firebase, not just active one
+            // This ensures all tabs have latest data before building the workbook
             if (syncEnabled && firebaseAPI.isConfigured()) {
                 try {
-                    const tabId = active.id;
-                    console.log('Loading latest data from Firebase before export...');
-                    await loadTabData(tabId);
-                    console.log('✓ Loaded latest data from Firebase');
+                    const editableTabs = ['prodSanityTab', 'prodUSSanityTab', 'insprintStatusTab', 'readyForProdBugTab'];
+                    console.log('Loading ALL tabs from Firebase to ensure complete data...');
                     
-                    // Debug: Show first few form values after load
-                    const tab = document.getElementById(tabId);
-                    if (tab) {
-                        const firstValues = [];
-                        tab.querySelectorAll('select, input[type="text"]').forEach(function(el, i) {
-                            if (i < 15) firstValues.push(`[${i}]="${el.value}"`);
-                        });
-                        console.log('First 15 form values after load:', firstValues.join(', '));
+                    for (const tabId of editableTabs) {
+                        const tab = document.getElementById(tabId);
+                        if (tab) {
+                            console.log(`Loading ${tabId}...`);
+                            const firebaseData = await firebaseAPI.loadTabData(tabId);
+                            if (firebaseData && Object.keys(firebaseData).length > 0) {
+                                console.log(`  ✓ Got ${Object.keys(firebaseData).length} values from Firebase`);
+                                
+                                // Apply data directly to DOM elements
+                                let updated = 0;
+                                tab.querySelectorAll('select, input[type="text"]').forEach(function(el, i) {
+                                    if (firebaseData[i] !== undefined) {
+                                        el.value = firebaseData[i];
+                                        // Trigger change event to ensure any listeners fire
+                                        el.dispatchEvent(new Event('change', { bubbles: true }));
+                                        updated++;
+                                    }
+                                });
+                                console.log(`  ✓ Updated ${updated} form elements`);
+                            } else {
+                                console.log(`  ⚠ No data in Firebase for ${tabId}`);
+                            }
+                        }
                     }
                     
-                    // Give DOM time to update
-                    await new Promise(resolve => setTimeout(resolve, 100));
+                    console.log('✓ All tabs loaded from Firebase');
+                    // Give extra time for DOM to fully update and any event handlers to fire
+                    await new Promise(resolve => setTimeout(resolve, 300));
                 } catch (e) {
                     console.error('Could not load from Firebase before export:', e);
                 }
@@ -5188,26 +5203,48 @@ const firebaseAPI = new FirebaseAPI(FIREBASE_CONFIG);
         async function exportAllTabsToExcel() {
             if (typeof ExcelJS === 'undefined') { alert('Excel export library not loaded. Please check internet connectivity.'); return; }
             
-            // LOAD latest data from Firebase for all tabs first, then export
+            console.log('=== EXPORT ALL TABS DEBUG ===');
+            
+            // CRITICAL FIX: Load ALL editable tabs from Firebase with direct DOM updates
             if (syncEnabled && firebaseAPI.isConfigured()) {
                 const tabIds = ['prodSanityTab', 'prodUSSanityTab', 'insprintStatusTab', 'readyForProdBugTab'];
-                console.log('Loading latest data from Firebase for all tabs before export...');
+                console.log('Loading ALL tabs from Firebase before export...');
+                
                 for (const tabId of tabIds) {
                     try {
-                        await loadTabData(tabId);
+                        const tab = document.getElementById(tabId);
+                        if (tab) {
+                            console.log(`Loading ${tabId}...`);
+                            const firebaseData = await firebaseAPI.loadTabData(tabId);
+                            if (firebaseData && Object.keys(firebaseData).length > 0) {
+                                console.log(`  ✓ Got ${Object.keys(firebaseData).length} values from Firebase`);
+                                
+                                // Apply data directly to DOM elements
+                                let updated = 0;
+                                tab.querySelectorAll('select, input[type="text"]').forEach(function(el, i) {
+                                    if (firebaseData[i] !== undefined) {
+                                        el.value = firebaseData[i];
+                                        el.dispatchEvent(new Event('change', { bubbles: true }));
+                                        updated++;
+                                    }
+                                });
+                                console.log(`  ✓ Updated ${updated} form elements`);
+                            }
+                        }
                     } catch (e) {
-                        console.warn(`Could not load ${tabId} from Firebase:`, e);
+                        console.error(`Could not load ${tabId} from Firebase:`, e);
                     }
                 }
-                console.log('✓ Loaded all tabs from Firebase');
-                // Give DOM time to update
-                await new Promise(resolve => setTimeout(resolve, 200));
+                console.log('✓ All tabs loaded from Firebase');
+                // Give extra time for DOM to fully update
+                await new Promise(resolve => setTimeout(resolve, 300));
             }
             
             const wb = await _buildWorkbook(TAB_PANELS);
             if (wb.worksheets.length === 0) { alert('No data to export.'); return; }
             const date = new Date().toLocaleDateString('en-GB').split('/').join('-');
             await _downloadWorkbook(wb, 'Prod Sanity Report - ' + date + '.xlsx');
+            console.log('=== EXPORT ALL COMPLETE ===');
         }
 
         // Initialize on page load
