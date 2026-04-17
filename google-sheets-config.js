@@ -12,11 +12,11 @@
 
 const GOOGLE_SHEETS_CONFIG = {
     // STEP 1: Replace with your Google Sheets API Key
-    API_KEY: 'YOUR_API_KEY_HERE',
+    API_KEY: 'AIzaSyCqVIcsGui9z0X2BUa3UJmRSnfpHII3YfA',
     
     // STEP 2: Replace with your Spreadsheet ID
     // (from URL: https://docs.google.com/spreadsheets/d/SPREADSHEET_ID/edit)
-    SPREADSHEET_ID: 'YOUR_SPREADSHEET_ID_HERE',
+    SPREADSHEET_ID: '1hKJxhyYu7XiA0rG21zW_DTv_7IX9Cot3GXLnEHVrNTs',
     
     // Sheet names for different tabs
     SHEET_NAMES: {
