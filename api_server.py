@@ -9,9 +9,13 @@ import psycopg2
 from psycopg2.extras import RealDictCursor
 from datetime import datetime
 import os
+import json
 
 app = Flask(__name__)
 CORS(app)  # Enable CORS for all routes
+
+# Shared data storage file
+SHARED_DATA_FILE = 'shared_report_data.json'
 
 # Database configuration
 DB_CONFIG = {
@@ -198,6 +202,64 @@ def health_check():
         return jsonify({'status': 'healthy', 'database': 'connected'})
     else:
         return jsonify({'status': 'unhealthy', 'database': 'disconnected'}), 500
+
+@app.route('/api/shared-data/<tab_id>', methods=['GET'])
+def get_shared_data(tab_id):
+    """Get shared data for a specific tab"""
+    try:
+        if os.path.exists(SHARED_DATA_FILE):
+            with open(SHARED_DATA_FILE, 'r') as f:
+                all_data = json.load(f)
+                tab_data = all_data.get(tab_id, {})
+                return jsonify({
+                    'success': True,
+                    'data': tab_data,
+                    'timestamp': all_data.get(f'{tab_id}_timestamp', None)
+                })
+        return jsonify({'success': True, 'data': {}, 'timestamp': None})
+    except Exception as e:
+        return jsonify({'success': False, 'error': str(e)}), 500
+
+@app.route('/api/shared-data/<tab_id>', methods=['POST'])
+def save_shared_data(tab_id):
+    """Save shared data for a specific tab"""
+    try:
+        data = request.get_json()
+        
+        # Load existing data
+        all_data = {}
+        if os.path.exists(SHARED_DATA_FILE):
+            with open(SHARED_DATA_FILE, 'r') as f:
+                all_data = json.load(f)
+        
+        # Update tab data
+        all_data[tab_id] = data.get('data', {})
+        all_data[f'{tab_id}_timestamp'] = datetime.now().isoformat()
+        all_data[f'{tab_id}_user'] = data.get('user', 'Anonymous')
+        
+        # Save back to file
+        with open(SHARED_DATA_FILE, 'w') as f:
+            json.dump(all_data, f, indent=2)
+        
+        return jsonify({
+            'success': True,
+            'message': 'Data saved successfully',
+            'timestamp': all_data[f'{tab_id}_timestamp']
+        })
+    except Exception as e:
+        return jsonify({'success': False, 'error': str(e)}), 500
+
+@app.route('/api/shared-data', methods=['GET'])
+def get_all_shared_data():
+    """Get all shared data for all tabs"""
+    try:
+        if os.path.exists(SHARED_DATA_FILE):
+            with open(SHARED_DATA_FILE, 'r') as f:
+                all_data = json.load(f)
+                return jsonify({'success': True, 'data': all_data})
+        return jsonify({'success': True, 'data': {}})
+    except Exception as e:
+        return jsonify({'success': False, 'error': str(e)}), 500
 
 if __name__ == '__main__':
     print("🚀 Starting API Server...")
