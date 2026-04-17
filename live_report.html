@@ -1136,6 +1136,7 @@ const firebaseAPI = new FirebaseAPI(FIREBASE_CONFIG);
             </select>
         </div>
         <button class="reset-btn" onclick="resetPSFilters()">&#8635; Reset Filters</button>
+        <button class="save-btn" onclick="loadTabData('prodSanityTab')" style="background:#10b981;border-color:#059669;" title="Load latest data from Firebase">&#128260; Reload from Firebase</button>
         <button class="save-btn" onclick="saveTabData('prodSanityTab', this)">&#128190; Save</button>
         <button class="export-btn" onclick="exportCurrentTabToExcel()" title="Export current tab to Excel (.xlsx)">&#128229; Export Tab (.xlsx)</button>
         <button class="export-all-btn" onclick="exportAllTabsToExcel()" title="Export all 6 tabs to Excel workbook (.xlsx)">&#128194; Export All Tabs (.xlsx)</button>
