@@ -5132,6 +5132,25 @@ const firebaseAPI = new FirebaseAPI(FIREBASE_CONFIG);
                 return el && el.classList.contains('active');
             });
             if (!active) return;
+            
+            // Force save current tab before export to ensure latest data
+            if (syncEnabled && firebaseAPI.isConfigured()) {
+                try {
+                    const tabId = active.id;
+                    const tab = document.getElementById(tabId);
+                    if (tab) {
+                        const data = {};
+                        tab.querySelectorAll('select, input[type="text"]').forEach(function(el, i) {
+                            data[i] = el.value;
+                        });
+                        await firebaseAPI.saveTabData(tabId, data);
+                        console.log('✓ Saved current data before export');
+                    }
+                } catch (e) {
+                    console.warn('Could not save before export:', e);
+                }
+            }
+            
             const wb = await _buildWorkbook([active]);
             if (wb.worksheets.length === 0) { alert('No data to export.'); return; }
             const date = new Date().toLocaleDateString('en-GB').split('/').join('-');
@@ -5140,6 +5159,27 @@ const firebaseAPI = new FirebaseAPI(FIREBASE_CONFIG);
 
         async function exportAllTabsToExcel() {
             if (typeof ExcelJS === 'undefined') { alert('Excel export library not loaded. Please check internet connectivity.'); return; }
+            
+            // Force save all tabs before export to ensure latest data
+            if (syncEnabled && firebaseAPI.isConfigured()) {
+                const tabIds = ['prodSanityTab', 'prodUSSanityTab', 'insprintStatusTab', 'readyForProdBugTab'];
+                for (const tabId of tabIds) {
+                    try {
+                        const tab = document.getElementById(tabId);
+                        if (tab) {
+                            const data = {};
+                            tab.querySelectorAll('select, input[type="text"]').forEach(function(el, i) {
+                                data[i] = el.value;
+                            });
+                            await firebaseAPI.saveTabData(tabId, data);
+                        }
+                    } catch (e) {
+                        console.warn(`Could not save ${tabId} before export:`, e);
+                    }
+                }
+                console.log('✓ Saved all tabs before export');
+            }
+            
             const wb = await _buildWorkbook(TAB_PANELS);
             if (wb.worksheets.length === 0) { alert('No data to export.'); return; }
             const date = new Date().toLocaleDateString('en-GB').split('/').join('-');
