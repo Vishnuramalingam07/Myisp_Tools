@@ -11,13 +11,14 @@
 // 7. Copy the firebaseConfig object and paste below
 
 const FIREBASE_CONFIG = {
-    apiKey: "YOUR_FIREBASE_API_KEY",
-    authDomain: "YOUR_PROJECT.firebaseapp.com",
-    databaseURL: "https://YOUR_PROJECT-default-rtdb.firebaseio.com",
-    projectId: "YOUR_PROJECT_ID",
-    storageBucket: "YOUR_PROJECT.appspot.com",
-    messagingSenderId: "YOUR_MESSAGING_SENDER_ID",
-    appId: "YOUR_APP_ID"
+    apiKey: "AIzaSyB_9XEWyPOsM4p8aCdgHo4zOljH-eGPLdM",
+    authDomain: "myisptools.firebaseapp.com",
+    databaseURL: "https://myisptools-default-rtdb.firebaseio.com",
+    projectId: "myisptools",
+    storageBucket: "myisptools.firebasestorage.app",
+    messagingSenderId: "231946416648",
+    appId: "1:231946416648:web:8123b8e35ab43c0b2997bd",
+    measurementId: "G-8166Z09Z8B"
 };
 
 // ============================================
