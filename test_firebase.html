@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Firebase Connection Test</title>
+    <style>
+        body { font-family: Arial; padding: 20px; background: #f5f5f5; }
+        .test { background: white; padding: 20px; margin: 10px 0; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
+        .success { color: #059669; font-weight: bold; }
+        .error { color: #dc2626; font-weight: bold; }
+        .pending { color: #d97706; font-weight: bold; }
+        pre { background: #f3f4f6; padding: 10px; border-radius: 4px; overflow-x: auto; }
+    </style>
+</head>
+<body>
+    <h1>🔥 Firebase Connection Test</h1>
+    
+    <div class="test">
+        <h3>Test 1: Configuration Check</h3>
+        <div id="test1" class="pending">Testing...</div>
+    </div>
+    
+    <div class="test">
+        <h3>Test 2: Database Connection</h3>
+        <div id="test2" class="pending">Testing...</div>
+    </div>
+    
+    <div class="test">
+        <h3>Test 3: Read Permission</h3>
+        <div id="test3" class="pending">Testing...</div>
+    </div>
+    
+    <div class="test">
+        <h3>Test 4: Write Permission</h3>
+        <div id="test4" class="pending">Testing...</div>
+    </div>
+    
+    <div class="test">
+        <h3>Debug Info</h3>
+        <pre id="debug"></pre>
+    </div>
+
+    <script>
+        const FIREBASE_CONFIG = {
+            apiKey: "AIzaSyB_9XEWyPOsM4p8aCdgHo4zOljH-eGPLdM",
+            authDomain: "myisptools.firebaseapp.com",
+            databaseURL: "https://myisptools-default-rtdb.firebaseio.com",
+            projectId: "myisptools",
+            storageBucket: "myisptools.firebasestorage.app",
+            messagingSenderId: "231946416648",
+            appId: "1:231946416648:web:8123b8e35ab43c0b2997bd",
+            measurementId: "G-8166Z09Z8B"
+        };
+
+        const databaseURL = FIREBASE_CONFIG.databaseURL;
+        const debugInfo = [];
+
+        // Test 1: Configuration
+        function test1() {
+            const configured = FIREBASE_CONFIG.databaseURL !== "https://YOUR_PROJECT-default-rtdb.firebaseio.com";
+            document.getElementById('test1').innerHTML = configured 
+                ? '<span class="success">✅ Configuration loaded correctly</span>'
+                : '<span class="error">❌ Configuration not set</span>';
+            debugInfo.push(`Config check: ${configured}`);
+            debugInfo.push(`Database URL: ${FIREBASE_CONFIG.databaseURL}`);
+        }
+
+        // Test 2: Connection
+        async function test2() {
+            try {
+                const response = await fetch(`${databaseURL}/.json`);
+                const status = response.status;
+                debugInfo.push(`Connection status: ${status}`);
+                
+                if (response.ok) {
+                    document.getElementById('test2').innerHTML = '<span class="success">✅ Database connection successful</span>';
+                } else {
+                    document.getElementById('test2').innerHTML = `<span class="error">❌ Connection failed (${status})</span>`;
+                }
+            } catch (error) {
+                document.getElementById('test2').innerHTML = `<span class="error">❌ Connection error: ${error.message}</span>`;
+                debugInfo.push(`Connection error: ${error.message}`);
+            }
+        }
+
+        // Test 3: Read
+        async function test3() {
+            try {
+                const response = await fetch(`${databaseURL}/prodSanityReport.json`);
+                const status = response.status;
+                const data = await response.json();
+                
+                debugInfo.push(`Read status: ${status}`);
+                debugInfo.push(`Read data: ${JSON.stringify(data)}`);
+                
+                if (response.ok) {
+                    document.getElementById('test3').innerHTML = '<span class="success">✅ Read permission OK</span>';
+                } else {
+                    document.getElementById('test3').innerHTML = `<span class="error">❌ Read failed (${status})</span>`;
+                }
+            } catch (error) {
+                document.getElementById('test3').innerHTML = `<span class="error">❌ Read error: ${error.message}</span>`;
+                debugInfo.push(`Read error: ${error.message}`);
+            }
+        }
+
+        // Test 4: Write
+        async function test4() {
+            try {
+                const testData = {
+                    message: "Test write",
+                    timestamp: new Date().toISOString()
+                };
+                
+                const response = await fetch(`${databaseURL}/testConnection.json`, {
+                    method: 'PUT',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(testData)
+                });
+                
+                const status = response.status;
+                const result = await response.json();
+                
+                debugInfo.push(`Write status: ${status}`);
+                debugInfo.push(`Write result: ${JSON.stringify(result)}`);
+                
+                if (response.ok) {
+                    document.getElementById('test4').innerHTML = '<span class="success">✅ Write permission OK</span>';
+                    // Clean up
+                    await fetch(`${databaseURL}/testConnection.json`, { method: 'DELETE' });
+                } else {
+                    document.getElementById('test4').innerHTML = `<span class="error">❌ Write failed (${status})</span>`;
+                }
+            } catch (error) {
+                document.getElementById('test4').innerHTML = `<span class="error">❌ Write error: ${error.message}</span>`;
+                debugInfo.push(`Write error: ${error.message}`);
+            }
+        }
+
+        // Run all tests
+        async function runTests() {
+            test1();
+            await test2();
+            await test3();
+            await test4();
+            
+            document.getElementById('debug').textContent = debugInfo.join('\n');
+        }
+
+        // Auto-run on load
+        runTests();
+    </script>
+</body>
+</html>
