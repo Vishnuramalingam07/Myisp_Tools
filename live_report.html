@@ -4468,20 +4468,26 @@ const firebaseAPI = new FirebaseAPI(FIREBASE_CONFIG);
 
         async function loadTabData(tabId) {
             const tab = document.getElementById(tabId);
-            if (!tab) return;
+            if (!tab) {
+                console.error('loadTabData: Tab not found:', tabId);
+                return;
+            }
             
+            console.log('loadTabData: Loading data for', tabId);
             let data = null;
             
             // Try to load from Firebase first
             if (syncEnabled && firebaseAPI.isConfigured()) {
                 try {
                     const sheetData = await firebaseAPI.loadTabData(tabId);
+                    console.log('loadTabData: Received from Firebase:', sheetData ? Object.keys(sheetData).length + ' keys' : 'null');
                     if (sheetData && Object.keys(sheetData).length > 0) {
                         data = sheetData;
                         lastSyncTime[tabId] = new Date().toISOString();
                         // Update localStorage with Firebase data
                         localStorage.setItem('tabSave_' + tabId, JSON.stringify(data));
                         updateSyncStatus(true, 'Loaded from Firebase');
+                        console.log('loadTabData: Sample data - [7]:', data[7], '[9]:', data[9], '[11]:', data[11]);
                     }
                 } catch (syncError) {
                     console.warn('Failed to load from Firebase, using local data:', syncError);
@@ -4495,6 +4501,7 @@ const firebaseAPI = new FirebaseAPI(FIREBASE_CONFIG);
                 if (raw) {
                     try {
                         data = JSON.parse(raw);
+                        console.log('loadTabData: Loaded from localStorage');
                     } catch(e) {
                         console.error('Failed to parse local data:', e);
                     }
@@ -4503,11 +4510,16 @@ const firebaseAPI = new FirebaseAPI(FIREBASE_CONFIG);
             
             // Apply data to form elements
             if (data) {
+                let applied = 0;
                 tab.querySelectorAll('select, input[type="text"]').forEach(function(el, i) {
                     if (data[i] !== undefined) {
                         el.value = data[i];
+                        applied++;
                     }
                 });
+                console.log(`loadTabData: Applied ${applied} values to form elements`);
+            } else {
+                console.warn('loadTabData: No data to apply');
             }
         }
 
@@ -5134,6 +5146,11 @@ const firebaseAPI = new FirebaseAPI(FIREBASE_CONFIG);
             });
             if (!active) return;
             
+            console.log('=== EXPORT DEBUG ===');
+            console.log('syncEnabled:', syncEnabled);
+            console.log('firebaseAPI.isConfigured():', firebaseAPI.isConfigured());
+            console.log('Active tab:', active.id);
+            
             // LOAD latest data from Firebase first, then export
             if (syncEnabled && firebaseAPI.isConfigured()) {
                 try {
@@ -5141,17 +5158,31 @@ const firebaseAPI = new FirebaseAPI(FIREBASE_CONFIG);
                     console.log('Loading latest data from Firebase before export...');
                     await loadTabData(tabId);
                     console.log('✓ Loaded latest data from Firebase');
+                    
+                    // Debug: Show first few form values after load
+                    const tab = document.getElementById(tabId);
+                    if (tab) {
+                        const firstValues = [];
+                        tab.querySelectorAll('select, input[type="text"]').forEach(function(el, i) {
+                            if (i < 15) firstValues.push(`[${i}]="${el.value}"`);
+                        });
+                        console.log('First 15 form values after load:', firstValues.join(', '));
+                    }
+                    
                     // Give DOM time to update
                     await new Promise(resolve => setTimeout(resolve, 100));
                 } catch (e) {
-                    console.warn('Could not load from Firebase before export:', e);
+                    console.error('Could not load from Firebase before export:', e);
                 }
+            } else {
+                console.warn('Skipping Firebase load - syncEnabled:', syncEnabled, 'configured:', firebaseAPI.isConfigured());
             }
             
             const wb = await _buildWorkbook([active]);
             if (wb.worksheets.length === 0) { alert('No data to export.'); return; }
             const date = new Date().toLocaleDateString('en-GB').split('/').join('-');
             await _downloadWorkbook(wb, active.name + ' - ' + date + '.xlsx');
+            console.log('=== EXPORT COMPLETE ===');
         }
 
         async function exportAllTabsToExcel() {
