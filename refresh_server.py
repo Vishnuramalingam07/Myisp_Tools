@@ -43,8 +43,9 @@ def run_refresh():
             stdout=subprocess.PIPE,
             stderr=subprocess.PIPE,
             text=True,
-            bufsize=1,
-            universal_newlines=True
+            encoding='utf-8',
+            errors='replace',  # Replace problematic characters instead of crashing
+            bufsize=1
         )
         
         # Capture output in real-time
