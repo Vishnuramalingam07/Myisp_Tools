@@ -5068,6 +5068,65 @@ const firebaseAPI = new FirebaseAPI(FIREBASE_CONFIG);
             'Ready for Prod Bugs'
         ];
 
+        /**
+         * NEW: Build workbook directly from Firebase data, bypassing DOM read issues
+         * Merges static table structure with live Firebase values
+         */
+        async function _buildWorkbookFromFirebase(tabPanels, firebaseData) {
+            const wb = new ExcelJS.Workbook();
+            wb.creator  = 'Prod Sanity Report';
+            wb.created  = new Date();
+            wb.modified = new Date();
+
+            console.log('Building workbook from Firebase data:', Object.keys(firebaseData).length, 'values');
+
+            for (const tabInfo of tabPanels) {
+                const tabEl = document.getElementById(tabInfo.id);
+                if (!tabEl) continue;
+
+                const tables = tabEl.querySelectorAll('table.report-table');
+                if (!tables || tables.length === 0) continue;
+
+                // For each table, clone it and inject Firebase values into form elements
+                for (const table of tables) {
+                    // Clone the table to avoid modifying the DOM
+                    const clonedTable = table.cloneNode(true);
+                    
+                    // Get all form elements (selects and inputs)
+                    const formElements = clonedTable.querySelectorAll('select, input[type="text"]');
+                    
+                    console.log(`Injecting ${formElements.length} Firebase values into table...`);
+                    
+                    // Apply Firebase data to cloned form elements
+                    formElements.forEach(function(el, index) {
+                        if (firebaseData[index] !== undefined) {
+                            // For select elements, set the selected option
+                            if (el.tagName === 'SELECT') {
+                                el.value = firebaseData[index];
+                                // Also mark the correct option as selected in the HTML
+                                Array.from(el.options).forEach(function(opt) {
+                                    opt.selected = opt.value === firebaseData[index];
+                                });
+                            } else {
+                                // For input elements, set the value
+                                el.value = firebaseData[index];
+                            }
+                            console.log(`  [${index}] = "${firebaseData[index]}"`);
+                        }
+                    });
+                    
+                    // Now export this modified table using existing logic
+                    const cleaned = _cleanTable(clonedTable);
+                    const cells = _parseTable(cleaned);
+                    if (cells.length === 0) continue;
+
+                    await _tableToSheet(wb, tabInfo.name, clonedTable);
+                }
+            }
+
+            return wb;
+        }
+
         async function _buildWorkbook(tabPanels) {
             const wb = new ExcelJS.Workbook();
             wb.creator  = 'Prod Sanity Report';
@@ -5146,53 +5205,34 @@ const firebaseAPI = new FirebaseAPI(FIREBASE_CONFIG);
             });
             if (!active) return;
             
-            console.log('=== EXPORT DEBUG ===');
-            console.log('syncEnabled:', syncEnabled);
-            console.log('firebaseAPI.isConfigured():', firebaseAPI.isConfigured());
+            console.log('=== FIREBASE-DIRECT EXPORT ===');
             console.log('Active tab:', active.id);
             
-            // CRITICAL FIX: Load ALL editable tabs from Firebase, not just active one
-            // This ensures all tabs have latest data before building the workbook
+            // NEW APPROACH: Export directly from Firebase data
             if (syncEnabled && firebaseAPI.isConfigured()) {
                 try {
-                    const editableTabs = ['prodSanityTab', 'prodUSSanityTab', 'insprintStatusTab', 'readyForProdBugTab'];
-                    console.log('Loading ALL tabs from Firebase to ensure complete data...');
-                    
-                    for (const tabId of editableTabs) {
-                        const tab = document.getElementById(tabId);
-                        if (tab) {
-                            console.log(`Loading ${tabId}...`);
-                            const firebaseData = await firebaseAPI.loadTabData(tabId);
-                            if (firebaseData && Object.keys(firebaseData).length > 0) {
-                                console.log(`  ✓ Got ${Object.keys(firebaseData).length} values from Firebase`);
-                                
-                                // Apply data directly to DOM elements
-                                let updated = 0;
-                                tab.querySelectorAll('select, input[type="text"]').forEach(function(el, i) {
-                                    if (firebaseData[i] !== undefined) {
-                                        el.value = firebaseData[i];
-                                        // Trigger change event to ensure any listeners fire
-                                        el.dispatchEvent(new Event('change', { bubbles: true }));
-                                        updated++;
-                                    }
-                                });
-                                console.log(`  ✓ Updated ${updated} form elements`);
-                            } else {
-                                console.log(`  ⚠ No data in Firebase for ${tabId}`);
-                            }
-                        }
+                    console.log('Loading from Firebase...');
+                    const firebaseData = await firebaseAPI.loadTabData(active.id);
+                    if (firebaseData && Object.keys(firebaseData).length > 0) {
+                        console.log(`✓ Got ${Object.keys(firebaseData).length} values from Firebase`);
+                        
+                        // Build workbook directly from Firebase data merged with table structure
+                        const wb = await _buildWorkbookFromFirebase([active], firebaseData);
+                        if (wb.worksheets.length === 0) { alert('No data to export.'); return; }
+                        const date = new Date().toLocaleDateString('en-GB').split('/').join('-');
+                        await _downloadWorkbook(wb, active.name + ' - ' + date + '.xlsx');
+                        console.log('=== EXPORT COMPLETE ===');
+                        return;
+                    } else {
+                        console.warn('No Firebase data found, falling back to HTML table export');
                     }
-                    
-                    console.log('✓ All tabs loaded from Firebase');
-                    // Give extra time for DOM to fully update and any event handlers to fire
-                    await new Promise(resolve => setTimeout(resolve, 300));
                 } catch (e) {
-                    console.error('Could not load from Firebase before export:', e);
+                    console.error('Firebase export failed:', e);
+                    alert('Could not export from Firebase. Falling back to HTML table.');
                 }
-            } else {
-                console.warn('Skipping Firebase load - syncEnabled:', syncEnabled, 'configured:', firebaseAPI.isConfigured());
             }
             
+            // Fallback: Use original method if Firebase not available
             const wb = await _buildWorkbook([active]);
             if (wb.worksheets.length === 0) { alert('No data to export.'); return; }
             const date = new Date().toLocaleDateString('en-GB').split('/').join('-');
