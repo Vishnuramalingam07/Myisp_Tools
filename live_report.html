@@ -925,6 +925,73 @@
         }
         .refresh-btn:hover { background: #0e7490; }
         
+        .ado-refresh-btn {
+            padding: 5px 15px;
+            font-size: 11px;
+            background: #8b5cf6;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: 600;
+            position: relative;
+            overflow: hidden;
+        }
+        .ado-refresh-btn:hover { background: #7c3aed; }
+        .ado-refresh-btn:disabled {
+            background: #9ca3af;
+            cursor: not-allowed;
+        }
+        .ado-refresh-btn.loading {
+            background: #6366f1;
+        }
+        
+        .refresh-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.7);
+            z-index: 10000;
+            justify-content: center;
+            align-items: center;
+        }
+        .refresh-modal.show {
+            display: flex;
+        }
+        .refresh-modal-content {
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            max-width: 500px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            text-align: center;
+        }
+        .refresh-modal h3 {
+            color: #1f2937;
+            margin-bottom: 15px;
+            font-size: 18px;
+        }
+        .refresh-modal p {
+            color: #6b7280;
+            margin-bottom: 20px;
+            font-size: 13px;
+        }
+        .spinner {
+            display: inline-block;
+            width: 40px;
+            height: 40px;
+            border: 4px solid #e5e7eb;
+            border-top-color: #8b5cf6;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+        
     </style>
     <script src="https://cdn.jsdelivr.net/npm/exceljs@4.3.0/dist/exceljs.min.js"></script>
     <script>
@@ -1136,6 +1203,7 @@ const firebaseAPI = new FirebaseAPI(FIREBASE_CONFIG);
             </select>
         </div>
         <button class="reset-btn" onclick="resetPSFilters()">&#8635; Reset Filters</button>
+        <button class="ado-refresh-btn" onclick="refreshFromAzureDevOps()" title="Fetch fresh data from Azure DevOps">&#128260; Refresh from Azure DevOps</button>
         <button class="save-btn" onclick="loadTabData('prodSanityTab')" style="background:#10b981;border-color:#059669;" title="Load latest data from Firebase">&#128260; Reload from Firebase</button>
         <button class="save-btn" onclick="saveTabData('prodSanityTab', this)">&#128190; Save</button>
         <button class="export-btn" onclick="exportCurrentTabToExcel()" title="Export current tab to Excel (.xlsx)">&#128229; Export Tab (.xlsx)</button>
@@ -5440,5 +5508,137 @@ const firebaseAPI = new FirebaseAPI(FIREBASE_CONFIG);
             50% { opacity: 0.5; transform: scale(1.2); }
         }
     </style>
+
+    <!-- Refresh Modal -->
+    <div id="refreshModal" class="refresh-modal">
+        <div class="refresh-modal-content">
+            <div class="spinner"></div>
+            <h3>Refreshing Data from Azure DevOps</h3>
+            <p id="refreshStatus">Fetching latest test data... This may take 1-2 minutes.</p>
+        </div>
+    </div>
+
+    <script>
+        /**
+         * Azure DevOps Refresh Functions
+         * Triggers backend Python script to fetch fresh data from ADO
+         */
+        
+        const API_BASE_URL = 'http://localhost:5000';
+        
+        async function refreshFromAzureDevOps() {
+            const btn = event.target;
+            const modal = document.getElementById('refreshModal');
+            const statusText = document.getElementById('refreshStatus');
+            
+            // Disable button
+            btn.disabled = true;
+            btn.classList.add('loading');
+            btn.textContent = '⏳ Refreshing...';
+            
+            // Show modal
+            modal.classList.add('show');
+            statusText.textContent = 'Starting data refresh from Azure DevOps...';
+            
+            try {
+                // Trigger refresh
+                const response = await fetch(`${API_BASE_URL}/api/refresh`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' }
+                });
+                
+                if (!response.ok) {
+                    const errorData = await response.json();
+                    throw new Error(errorData.message || 'Failed to start refresh');
+                }
+                
+                statusText.textContent = 'Fetching test data from Azure DevOps... (Step 1/3)';
+                
+                // Poll for status
+                await pollRefreshStatus(statusText);
+                
+                // Success - reload page
+                statusText.textContent = '✅ Data refreshed successfully! Reloading page...';
+                setTimeout(() => {
+                    window.location.reload();
+                }, 1500);
+                
+            } catch (error) {
+                console.error('Refresh error:', error);
+                modal.classList.remove('show');
+                btn.disabled = false;
+                btn.classList.remove('loading');
+                btn.textContent = '🔄 Refresh from Azure DevOps';
+                
+                alert(`Failed to refresh data: ${error.message}\n\nMake sure the API server is running:\npython refresh_server.py`);
+            }
+        }
+        
+        async function pollRefreshStatus(statusText) {
+            return new Promise((resolve, reject) => {
+                let pollCount = 0;
+                const maxPolls = 120; // 2 minutes timeout
+                
+                const pollInterval = setInterval(async () => {
+                    try {
+                        const statusResponse = await fetch(`${API_BASE_URL}/api/status`);
+                        const status = await statusResponse.json();
+                        
+                        pollCount++;
+                        
+                        // Update status text based on output
+                        if (status.output && status.output.length > 0) {
+                            const lastLine = status.output[status.output.length - 1];
+                            if (lastLine.includes('Fetching')) {
+                                statusText.textContent = `${lastLine} (Step 2/3)`;
+                            } else if (lastLine.includes('Processing')) {
+                                statusText.textContent = `${lastLine} (Step 2/3)`;
+                            } else if (lastLine.includes('Generating')) {
+                                statusText.textContent = `${lastLine} (Step 3/3)`;
+                            }
+                        }
+                        
+                        // Check if completed
+                        if (!status.running) {
+                            clearInterval(pollInterval);
+                            
+                            if (status.last_status === 'success') {
+                                resolve();
+                            } else if (status.last_status === 'error') {
+                                reject(new Error(status.last_error || 'Refresh failed'));
+                            }
+                        }
+                        
+                        // Timeout check
+                        if (pollCount >= maxPolls) {
+                            clearInterval(pollInterval);
+                            reject(new Error('Refresh timeout - taking longer than expected'));
+                        }
+                        
+                    } catch (pollError) {
+                        clearInterval(pollInterval);
+                        reject(pollError);
+                    }
+                }, 1000); // Poll every second
+            });
+        }
+        
+        // Check if API server is available on page load
+        async function checkAPIServerStatus() {
+            try {
+                const response = await fetch(`${API_BASE_URL}/api/health`);
+                if (response.ok) {
+                    console.log('✓ API Server is running');
+                    return true;
+                }
+            } catch (error) {
+                console.warn('⚠️ API Server not running. Start with: python refresh_server.py');
+                return false;
+            }
+        }
+        
+        // Check API status on page load
+        checkAPIServerStatus();
+    </script>
 </body>
 </html>
