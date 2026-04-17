@@ -1025,7 +1025,8 @@ class FirebaseAPI {
     }
     async testConnection() {
         try {
-            const url = `${this.databaseURL}/.json`;
+            // Test the actual path we use, not root (root may be restricted)
+            const url = `${this.databaseURL}/prodSanityReport.json`;
             const response = await fetch(url);
             return response.ok;
         } catch (error) {
