@@ -125,17 +125,20 @@ def serve_static(path):
     return send_from_directory('.', path)
 
 if __name__ == '__main__':
+    # Get port from environment variable (Cloud Run compatibility)
+    port = int(os.environ.get('PORT', 5000))
+    
     print(f"\n{'='*80}")
     print("🚀 REPORT REFRESH API SERVER")
     print(f"{'='*80}")
     print("\n📡 Server Configuration:")
-    print("   • API Server: http://localhost:5000")
-    print("   • Live Report: http://localhost:5000/")
-    print("   • Health Check: http://localhost:5000/api/health")
-    print("   • Refresh Endpoint: http://localhost:5000/api/refresh")
-    print("   • Status Endpoint: http://localhost:5000/api/status")
+    print(f"   • API Server: http://localhost:{port}")
+    print(f"   • Live Report: http://localhost:{port}/")
+    print(f"   • Health Check: http://localhost:{port}/api/health")
+    print(f"   • Refresh Endpoint: http://localhost:{port}/api/refresh")
+    print(f"   • Status Endpoint: http://localhost:{port}/api/status")
     print("\n💡 Usage:")
-    print("   1. Open: http://localhost:5000/ in your browser")
+    print(f"   1. Open: http://localhost:{port}/ in your browser")
     print("   2. Click the '🔄 Refresh from Azure DevOps' button")
     print("   3. Wait for the script to complete")
     print("   4. Page will auto-reload with fresh data")
@@ -149,4 +152,4 @@ if __name__ == '__main__':
         print("   Install with: pip install flask-cors")
         print()
     
-    app.run(debug=True, host='0.0.0.0', port=5000, use_reloader=False)
+    app.run(debug=True, host='0.0.0.0', port=port, use_reloader=False)
