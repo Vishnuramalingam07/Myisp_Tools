@@ -5114,16 +5114,24 @@ const firebaseAPI = new FirebaseAPI(FIREBASE_CONFIG);
                         if (firebaseData[firebaseIndex] !== undefined) {
                             const value = firebaseData[firebaseIndex];
                             
-                            // For select elements, set the selected option
+                            // CRITICAL: Manipulate DOM attributes, not JS properties
+                            // Properties don't survive cloning in _cleanTable()
                             if (el.tagName === 'SELECT') {
-                                el.value = value;
-                                // Also mark the correct option as selected in the HTML
+                                // Remove 'selected' attribute from all options
                                 Array.from(el.options).forEach(function(opt) {
-                                    opt.selected = opt.value === value;
+                                    opt.removeAttribute('selected');
                                 });
+                                // Add 'selected' attribute to the matching option
+                                Array.from(el.options).forEach(function(opt) {
+                                    if (opt.value === value) {
+                                        opt.setAttribute('selected', 'selected');
+                                    }
+                                });
+                                el.value = value; // Also set property for immediate read
                             } else {
-                                // For input elements, set the value
-                                el.value = value;
+                                // For input elements, set the value attribute
+                                el.setAttribute('value', value);
+                                el.value = value; // Also set property
                             }
                             console.log(`  Table[${tableIndex}] = Firebase[${firebaseIndex}] = "${value}"`);
                         }
