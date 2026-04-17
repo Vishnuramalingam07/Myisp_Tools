@@ -5134,21 +5134,17 @@ const firebaseAPI = new FirebaseAPI(FIREBASE_CONFIG);
             });
             if (!active) return;
             
-            // Force save current tab before export to ensure latest data
+            // LOAD latest data from Firebase first, then export
             if (syncEnabled && firebaseAPI.isConfigured()) {
                 try {
                     const tabId = active.id;
-                    const tab = document.getElementById(tabId);
-                    if (tab) {
-                        const data = {};
-                        tab.querySelectorAll('select, input[type="text"]').forEach(function(el, i) {
-                            data[i] = el.value;
-                        });
-                        await firebaseAPI.saveTabData(tabId, data);
-                        console.log('✓ Saved current data before export');
-                    }
+                    console.log('Loading latest data from Firebase before export...');
+                    await loadTabData(tabId);
+                    console.log('✓ Loaded latest data from Firebase');
+                    // Give DOM time to update
+                    await new Promise(resolve => setTimeout(resolve, 100));
                 } catch (e) {
-                    console.warn('Could not save before export:', e);
+                    console.warn('Could not load from Firebase before export:', e);
                 }
             }
             
@@ -5161,24 +5157,20 @@ const firebaseAPI = new FirebaseAPI(FIREBASE_CONFIG);
         async function exportAllTabsToExcel() {
             if (typeof ExcelJS === 'undefined') { alert('Excel export library not loaded. Please check internet connectivity.'); return; }
             
-            // Force save all tabs before export to ensure latest data
+            // LOAD latest data from Firebase for all tabs first, then export
             if (syncEnabled && firebaseAPI.isConfigured()) {
                 const tabIds = ['prodSanityTab', 'prodUSSanityTab', 'insprintStatusTab', 'readyForProdBugTab'];
+                console.log('Loading latest data from Firebase for all tabs before export...');
                 for (const tabId of tabIds) {
                     try {
-                        const tab = document.getElementById(tabId);
-                        if (tab) {
-                            const data = {};
-                            tab.querySelectorAll('select, input[type="text"]').forEach(function(el, i) {
-                                data[i] = el.value;
-                            });
-                            await firebaseAPI.saveTabData(tabId, data);
-                        }
+                        await loadTabData(tabId);
                     } catch (e) {
-                        console.warn(`Could not save ${tabId} before export:`, e);
+                        console.warn(`Could not load ${tabId} from Firebase:`, e);
                     }
                 }
-                console.log('✓ Saved all tabs before export');
+                console.log('✓ Loaded all tabs from Firebase');
+                // Give DOM time to update
+                await new Promise(resolve => setTimeout(resolve, 200));
             }
             
             const wb = await _buildWorkbook(TAB_PANELS);
