@@ -4277,13 +4277,10 @@
         }
 
         // ============================================================
-        // COLLABORATIVE DATA SYNC - Configuration
+        // COLLABORATIVE DATA SYNC - Google Sheets Configuration
         // ============================================================
-        const API_BASE_URL = (window.location.protocol === 'file:' || 
-                             window.location.hostname === 'localhost' || 
-                             window.location.hostname === '127.0.0.1')
-            ? 'http://localhost:5000/api' 
-            : 'https://your-api-server.com/api'; // Update with your deployed API URL
+        // Configuration is now in google-sheets-config.js
+        // Make sure to update API_KEY and SPREADSHEET_ID there!
         
         let syncEnabled = true;
         let lastSyncTime = {};
@@ -4307,47 +4304,40 @@
                 // Save locally first
                 localStorage.setItem('tabSave_' + tabId, JSON.stringify(data));
                 
-                // Try to sync with server for collaborative editing
-                if (syncEnabled) {
+                // Try to sync with Google Sheets for collaborative editing
+                if (syncEnabled && sheetsAPI.isConfigured()) {
                     try {
-                        const response = await fetch(`${API_BASE_URL}/shared-data/${tabId}`, {
-                            method: 'POST',
-                            headers: {
-                                'Content-Type': 'application/json',
-                            },
-                            body: JSON.stringify({
-                                data: data,
-                                user: getUserName()
-                            })
-                        });
+                        await sheetsAPI.saveTabData(tabId, data);
+                        lastSyncTime[tabId] = new Date().toISOString();
                         
-                        if (response.ok) {
-                            const result = await response.json();
-                            lastSyncTime[tabId] = result.timestamp;
-                            
-                            if (btn) {
-                                const orig = btn.innerHTML;
-                                btn.innerHTML = '&#10003; Synced to All';
-                                btn.classList.add('saved');
-                                setTimeout(function() {
-                                    btn.innerHTML = orig;
-                                    btn.classList.remove('saved');
-                                }, 1500);
-                            }
-                            
-                            // Refresh pivot tables after save
-                            try {
-                                if (typeof refreshOverallStatus === 'function') {
-                                    refreshOverallStatus();
-                                }
-                            } catch (e) {
-                                console.log('Could not refresh pivot tables:', e);
-                            }
-                            return;
+                        if (btn) {
+                            const orig = btn.innerHTML;
+                            btn.innerHTML = '&#10003; Synced to Google Sheets';
+                            btn.classList.add('saved');
+                            setTimeout(function() {
+                                btn.innerHTML = orig;
+                                btn.classList.remove('saved');
+                            }, 1500);
                         }
+                        
+                        // Refresh pivot tables after save
+                        try {
+                            if (typeof refreshOverallStatus === 'function') {
+                                refreshOverallStatus();
+                            }
+                        } catch (e) {
+                            console.log('Could not refresh pivot tables:', e);
+                        }
+                        
+                        updateSyncStatus(true, 'Synced with Google Sheets');
+                        return;
                     } catch (syncError) {
-                        console.warn('Server sync failed, saved locally:', syncError);
+                        console.warn('Google Sheets sync failed, saved locally:', syncError);
+                        updateSyncStatus(false, 'Sync failed - configure Google Sheets API');
                     }
+                } else if (!sheetsAPI.isConfigured()) {
+                    console.warn('Google Sheets API not configured. Update google-sheets-config.js');
+                    updateSyncStatus(false, 'Not configured - see google-sheets-config.js');
                 }
                 
                 // Fallback: local save success message
@@ -4371,21 +4361,20 @@
             
             let data = null;
             
-            // Try to load from server first
-            if (syncEnabled) {
+            // Try to load from Google Sheets first
+            if (syncEnabled && sheetsAPI.isConfigured()) {
                 try {
-                    const response = await fetch(`${API_BASE_URL}/shared-data/${tabId}`);
-                    if (response.ok) {
-                        const result = await response.json();
-                        if (result.success && result.data && Object.keys(result.data).length > 0) {
-                            data = result.data;
-                            lastSyncTime[tabId] = result.timestamp;
-                            // Update localStorage with server data
-                            localStorage.setItem('tabSave_' + tabId, JSON.stringify(data));
-                        }
+                    const sheetData = await sheetsAPI.loadTabData(tabId);
+                    if (sheetData && Object.keys(sheetData).length > 0) {
+                        data = sheetData;
+                        lastSyncTime[tabId] = new Date().toISOString();
+                        // Update localStorage with Google Sheets data
+                        localStorage.setItem('tabSave_' + tabId, JSON.stringify(data));
+                        updateSyncStatus(true, 'Loaded from Google Sheets');
                     }
                 } catch (syncError) {
-                    console.warn('Failed to load from server, using local data:', syncError);
+                    console.warn('Failed to load from Google Sheets, using local data:', syncError);
+                    updateSyncStatus(false, 'Load failed - check configuration');
                 }
             }
             
@@ -4416,33 +4405,39 @@
         // Checks server every 5 seconds for changes from other users
         // ============================================================
         async function pollForUpdates() {
+            if (!sheetsAPI.isConfigured()) {
+                return; // Skip polling if not configured
+            }
+            
             const tabIds = ['prodSanityTab', 'prodUSSanityTab', 'insprintStatusTab', 'readyForProdBugTab'];
             
             for (const tabId of tabIds) {
                 try {
-                    const response = await fetch(`${API_BASE_URL}/shared-data/${tabId}`);
-                    if (response.ok) {
-                        const result = await response.json();
-                        if (result.success && result.timestamp) {
-                            // Check if server has newer data
-                            if (!lastSyncTime[tabId] || result.timestamp > lastSyncTime[tabId]) {
-                                // Silently update the data without disrupting user
-                                const tab = document.getElementById(tabId);
-                                if (tab && result.data && Object.keys(result.data).length > 0) {
-                                    // Only update if tab is not currently active (to avoid disrupting user input)
-                                    if (!tab.classList.contains('active')) {
-                                        localStorage.setItem('tabSave_' + tabId, JSON.stringify(result.data));
-                                        lastSyncTime[tabId] = result.timestamp;
-                                    } else {
-                                        // Show notification that updates are available
-                                        showUpdateNotification(tabId);
-                                    }
+                    const sheetData = await sheetsAPI.loadTabData(tabId);
+                    if (sheetData && Object.keys(sheetData).length > 0) {
+                        // Check if we have local data to compare
+                        const localData = localStorage.getItem('tabSave_' + tabId);
+                        const localObj = localData ? JSON.parse(localData) : {};
+                        
+                        // Simple comparison - if data is different, update
+                        if (JSON.stringify(sheetData) !== JSON.stringify(localObj)) {
+                            const tab = document.getElementById(tabId);
+                            if (tab) {
+                                // Only update if tab is not currently active (to avoid disrupting user input)
+                                if (!tab.classList.contains('active')) {
+                                    localStorage.setItem('tabSave_' + tabId, JSON.stringify(sheetData));
+                                    lastSyncTime[tabId] = new Date().toISOString();
+                                    updateSyncStatus(true, 'Updated from Google Sheets');
+                                } else {
+                                    // Show notification that updates are available
+                                    showUpdateNotification(tabId);
                                 }
                             }
                         }
                     }
                 } catch (error) {
                     // Silently fail polling - don't disrupt user experience
+                    console.debug('Polling error:', error);
                 }
             }
         }
@@ -5127,15 +5122,19 @@
         }
         
         async function testServerConnection() {
-            try {
-                const response = await fetch(`${API_BASE_URL}/health`, { timeout: 3000 });
-                if (response.ok) {
-                    updateSyncStatus('online', 'Live Sync Active');
-                } else {
-                    updateSyncStatus('offline', 'Offline Mode');
+            // Check if Google Sheets API is configured
+            if (sheetsAPI.isConfigured()) {
+                try {
+                    // Try a simple read to verify API works
+                    await sheetsAPI.loadTabData('prodSanityTab');
+                    updateSyncStatus('online', 'Google Sheets Connected');
+                    syncEnabled = true;
+                } catch (error) {
+                    updateSyncStatus('offline', 'Google Sheets Error - Check Config');
+                    syncEnabled = false;
                 }
-            } catch (error) {
-                updateSyncStatus('offline', 'Offline Mode');
+            } else {
+                updateSyncStatus('offline', 'Not Configured - See google-sheets-config.js');
                 syncEnabled = false;
             }
         }
@@ -5167,5 +5166,8 @@
             50% { opacity: 0.5; transform: scale(1.2); }
         }
     </style>
+    
+    <!-- Google Sheets API Integration -->
+    <script src="google-sheets-config.js"></script>
 </body>
 </html>
