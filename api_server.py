@@ -195,13 +195,18 @@ def get_latest_statistics():
 
 @app.route('/api/health', methods=['GET'])
 def health_check():
-    """Health check endpoint"""
+    """Health check endpoint - for collaborative features, DB is optional"""
     conn = get_db_connection()
+    db_status = 'connected' if conn else 'disconnected'
     if conn:
         conn.close()
-        return jsonify({'status': 'healthy', 'database': 'connected'})
-    else:
-        return jsonify({'status': 'unhealthy', 'database': 'disconnected'}), 500
+    
+    # Collaborative sync works without database (uses JSON file)
+    return jsonify({
+        'status': 'healthy',
+        'database': db_status,
+        'collaborative_sync': 'active'
+    })
 
 @app.route('/api/shared-data/<tab_id>', methods=['GET'])
 def get_shared_data(tab_id):

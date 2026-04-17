@@ -4279,7 +4279,9 @@
         // ============================================================
         // COLLABORATIVE DATA SYNC - Configuration
         // ============================================================
-        const API_BASE_URL = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1' 
+        const API_BASE_URL = (window.location.protocol === 'file:' || 
+                             window.location.hostname === 'localhost' || 
+                             window.location.hostname === '127.0.0.1')
             ? 'http://localhost:5000/api' 
             : 'https://your-api-server.com/api'; // Update with your deployed API URL
         
@@ -4334,8 +4336,12 @@
                             }
                             
                             // Refresh pivot tables after save
-                            if (typeof refreshOverallStatus === 'function') {
-                                refreshOverallStatus();
+                            try {
+                                if (typeof refreshOverallStatus === 'function') {
+                                    refreshOverallStatus();
+                                }
+                            } catch (e) {
+                                console.log('Could not refresh pivot tables:', e);
                             }
                             return;
                         }
@@ -4565,11 +4571,31 @@
             container.innerHTML = html;
         }
 
+        // Bug severity columns for pivot table
+        const BUG_SEV_COLS = ['1 - Critical', '2 - High', '3 - Medium', '4 - Low'];
+
+        function _buildBugPivotFromBody() {
+            const pivot = {};
+            document.querySelectorAll('#bugListTableBody tr').forEach(function(row) {
+                const lead = row.getAttribute('data-lead') || 'Unassigned';
+                const severityCell = row.querySelector('.bug-severity-col');
+                const severity = severityCell ? severityCell.textContent.trim() : 'Unknown';
+                if (!pivot[lead]) pivot[lead] = {};
+                pivot[lead][severity] = (pivot[lead][severity] || 0) + 1;
+            });
+            return pivot;
+        }
+
         function refreshOverallStatus() {
             _renderPivotInto('pivotProdSanity',      'Prod Sanity Scenarios — Status by Test Lead',  _buildPivotFromBody('#psScenariosBody'),         PIVOT_STATUSES, '#16a34a');
             _renderPivotInto('pivotProdUSSanity',    'Prod US Sanity — Status by Test Lead',          _buildPivotFromBody('#usSanityTableBody'),       PIVOT_STATUSES, '#1d4ed8');
             _renderPivotInto('pivotInsprintUS',      'Insprint US Prod Status — Status by Test Lead', _buildPivotFromBody('#reportTableBodyInsprint'), PIVOT_STATUSES, '#7e22ce');
-            _renderPivotInto('pivotReadyForProdBug', 'Ready for Prod Bug — Severity by PT Lead',      _buildBugPivotFromBody(),                        BUG_SEV_COLS,   '#dc2626');
+            
+            // Only render bug pivot if bug table exists
+            if (document.querySelector('#bugListTableBody')) {
+                _renderPivotInto('pivotReadyForProdBug', 'Ready for Prod Bug — Severity by PT Lead', _buildBugPivotFromBody(), BUG_SEV_COLS, '#dc2626');
+            }
+            
             const btn = document.querySelector('#overallStatusTab .refresh-btn');
             if (btn) {
                 const orig = btn.innerHTML;
@@ -5038,8 +5064,12 @@
                 await loadTabData(tabId);
             }
             // Refresh pivot tables after loading data
-            if (typeof refreshOverallStatus === 'function') {
-                refreshOverallStatus();
+            try {
+                if (typeof refreshOverallStatus === 'function') {
+                    refreshOverallStatus();
+                }
+            } catch (e) {
+                console.log('Could not refresh pivot tables:', e);
             }
         }
         
