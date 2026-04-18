@@ -1040,7 +1040,7 @@
         </div>
         <button class="reset-btn" onclick="resetPSFilters()">&#8635; Reset Filters</button>
         <button class="ado-refresh-btn" onclick="refreshFromAzureDevOps()" title="Fetch fresh data from Azure DevOps">&#128260; Refresh from Azure DevOps</button>
-        <button class="save-btn" onclick="window.location.reload()" style="background:#10b981;border-color:#059669;" title="Refresh page to load latest data">&#128260; Reload from Firebase</button>
+        <button class="save-btn" onclick="reloadWithFreshData()" style="background:#10b981;border-color:#059669;" title="Refresh page to load latest data">&#128260; Reload from Firebase</button>
         <button class="save-btn" onclick="saveTabData('prodSanityTab', this)">&#128190; Save</button>
         <button class="export-btn" onclick="exportCurrentTabToExcel()" title="Export current tab to Excel (.xlsx)">&#128229; Export Tab (.xlsx)</button>
         <button class="export-all-btn" onclick="exportAllTabsToExcel()" title="Export all 6 tabs to Excel workbook (.xlsx)">&#128194; Export All Tabs (.xlsx)</button>
@@ -1497,7 +1497,7 @@
 
                 <button class="reset-btn" onclick="resetUSFilters()">↻ Reset Filters</button>
                 <button class="ado-refresh-btn" onclick="refreshFromAzureDevOps()" title="Fetch fresh data from Azure DevOps">&#128260; Refresh from Azure DevOps</button>
-                <button class="save-btn" onclick="window.location.reload()" style="background:#10b981;border-color:#059669;" title="Refresh page to load latest data">&#128260; Reload from Firebase</button>
+                <button class="save-btn" onclick="reloadWithFreshData()" style="background:#10b981;border-color:#059669;" title="Refresh page to load latest data">&#128260; Reload from Firebase</button>
                 <button class="save-btn" onclick="saveTabData('prodUSSanityTab', this)">&#128190; Save</button>
                 <button class="export-btn" onclick="exportCurrentTabToExcel()" title="Export current tab to Excel (.xlsx)">&#128229; Export Tab (.xlsx)</button>
                 <button class="export-all-btn" onclick="exportAllTabsToExcel()" title="Export all 6 tabs to Excel workbook (.xlsx)">&#128194; Export All Tabs (.xlsx)</button>
@@ -2163,7 +2163,7 @@
                 </div>
                 <button class="reset-btn" onclick="resetFiltersInsprint()">&#8635; Reset Filters</button>
                 <button class="ado-refresh-btn" onclick="refreshFromAzureDevOps()" title="Fetch fresh data from Azure DevOps">&#128260; Refresh from Azure DevOps</button>
-                <button class="save-btn" onclick="window.location.reload()" style="background:#10b981;border-color:#059669;" title="Refresh page to load latest data">&#128260; Reload from Firebase</button>
+                <button class="save-btn" onclick="reloadWithFreshData()" style="background:#10b981;border-color:#059669;" title="Refresh page to load latest data">&#128260; Reload from Firebase</button>
                 <button class="save-btn" onclick="saveTabData('insprintStatusTab', this)">&#128190; Save</button>
                 <button class="export-btn" onclick="exportCurrentTabToExcel()" title="Export current tab to Excel (.xlsx)">&#128229; Export Tab (.xlsx)</button>
                 <button class="export-all-btn" onclick="exportAllTabsToExcel()" title="Export all 6 tabs to Excel workbook (.xlsx)">&#128194; Export All Tabs (.xlsx)</button>
@@ -2292,7 +2292,7 @@
                     
                     <button class="reset-btn" onclick="resetBugFilters()">↻ Reset Filters</button>
                     <button class="ado-refresh-btn" onclick="refreshFromAzureDevOps()" title="Fetch fresh data from Azure DevOps">&#128260; Refresh from Azure DevOps</button>
-                    <button class="save-btn" onclick="window.location.reload()" style="background:#10b981;border-color:#059669;" title="Refresh page to load latest data">&#128260; Reload from Firebase</button>
+                    <button class="save-btn" onclick="reloadWithFreshData()" style="background:#10b981;border-color:#059669;" title="Refresh page to load latest data">&#128260; Reload from Firebase</button>
                     <button class="save-btn" onclick="saveTabData('readyForProdBugTab', this)">&#128190; Save</button>
                     <button class="export-btn" onclick="exportCurrentTabToExcel()" title="Export current tab to Excel (.xlsx)">&#128229; Export Tab (.xlsx)</button>
                     <button class="export-all-btn" onclick="exportAllTabsToExcel()" title="Export all 6 tabs to Excel workbook (.xlsx)">&#128194; Export All Tabs (.xlsx)</button>
@@ -3484,7 +3484,7 @@
                     </div>
                     <button class="reset-btn" onclick="resetPSDFilters()">&#8635; Reset Filters</button>
                     <button class="ado-refresh-btn" onclick="refreshFromAzureDevOps()" title="Fetch fresh data from Azure DevOps">&#128260; Refresh from Azure DevOps</button>
-                    <button class="save-btn" onclick="window.location.reload()" style="background:#10b981;border-color:#059669;" title="Refresh page to load latest data">&#128260; Reload from Firebase</button>
+                    <button class="save-btn" onclick="reloadWithFreshData()" style="background:#10b981;border-color:#059669;" title="Refresh page to load latest data">&#128260; Reload from Firebase</button>
                     <button class="save-btn" onclick="saveTabData('prodSanityDefectsTab', this)">&#128190; Save</button>
                     <button class="export-btn" onclick="exportCurrentTabToExcel()" title="Export current tab to Excel (.xlsx)">&#128229; Export Tab (.xlsx)</button>
                     <button class="export-all-btn" onclick="exportAllTabsToExcel()" title="Export all 6 tabs to Excel workbook (.xlsx)">&#128194; Export All Tabs (.xlsx)</button>
@@ -3928,6 +3928,11 @@
                     btn.classList.add('active');
                 }
             });
+
+            // Save current tab to localStorage for persistence across reloads
+            try {
+                localStorage.setItem('activeTab', tabName);
+            } catch(e) {}
         }
         function updateGrandTotal() {
             // Get all visible rows (not hidden and not grand total)
@@ -4933,7 +4938,26 @@
         document.addEventListener('DOMContentLoaded', function() {
             initializeBugData();
             updateStateOptions(); // Initialize state options on load
+
+            // Restore previously active tab from localStorage
+            try {
+                const savedTab = localStorage.getItem('activeTab');
+                if (savedTab) {
+                    switchTab(savedTab);
+                }
+            } catch(e) {}
         });
+
+        // ============================================================
+        // RELOAD WITH FRESH DATA
+        // Reloads page with cache-busting and preserves active tab
+        // ============================================================
+        function reloadWithFreshData() {
+            // Add timestamp to URL to force fresh load (bypass browser cache)
+            const url = new URL(window.location.href);
+            url.searchParams.set('_refresh', Date.now());
+            window.location.href = url.toString();
+        }
     </script>
 </body>
 </html>
