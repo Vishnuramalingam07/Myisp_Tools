@@ -927,6 +927,7 @@
         
     </style>
     <script src="https://cdn.jsdelivr.net/npm/exceljs@4.3.0/dist/exceljs.min.js"></script>
+    <script src="github-actions-config.js"></script>
 </head>
 <body>
     <div class="container">
@@ -4367,6 +4368,135 @@
                     if (data[i] !== undefined) el.value = data[i];
                 });
             } catch(e) {}
+        }
+
+        // ============================================================
+        // REFRESH FROM AZURE DEVOPS
+        // Triggers GitHub Actions workflow to fetch fresh ADO data
+        // ============================================================
+        async function refreshFromAzureDevOps() {
+            // Check if GitHub Actions is configured
+            if (!window.githubActions || !githubActions.isConfigured()) {
+                if (confirm('GitHub token not configured. Would you like to see setup instructions?')) {
+                    showGitHubSetupInstructions();
+                }
+                return;
+            }
+
+            // Show loading modal
+            const modal = document.createElement('div');
+            modal.id = 'refresh-modal';
+            modal.style.cssText = 'position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.8);display:flex;align-items:center;justify-content:center;z-index:10000;';
+            modal.innerHTML = `
+                <div style="background:white;padding:30px;border-radius:12px;max-width:500px;text-align:center;box-shadow:0 8px 32px rgba(0,0,0,0.3);">
+                    <div style="font-size:48px;margin-bottom:15px;">🔄</div>
+                    <h2 style="margin:0 0 10px 0;color:#667eea;">Triggering Workflow</h2>
+                    <p id="refresh-status" style="color:#666;margin:10px 0;">Starting GitHub Actions workflow...</p>
+                    <div style="margin:20px 0;">
+                        <div style="width:100%;height:4px;background:#e0e0e0;border-radius:2px;overflow:hidden;">
+                            <div id="refresh-progress" style="width:0%;height:100%;background:linear-gradient(90deg,#667eea,#764ba2);transition:width 0.3s;"></div>
+                        </div>
+                    </div>
+                    <p style="font-size:12px;color:#999;">This usually takes 2-3 minutes</p>
+                    <button onclick="document.getElementById('refresh-modal').remove()" style="margin-top:15px;padding:8px 20px;background:#ccc;border:none;border-radius:4px;cursor:pointer;">Cancel & Close</button>
+                </div>
+            `;
+            document.body.appendChild(modal);
+
+            const statusEl = document.getElementById('refresh-status');
+            const progressEl = document.getElementById('refresh-progress');
+
+            try {
+                // Step 1: Trigger workflow
+                statusEl.textContent = 'Step 1/3: Triggering GitHub Actions workflow...';
+                progressEl.style.width = '10%';
+                
+                await githubActions.triggerWorkflow();
+                
+                statusEl.textContent = 'Step 2/3: Workflow started! Fetching test data from Azure DevOps...';
+                progressEl.style.width = '30%';
+                
+                // Wait a moment for workflow to start
+                await new Promise(resolve => setTimeout(resolve, 3000));
+                
+                // Step 2: Poll for completion
+                let attempts = 0;
+                const maxAttempts = 40; // 40 * 5 seconds = 3.3 minutes max
+                let workflowComplete = false;
+                
+                while (attempts < maxAttempts && !workflowComplete) {
+                    attempts++;
+                    const progress = 30 + (attempts / maxAttempts) * 50; // 30% to 80%
+                    progressEl.style.width = progress + '%';
+                    
+                    // Get recent runs
+                    const runs = await githubActions.getWorkflowRuns();
+                    
+                    if (runs.length > 0) {
+                        const latestRun = runs[0];
+                        statusEl.textContent = `Step 2/3: Workflow running (${latestRun.status})... Attempt ${attempts}/${maxAttempts}`;
+                        
+                        if (latestRun.status === 'completed') {
+                            if (latestRun.conclusion === 'success') {
+                                workflowComplete = true;
+                                statusEl.textContent = 'Step 3/3: Workflow completed successfully! Reloading page...';
+                                progressEl.style.width = '100%';
+                                break;
+                            } else {
+                                throw new Error(`Workflow completed with status: ${latestRun.conclusion}`);
+                            }
+                        }
+                    }
+                    
+                    // Wait 5 seconds before next check
+                    await new Promise(resolve => setTimeout(resolve, 5000));
+                }
+                
+                if (workflowComplete) {
+                    // Success! Reload page after 2 seconds
+                    await new Promise(resolve => setTimeout(resolve, 2000));
+                    window.location.reload();
+                } else {
+                    // Timeout - but workflow may still be running
+                    statusEl.textContent = 'Workflow is taking longer than expected. Check GitHub Actions for status.';
+                    progressEl.style.width = '80%';
+                    
+                    setTimeout(() => {
+                        modal.innerHTML = `
+                            <div style="background:white;padding:30px;border-radius:12px;max-width:500px;text-align:center;">
+                                <div style="font-size:48px;margin-bottom:15px;">⏱️</div>
+                                <h2 style="margin:0 0 10px 0;color:#f59e0b;">Workflow Running</h2>
+                                <p style="color:#666;">The workflow is still running in the background.</p>
+                                <p style="color:#666;margin:15px 0;">Check status at:</p>
+                                <a href="https://github.com/${GITHUB_CONFIG.owner}/${GITHUB_CONFIG.repo}/actions" target="_blank" style="color:#667eea;text-decoration:underline;">View GitHub Actions</a>
+                                <div style="margin-top:20px;">
+                                    <button onclick="window.location.reload()" style="padding:10px 24px;background:#667eea;color:white;border:none;border-radius:4px;cursor:pointer;font-weight:600;margin-right:10px;">Reload Page Now</button>
+                                    <button onclick="document.getElementById('refresh-modal').remove()" style="padding:10px 24px;background:#ccc;border:none;border-radius:4px;cursor:pointer;">Close</button>
+                                </div>
+                            </div>
+                        `;
+                    }, 3000);
+                }
+                
+            } catch (error) {
+                console.error('Refresh error:', error);
+                statusEl.textContent = 'Error: ' + error.message;
+                progressEl.style.width = '0%';
+                progressEl.style.background = '#ef4444';
+                
+                setTimeout(() => {
+                    modal.innerHTML = `
+                        <div style="background:white;padding:30px;border-radius:12px;max-width:500px;text-align:center;">
+                            <div style="font-size:48px;margin-bottom:15px;">❌</div>
+                            <h2 style="margin:0 0 10px 0;color:#ef4444;">Error</h2>
+                            <p style="color:#666;margin:15px 0;">${error.message}</p>
+                            <p style="font-size:12px;color:#999;margin:15px 0;">You can still trigger the workflow manually:</p>
+                            <a href="https://github.com/${GITHUB_CONFIG.owner}/${GITHUB_CONFIG.repo}/actions" target="_blank" style="display:inline-block;padding:10px 24px;background:#667eea;color:white;text-decoration:none;border-radius:4px;font-weight:600;margin:10px 5px;">Open GitHub Actions</a>
+                            <button onclick="document.getElementById('refresh-modal').remove()" style="padding:10px 24px;background:#ccc;border:none;border-radius:4px;cursor:pointer;margin:10px 5px;">Close</button>
+                        </div>
+                    `;
+                }, 2000);
+            }
         }
 
         // ============================================================

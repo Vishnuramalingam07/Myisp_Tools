@@ -48,6 +48,9 @@ standalone_report.html
 *token*
 config.local.py
 
+# GitHub Actions Configuration (contains Personal Access Token)
+github-actions-config.js
+
 # Logs
 *.log
 
