@@ -17,16 +17,12 @@ jobs:
   fetch-and-update:
     runs-on: ubuntu-latest
     
-    env:
-      # Force Node.js 24 for GitHub Actions (future-proofing)
-      FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
-    
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v4.2.2
       
       - name: Setup Python 3.11
-        uses: actions/setup-python@v5
+        uses: actions/setup-python@v5.3.0
         with:
           python-version: '3.11'
           cache: 'pip'
@@ -80,7 +76,7 @@ jobs:
           git push || echo "No changes to push"
       
       - name: Upload report as artifact
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v4.5.0
         with:
           name: production-report
           path: Production_execution_report_*.html
