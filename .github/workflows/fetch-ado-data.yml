@@ -1,14 +1,15 @@
 name: Fetch ADO Test Results and Update Firebase
 
 on:
-  # Run every 4 hours
+  # Run every 1 hour (customize as needed)
   schedule:
-    - cron: '0 */4 * * *'
+    - cron: '0 * * * *'
   
-  # Allow manual trigger from GitHub UI
+  # ⭐ MANUAL TRIGGER: Click "Run workflow" button in GitHub Actions
   workflow_dispatch:
   
-  # Optional: Run on push to main (for testing)
+  # Optional: Auto-run when you push to main branch
+  # Uncomment below to auto-update on every code push:
   # push:
   #   branches: [ main ]
 
