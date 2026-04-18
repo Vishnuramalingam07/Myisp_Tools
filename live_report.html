@@ -927,7 +927,7 @@
         
     </style>
     <script src="https://cdn.jsdelivr.net/npm/exceljs@4.3.0/dist/exceljs.min.js"></script>
-    <script src="github-actions-config.js"></script>
+    <!-- Firebase Functions handles workflow triggering (secure!) -->
 </head>
 <body>
     <div class="container">
@@ -4372,16 +4372,12 @@
 
         // ============================================================
         // REFRESH FROM AZURE DEVOPS
-        // Triggers GitHub Actions workflow to fetch fresh ADO data
+        // Triggers GitHub Actions workflow via Firebase Function (secure!)
         // ============================================================
         async function refreshFromAzureDevOps() {
-            // Check if GitHub Actions is configured
-            if (!window.githubActions || !githubActions.isConfigured()) {
-                if (confirm('GitHub token not configured. Would you like to see setup instructions?')) {
-                    showGitHubSetupInstructions();
-                }
-                return;
-            }
+            // Firebase Function URL (update after deployment)
+            const FIREBASE_FUNCTION_URL = 'https://us-central1-myisptools.cloudfunctions.net/triggerAdoRefresh';
+            const GITHUB_ACTIONS_URL = 'https://github.com/Vishnuramalingam07/Myisp_Tools/actions';
 
             // Show loading modal
             const modal = document.createElement('div');
@@ -4407,75 +4403,57 @@
             const progressEl = document.getElementById('refresh-progress');
 
             try {
-                // Step 1: Trigger workflow
-                statusEl.textContent = 'Step 1/3: Triggering GitHub Actions workflow...';
-                progressEl.style.width = '10%';
+                // Step 1: Call Firebase Function to trigger workflow
+                statusEl.textContent = 'Step 1/2: Calling secure backend...';
+                progressEl.style.width = '20%';
                 
-                await githubActions.triggerWorkflow();
-                
-                statusEl.textContent = 'Step 2/3: Workflow started! Fetching test data from Azure DevOps...';
-                progressEl.style.width = '30%';
-                
-                // Wait a moment for workflow to start
-                await new Promise(resolve => setTimeout(resolve, 3000));
-                
-                // Step 2: Poll for completion
-                let attempts = 0;
-                const maxAttempts = 40; // 40 * 5 seconds = 3.3 minutes max
-                let workflowComplete = false;
-                
-                while (attempts < maxAttempts && !workflowComplete) {
-                    attempts++;
-                    const progress = 30 + (attempts / maxAttempts) * 50; // 30% to 80%
-                    progressEl.style.width = progress + '%';
-                    
-                    // Get recent runs
-                    const runs = await githubActions.getWorkflowRuns();
-                    
-                    if (runs.length > 0) {
-                        const latestRun = runs[0];
-                        statusEl.textContent = `Step 2/3: Workflow running (${latestRun.status})... Attempt ${attempts}/${maxAttempts}`;
-                        
-                        if (latestRun.status === 'completed') {
-                            if (latestRun.conclusion === 'success') {
-                                workflowComplete = true;
-                                statusEl.textContent = 'Step 3/3: Workflow completed successfully! Reloading page...';
-                                progressEl.style.width = '100%';
-                                break;
-                            } else {
-                                throw new Error(`Workflow completed with status: ${latestRun.conclusion}`);
-                            }
-                        }
+                const response = await fetch(FIREBASE_FUNCTION_URL, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
                     }
-                    
-                    // Wait 5 seconds before next check
-                    await new Promise(resolve => setTimeout(resolve, 5000));
+                });
+                
+                progressEl.style.width = '40%';
+                
+                if (!response.ok) {
+                    const error = await response.json();
+                    throw new Error(error.message || `HTTP ${response.status}`);
                 }
                 
-                if (workflowComplete) {
-                    // Success! Reload page after 2 seconds
-                    await new Promise(resolve => setTimeout(resolve, 2000));
-                    window.location.reload();
-                } else {
-                    // Timeout - but workflow may still be running
-                    statusEl.textContent = 'Workflow is taking longer than expected. Check GitHub Actions for status.';
-                    progressEl.style.width = '80%';
+                const result = await response.json();
+                
+                if (result.success) {
+                    statusEl.textContent = 'Step 2/2: Workflow triggered! Fetching ADO data...';
+                    progressEl.style.width = '60%';
                     
+                    // Show success message with timer
                     setTimeout(() => {
+                        progressEl.style.width = '100%';
                         modal.innerHTML = `
                             <div style="background:white;padding:30px;border-radius:12px;max-width:500px;text-align:center;">
-                                <div style="font-size:48px;margin-bottom:15px;">⏱️</div>
-                                <h2 style="margin:0 0 10px 0;color:#f59e0b;">Workflow Running</h2>
-                                <p style="color:#666;">The workflow is still running in the background.</p>
-                                <p style="color:#666;margin:15px 0;">Check status at:</p>
-                                <a href="https://github.com/${GITHUB_CONFIG.owner}/${GITHUB_CONFIG.repo}/actions" target="_blank" style="color:#667eea;text-decoration:underline;">View GitHub Actions</a>
+                                <div style="font-size:48px;margin-bottom:15px;">✅</div>
+                                <h2 style="margin:0 0 10px 0;color:#10b981;">Workflow Started!</h2>
+                                <p style="color:#666;margin:15px 0;">GitHub Actions is now fetching fresh test data from Azure DevOps.</p>
+                                <p style="color:#666;margin:10px 0;">This usually takes 2-3 minutes to complete.</p>
+                                <div style="background:#f3f4f6;padding:15px;border-radius:8px;margin:20px 0;">
+                                    <p style="font-size:12px;color:#666;margin:0;">💡 Tip: You can close this and check back in a few minutes,<br/>or wait here and reload when ready.</p>
+                                </div>
                                 <div style="margin-top:20px;">
-                                    <button onclick="window.location.reload()" style="padding:10px 24px;background:#667eea;color:white;border:none;border-radius:4px;cursor:pointer;font-weight:600;margin-right:10px;">Reload Page Now</button>
-                                    <button onclick="document.getElementById('refresh-modal').remove()" style="padding:10px 24px;background:#ccc;border:none;border-radius:4px;cursor:pointer;">Close</button>
+                                    <button onclick="setTimeout(() => window.location.reload(), 2000); this.disabled=true; this.textContent='Reloading...'" style="padding:10px 24px;background:#10b981;color:white;border:none;border-radius:4px;cursor:pointer;font-weight:600;margin:5px;">Wait & Reload (3 min)</button>
+                                    <a href="${GITHUB_ACTIONS_URL}" target="_blank" style="display:inline-block;padding:10px 24px;background:#667eea;color:white;text-decoration:none;border-radius:4px;font-weight:600;margin:5px;">View Progress</a>
+                                    <button onclick="document.getElementById('refresh-modal').remove()" style="padding:10px 24px;background:#ccc;border:none;border-radius:4px;cursor:pointer;margin:5px;">Close</button>
                                 </div>
                             </div>
                         `;
-                    }, 3000);
+                        
+                        // Auto-reload after 3 minutes
+                        setTimeout(() => {
+                            window.location.reload();
+                        }, 180000);
+                    }, 1000);
+                } else {
+                    throw new Error('Workflow trigger failed');
                 }
                 
             } catch (error) {
@@ -4488,10 +4466,18 @@
                     modal.innerHTML = `
                         <div style="background:white;padding:30px;border-radius:12px;max-width:500px;text-align:center;">
                             <div style="font-size:48px;margin-bottom:15px;">❌</div>
-                            <h2 style="margin:0 0 10px 0;color:#ef4444;">Error</h2>
+                            <h2 style="margin:0 0 10px 0;color:#ef4444;">Error Triggering Workflow</h2>
                             <p style="color:#666;margin:15px 0;">${error.message}</p>
+                            <div style="background:#fef2f2;border:1px solid #fecaca;padding:12px;border-radius:6px;margin:15px 0;">
+                                <p style="font-size:11px;color:#991b1b;margin:0;"><strong>Possible causes:</strong></p>
+                                <ul style="font-size:11px;color:#991b1b;text-align:left;margin:8px 0 0 20px;padding:0;">
+                                    <li>Firebase Function not deployed yet</li>
+                                    <li>GitHub token not configured</li>
+                                    <li>Network/CORS issue</li>
+                                </ul>
+                            </div>
                             <p style="font-size:12px;color:#999;margin:15px 0;">You can still trigger the workflow manually:</p>
-                            <a href="https://github.com/${GITHUB_CONFIG.owner}/${GITHUB_CONFIG.repo}/actions" target="_blank" style="display:inline-block;padding:10px 24px;background:#667eea;color:white;text-decoration:none;border-radius:4px;font-weight:600;margin:10px 5px;">Open GitHub Actions</a>
+                            <a href="${GITHUB_ACTIONS_URL}" target="_blank" style="display:inline-block;padding:10px 24px;background:#667eea;color:white;text-decoration:none;border-radius:4px;font-weight:600;margin:10px 5px;">Open GitHub Actions</a>
                             <button onclick="document.getElementById('refresh-modal').remove()" style="padding:10px 24px;background:#ccc;border:none;border-radius:4px;cursor:pointer;margin:10px 5px;">Close</button>
                         </div>
                     `;
