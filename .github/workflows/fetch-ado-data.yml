@@ -52,6 +52,29 @@ jobs:
           python upload_to_firebase.py
           echo "✓ Firebase updated successfully"
       
+      - name: Update live_report.html with latest data
+        run: |
+          echo "Updating live_report.html with latest report data..."
+          # Find the most recent report file
+          LATEST_REPORT=$(ls -t Production_execution_report_*.html | head -1)
+          if [ -f "$LATEST_REPORT" ]; then
+            echo "Found latest report: $LATEST_REPORT"
+            # Add Firebase integration to the report
+            python add_firebase_integration.py "$LATEST_REPORT" live_report.html
+            echo "✓ Updated live_report.html with Firebase integration"
+          else
+            echo "⚠️ No report file found"
+            exit 1
+          fi
+      
+      - name: Commit and push updated live report
+        run: |
+          git config --local user.email "github-actions[bot]@users.noreply.github.com"
+          git config --local user.name "GitHub Actions Bot"
+          git add live_report.html latest_report.json || true
+          git diff --staged --quiet || git commit -m "Auto-update: Latest report data from ADO ($(date +'%Y-%m-%d %H:%M UTC'))"
+          git push || echo "No changes to push"
+      
       - name: Upload report as artifact
         uses: actions/upload-artifact@v4
         with:
