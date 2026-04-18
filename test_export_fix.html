@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Firebase Export Test</title>
+</head>
+<body>
+    <h1>Firebase Export Data Test</h1>
+    <button onclick="testFirebase()" style="padding: 10px 20px; font-size: 16px; background: #10b981; color: white; border: none; border-radius: 5px; cursor: pointer;">
+        Test Firebase Connection & Data
+    </button>
+    <pre id="output" style="background: #f3f4f6; padding: 20px; margin-top: 20px; border-radius: 5px; font-size: 12px;"></pre>
+
+    <script>
+        const FIREBASE_CONFIG = {
+            databaseURL: "https://myisptools-default-rtdb.firebaseio.com"
+        };
+
+        async function testFirebase() {
+            const output = document.getElementById('output');
+            output.textContent = 'Testing...\n';
+            
+            try {
+                // Test connection
+                output.textContent += '1. Testing Firebase connection...\n';
+                const testUrl = `${FIREBASE_CONFIG.databaseURL}/.json`;
+                const testResp = await fetch(testUrl);
+                output.textContent += `   Status: ${testResp.status} ${testResp.statusText}\n`;
+                
+                // Load prodSanityTab data
+                output.textContent += '\n2. Loading prodSanityTab data...\n';
+                const dataUrl = `${FIREBASE_CONFIG.databaseURL}/prodSanityReport/prodSanityTab.json`;
+                const dataResp = await fetch(dataUrl);
+                
+                if (!dataResp.ok) {
+                    throw new Error(`HTTP ${dataResp.status}: ${dataResp.statusText}`);
+                }
+                
+                const data = await dataResp.json();
+                output.textContent += `   ✓ Received ${Object.keys(data || {}).length} data keys\n`;
+                
+                // Show sample data
+                output.textContent += '\n3. Sample data from Firebase:\n';
+                output.textContent += `   [0] (Filter 1): "${data[0] || 'undefined'}"\n`;
+                output.textContent += `   [5] (Row 1 Status): "${data[5] || 'undefined'}"\n`;
+                output.textContent += `   [7] (Row 2 Status): "${data[7] || 'undefined'}"\n`;
+                output.textContent += `   [9] (Row 3 Status): "${data[9] || 'undefined'}"\n`;
+                output.textContent += `   [11] (Row 4 Status): "${data[11] || 'undefined'}"\n`;
+                
+                // Show all non-empty values
+                output.textContent += '\n4. All non-empty values:\n';
+                for (let i = 0; i < 60; i++) {
+                    if (data[i] && data[i] !== '') {
+                        output.textContent += `   [${i}]: "${data[i]}"\n`;
+                    }
+                }
+                
+                output.textContent += '\n✅ TEST COMPLETE\n';
+                
+                if (data[7] === 'Blocked' && data[9] === 'Can be validated on Monday') {
+                    output.textContent += '\n🎉 EXPECTED DATA FOUND IN FIREBASE!\n';
+                    output.textContent += 'Your changes ARE saved. The export should work.\n';
+                } else {
+                    output.textContent += '\n⚠️ Expected data not found\n';
+                    output.textContent += `Expected [7]="Blocked", got [7]="${data[7]}"\n`;
+                    output.textContent += `Expected [9]="Can be validated on Monday", got [9]="${data[9]}"\n`;
+                }
+                
+            } catch (error) {
+                output.textContent += `\n❌ ERROR: ${error.message}\n`;
+                output.textContent += error.stack;
+            }
+        }
+    </script>
+</body>
+</html>

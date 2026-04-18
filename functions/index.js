@@ -1,46 +1,31 @@
-const functions = require('firebase-functions');
+const {onRequest} = require('firebase-functions/v2/https');
+const {defineSecret} = require('firebase-functions/params');
 const fetch = require('node-fetch');
+
+// Define GitHub token as a secret (modern approach)
+const githubToken = defineSecret('GITHUB_TOKEN');
 
 /**
  * Firebase Cloud Function to trigger GitHub Actions workflow
  * 
  * This function acts as a secure proxy between the client-side button
  * and GitHub's API. The GitHub token is stored securely in Firebase
- * config and never exposed to the browser.
+ * secrets and never exposed to the browser.
  * 
  * URL: https://us-central1-myisptools.cloudfunctions.net/triggerAdoRefresh
  */
-exports.triggerAdoRefresh = functions.https.onRequest(async (req, res) => {
-    // Enable CORS for GitHub Pages
-    res.set('Access-Control-Allow-Origin', '*');
-    res.set('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
-    res.set('Access-Control-Allow-Headers', 'Content-Type');
-    
-    // Handle preflight request
-    if (req.method === 'OPTIONS') {
-        res.status(204).send('');
-        return;
-    }
-    
-    // Only allow POST requests
-    if (req.method !== 'POST') {
-        res.status(405).json({ error: 'Method not allowed. Use POST.' });
-        return;
-    }
-    
-    try {
-        // Get GitHub token from Firebase config (set via Firebase CLI)
-        // Run: firebase functions:config:set github.token="YOUR_GITHUB_TOKEN"
-        const githubToken = functions.config().github?.token;
-        
-        if (!githubToken) {
-            console.error('GitHub token not configured');
-            res.status(500).json({ 
-                error: 'GitHub token not configured',
-                message: 'Run: firebase functions:config:set github.token="YOUR_TOKEN"'
-            });
+exports.triggerAdoRefresh = onRequest(
+    {secrets: [githubToken], cors: true},
+    async (req, res) => {
+        // Only allow POST requests
+        if (req.method !== 'POST') {
+            res.status(405).json({error: 'Method not allowed. Use POST.'});
             return;
         }
+
+        try {
+            // Get GitHub token from secret
+            const token = githubToken.value();
         
         // GitHub API endpoint to trigger workflow
         const owner = 'Vishnuramalingam07';
@@ -57,11 +42,11 @@ exports.triggerAdoRefresh = functions.https.onRequest(async (req, res) => {
             method: 'POST',
             headers: {
                 'Accept': 'application/vnd.github.v3+json',
-                'Authorization': `token ${githubToken}`,
+                'Authorization': `token ${token}`,
                 'Content-Type': 'application/json',
-                'User-Agent': 'MyISP-Tools-Firebase-Function'
+                'User-Agent': 'MyISP-Tools-Firebase-Function',
             },
-            body: JSON.stringify({ ref })
+            body: JSON.stringify({ref}),
         });
         
         // GitHub API returns 204 No Content on success
@@ -83,61 +68,52 @@ exports.triggerAdoRefresh = functions.https.onRequest(async (req, res) => {
             });
         }
         
-    } catch (error) {
-        console.error('Function error:', error);
-        res.status(500).json({ 
-            error: 'Internal server error',
-            message: error.message
-        });
-    }
-});
+        } catch (error) {
+            console.error('Function error:', error);
+            res.status(500).json({
+                error: 'Internal server error',
+                message: error.message,
+            });
+        }
+    },
+);
 
 /**
  * Optional: Get workflow status
  * URL: https://us-central1-myisptools.cloudfunctions.net/getWorkflowStatus
  */
-exports.getWorkflowStatus = functions.https.onRequest(async (req, res) => {
-    res.set('Access-Control-Allow-Origin', '*');
-    
-    if (req.method === 'OPTIONS') {
-        res.status(204).send('');
-        return;
-    }
-    
-    try {
-        const githubToken = functions.config().github?.token;
-        
-        if (!githubToken) {
-            res.status(500).json({ error: 'GitHub token not configured' });
-            return;
-        }
-        
-        const owner = 'Vishnuramalingam07';
-        const repo = 'Myisp_Tools';
-        const workflowId = 'fetch-ado-data.yml';
-        
-        const url = `https://api.github.com/repos/${owner}/${repo}/actions/workflows/${workflowId}/runs?per_page=5`;
-        
-        const response = await fetch(url, {
-            headers: {
-                'Accept': 'application/vnd.github.v3+json',
-                'Authorization': `token ${githubToken}`,
-                'User-Agent': 'MyISP-Tools-Firebase-Function'
-            }
-        });
-        
-        if (response.ok) {
-            const data = await response.json();
-            res.status(200).json({ 
-                success: true,
-                runs: data.workflow_runs 
+exports.getWorkflowStatus = onRequest(
+    {secrets: [githubToken], cors: true},
+    async (req, res) => {
+        try {
+            const token = githubToken.value();
+
+            const owner = 'Vishnuramalingam07';
+            const repo = 'Myisp_Tools';
+            const workflowId = 'fetch-ado-data.yml';
+
+            const url = `https://api.github.com/repos/${owner}/${repo}/actions/workflows/${workflowId}/runs?per_page=5`;
+
+            const response = await fetch(url, {
+                headers: {
+                    'Accept': 'application/vnd.github.v3+json',
+                    'Authorization': `token ${token}`,
+                    'User-Agent': 'MyISP-Tools-Firebase-Function',
+                },
             });
-        } else {
-            res.status(response.status).json({ error: 'Failed to fetch workflow status' });
+
+            if (response.ok) {
+                const data = await response.json();
+                res.status(200).json({
+                    success: true,
+                    runs: data.workflow_runs,
+                });
+            } else {
+                res.status(response.status).json({error: 'Failed to fetch workflow status'});
+            }
+        } catch (error) {
+            console.error('Function error:', error);
+            res.status(500).json({error: error.message});
         }
-        
-    } catch (error) {
-        console.error('Function error:', error);
-        res.status(500).json({ error: error.message });
-    }
-});
+    },
+);

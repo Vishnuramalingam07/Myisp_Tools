@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-04-17T01:26:01.404775",
-  "timestamp_display": "April 17, 2026 at 01:26:01",
+  "generated_at": "2026-04-18T00:41:10.748165",
+  "timestamp_display": "April 18, 2026 at 00:41:10",
   "suite_name": "Prod Execution",
   "statistics": {
     "total_tests": 1074,
@@ -323,192 +323,6 @@
         }
       }
     },
-    "Vaidheki": {
-      "4446804 : LCM Infra Assessment - Questionnaire Update for Migration Type-Based Volume Selection": {
-        "manual": {
-          "total": 0,
-          "passed": 0,
-          "failed": 0,
-          "blocked": 0,
-          "na": 0,
-          "not_run": 0,
-          "percentages": {
-            "pass": 0,
-            "execution": 0
-          }
-        },
-        "automation": {
-          "total": 51,
-          "passed": 0,
-          "failed": 0,
-          "blocked": 0,
-          "na": 0,
-          "not_run": 51,
-          "percentages": {
-            "pass": 0,
-            "execution": 0.0
-          }
-        }
-      },
-      "4446805 : SI KDA Enhancement - COTS App Replatform Support": {
-        "manual": {
-          "total": 0,
-          "passed": 0,
-          "failed": 0,
-          "blocked": 0,
-          "na": 0,
-          "not_run": 0,
-          "percentages": {
-            "pass": 0,
-            "execution": 0
-          }
-        },
-        "automation": {
-          "total": 53,
-          "passed": 0,
-          "failed": 0,
-          "blocked": 0,
-          "na": 0,
-          "not_run": 53,
-          "percentages": {
-            "pass": 0,
-            "execution": 0.0
-          }
-        }
-      },
-      "4446806 : MMP FFP Resource Template - COTS App Replatform Handling": {
-        "manual": {
-          "total": 0,
-          "passed": 0,
-          "failed": 0,
-          "blocked": 0,
-          "na": 0,
-          "not_run": 0,
-          "percentages": {
-            "pass": 0,
-            "execution": 0
-          }
-        },
-        "automation": {
-          "total": 48,
-          "passed": 0,
-          "failed": 0,
-          "blocked": 0,
-          "na": 0,
-          "not_run": 48,
-          "percentages": {
-            "pass": 0,
-            "execution": 0.0
-          }
-        }
-      },
-      "4446807 : PCW Integration - COTS App Replatform Support": {
-        "manual": {
-          "total": 0,
-          "passed": 0,
-          "failed": 0,
-          "blocked": 0,
-          "na": 0,
-          "not_run": 0,
-          "percentages": {
-            "pass": 0,
-            "execution": 0
-          }
-        },
-        "automation": {
-          "total": 50,
-          "passed": 0,
-          "failed": 0,
-          "blocked": 0,
-          "na": 0,
-          "not_run": 50,
-          "percentages": {
-            "pass": 0,
-            "execution": 0.0
-          }
-        }
-      },
-      "4446808 : Reverse Order Logic - LCM Infrastructure Migration": {
-        "manual": {
-          "total": 0,
-          "passed": 0,
-          "failed": 0,
-          "blocked": 0,
-          "na": 0,
-          "not_run": 0,
-          "percentages": {
-            "pass": 0,
-            "execution": 0
-          }
-        },
-        "automation": {
-          "total": 54,
-          "passed": 0,
-          "failed": 0,
-          "blocked": 0,
-          "na": 0,
-          "not_run": 54,
-          "percentages": {
-            "pass": 0,
-            "execution": 0.0
-          }
-        }
-      },
-      "4446809 : Reverse Order Logic Extension - LCM Infra Override": {
-        "manual": {
-          "total": 0,
-          "passed": 0,
-          "failed": 0,
-          "blocked": 0,
-          "na": 0,
-          "not_run": 0,
-          "percentages": {
-            "pass": 0,
-            "execution": 0
-          }
-        },
-        "automation": {
-          "total": 51,
-          "passed": 0,
-          "failed": 0,
-          "blocked": 0,
-          "na": 0,
-          "not_run": 51,
-          "percentages": {
-            "pass": 0,
-            "execution": 0.0
-          }
-        }
-      }
-    },
-    "Leena": {
-      "4429519 : As a myISP Solution Architect, I want to see the Digital Documentation - MFE App migrated to Angular 21": {
-        "manual": {
-          "total": 0,
-          "passed": 0,
-          "failed": 0,
-          "blocked": 0,
-          "na": 0,
-          "not_run": 0,
-          "percentages": {
-            "pass": 0,
-            "execution": 0
-          }
-        },
-        "automation": {
-          "total": 10,
-          "passed": 0,
-          "failed": 0,
-          "blocked": 0,
-          "na": 0,
-          "not_run": 10,
-          "percentages": {
-            "pass": 0,
-            "execution": 0.0
-          }
-        }
-      }
-    },
     "Devika": {
       "4446747 : As a AMS VT user, I want the AMSVT production URL to be updated in the Manage screen, So that the system redirects me to the correct AMSVT Link..": {
         "manual": {
@@ -563,7 +377,219 @@
         }
       }
     },
+    "Vaidheki": {
+      "4446804 : LCM Infra Assessment - Questionnaire Update for Migration Type-Based Volume Selection": {
+        "manual": {
+          "total": 0,
+          "passed": 0,
+          "failed": 0,
+          "blocked": 0,
+          "na": 0,
+          "not_run": 0,
+          "percentages": {
+            "pass": 0,
+            "execution": 0
+          }
+        },
+        "automation": {
+          "total": 51,
+          "passed": 0,
+          "failed": 0,
+          "blocked": 0,
+          "na": 0,
+          "not_run": 51,
+          "percentages": {
+            "pass": 0,
+            "execution": 0.0
+          }
+        }
+      },
+      "4446806 : MMP FFP Resource Template - COTS App Replatform Handling": {
+        "manual": {
+          "total": 0,
+          "passed": 0,
+          "failed": 0,
+          "blocked": 0,
+          "na": 0,
+          "not_run": 0,
+          "percentages": {
+            "pass": 0,
+            "execution": 0
+          }
+        },
+        "automation": {
+          "total": 48,
+          "passed": 0,
+          "failed": 0,
+          "blocked": 0,
+          "na": 0,
+          "not_run": 48,
+          "percentages": {
+            "pass": 0,
+            "execution": 0.0
+          }
+        }
+      },
+      "4446805 : SI KDA Enhancement - COTS App Replatform Support": {
+        "manual": {
+          "total": 0,
+          "passed": 0,
+          "failed": 0,
+          "blocked": 0,
+          "na": 0,
+          "not_run": 0,
+          "percentages": {
+            "pass": 0,
+            "execution": 0
+          }
+        },
+        "automation": {
+          "total": 53,
+          "passed": 0,
+          "failed": 0,
+          "blocked": 0,
+          "na": 0,
+          "not_run": 53,
+          "percentages": {
+            "pass": 0,
+            "execution": 0.0
+          }
+        }
+      },
+      "4446807 : PCW Integration - COTS App Replatform Support": {
+        "manual": {
+          "total": 0,
+          "passed": 0,
+          "failed": 0,
+          "blocked": 0,
+          "na": 0,
+          "not_run": 0,
+          "percentages": {
+            "pass": 0,
+            "execution": 0
+          }
+        },
+        "automation": {
+          "total": 50,
+          "passed": 0,
+          "failed": 0,
+          "blocked": 0,
+          "na": 0,
+          "not_run": 50,
+          "percentages": {
+            "pass": 0,
+            "execution": 0.0
+          }
+        }
+      },
+      "4446809 : Reverse Order Logic Extension - LCM Infra Override": {
+        "manual": {
+          "total": 0,
+          "passed": 0,
+          "failed": 0,
+          "blocked": 0,
+          "na": 0,
+          "not_run": 0,
+          "percentages": {
+            "pass": 0,
+            "execution": 0
+          }
+        },
+        "automation": {
+          "total": 51,
+          "passed": 0,
+          "failed": 0,
+          "blocked": 0,
+          "na": 0,
+          "not_run": 51,
+          "percentages": {
+            "pass": 0,
+            "execution": 0.0
+          }
+        }
+      },
+      "4446808 : Reverse Order Logic - LCM Infrastructure Migration": {
+        "manual": {
+          "total": 0,
+          "passed": 0,
+          "failed": 0,
+          "blocked": 0,
+          "na": 0,
+          "not_run": 0,
+          "percentages": {
+            "pass": 0,
+            "execution": 0
+          }
+        },
+        "automation": {
+          "total": 54,
+          "passed": 0,
+          "failed": 0,
+          "blocked": 0,
+          "na": 0,
+          "not_run": 54,
+          "percentages": {
+            "pass": 0,
+            "execution": 0.0
+          }
+        }
+      }
+    },
+    "Leena": {
+      "4429519 : As a myISP Solution Architect, I want to see the Digital Documentation - MFE App migrated to Angular 21": {
+        "manual": {
+          "total": 0,
+          "passed": 0,
+          "failed": 0,
+          "blocked": 0,
+          "na": 0,
+          "not_run": 0,
+          "percentages": {
+            "pass": 0,
+            "execution": 0
+          }
+        },
+        "automation": {
+          "total": 10,
+          "passed": 0,
+          "failed": 0,
+          "blocked": 0,
+          "na": 0,
+          "not_run": 10,
+          "percentages": {
+            "pass": 0,
+            "execution": 0.0
+          }
+        }
+      }
+    },
     "Kavi": {
+      "4359188 : As a SA,I want the Profile city Tier field to auto-populate from the Rate Type column in the Staffing Baseline screen": {
+        "manual": {
+          "total": 0,
+          "passed": 0,
+          "failed": 0,
+          "blocked": 0,
+          "na": 0,
+          "not_run": 0,
+          "percentages": {
+            "pass": 0,
+            "execution": 0
+          }
+        },
+        "automation": {
+          "total": 35,
+          "passed": 0,
+          "failed": 0,
+          "blocked": 0,
+          "na": 0,
+          "not_run": 35,
+          "percentages": {
+            "pass": 0,
+            "execution": 0.0
+          }
+        }
+      },
       "4359507 : As a SA I want to select standard role from an SSG-specific dropdown selection": {
         "manual": {
           "total": 0,
@@ -616,58 +642,6 @@
           }
         }
       },
-      "4368812 : As a SA, add Role Type field in Staffing Baseline (auto-populated from Std Location Type & Service Group) - OU changes": {
-        "manual": {
-          "total": 0,
-          "passed": 0,
-          "failed": 0,
-          "blocked": 0,
-          "na": 0,
-          "not_run": 0,
-          "percentages": {
-            "pass": 0,
-            "execution": 0
-          }
-        },
-        "automation": {
-          "total": 42,
-          "passed": 0,
-          "failed": 0,
-          "blocked": 0,
-          "na": 0,
-          "not_run": 42,
-          "percentages": {
-            "pass": 0,
-            "execution": 0.0
-          }
-        }
-      },
-      "4359188 : As a SA,I want the Profile city Tier field to auto-populate from the Rate Type column in the Staffing Baseline screen": {
-        "manual": {
-          "total": 0,
-          "passed": 0,
-          "failed": 0,
-          "blocked": 0,
-          "na": 0,
-          "not_run": 0,
-          "percentages": {
-            "pass": 0,
-            "execution": 0
-          }
-        },
-        "automation": {
-          "total": 35,
-          "passed": 0,
-          "failed": 0,
-          "blocked": 0,
-          "na": 0,
-          "not_run": 35,
-          "percentages": {
-            "pass": 0,
-            "execution": 0.0
-          }
-        }
-      },
       "4377948 : As a myISP SA, I want to add new columns in the DCTA JSON file so that dynamic target pricing can be computed": {
         "manual": {
           "total": 0,
@@ -694,7 +668,33 @@
           }
         }
       },
-      "4393527 : As a myISP SA, I want to apply filter FFP Visible = False in addition to other filters while displaying Standard Role in staffing so that it is aligned with MMP standards": {
+      "4368812 : As a SA, add Role Type field in Staffing Baseline (auto-populated from Std Location Type & Service Group) - OU changes": {
+        "manual": {
+          "total": 0,
+          "passed": 0,
+          "failed": 0,
+          "blocked": 0,
+          "na": 0,
+          "not_run": 0,
+          "percentages": {
+            "pass": 0,
+            "execution": 0
+          }
+        },
+        "automation": {
+          "total": 42,
+          "passed": 0,
+          "failed": 0,
+          "blocked": 0,
+          "na": 0,
+          "not_run": 42,
+          "percentages": {
+            "pass": 0,
+            "execution": 0.0
+          }
+        }
+      },
+      "4391224 : As a myISP SA, I want to change the logic to populate \"Role Type\" and \"Accenture Role/Rate\" in MMP FFP so that it is aligned with Dynamic Target Pricing implementation": {
         "manual": {
           "total": 0,
           "passed": 0,
@@ -720,7 +720,7 @@
           }
         }
       },
-      "4391224 : As a myISP SA, I want to change the logic to populate \"Role Type\" and \"Accenture Role/Rate\" in MMP FFP so that it is aligned with Dynamic Target Pricing implementation": {
+      "4393527 : As a myISP SA, I want to apply filter FFP Visible = False in addition to other filters while displaying Standard Role in staffing so that it is aligned with MMP standards": {
         "manual": {
           "total": 0,
           "passed": 0,
@@ -774,7 +774,7 @@
           }
         }
       },
-      "4368224 : API - Save the Technology Tier, Profile City Tier, Role Type, Technology Role and Standard Role from Staffing Baseline": {
+      "4368135 : API - Enhance the defaulting logics to populate 'Accenture Role/Rate' in offline MMP FFP Export": {
         "manual": {
           "total": 0,
           "passed": 0,
@@ -788,12 +788,12 @@
           }
         },
         "automation": {
-          "total": 10,
+          "total": 3,
           "passed": 0,
           "failed": 0,
           "blocked": 0,
           "na": 0,
-          "not_run": 10,
+          "not_run": 3,
           "percentages": {
             "pass": 0,
             "execution": 0.0
@@ -826,7 +826,7 @@
           }
         }
       },
-      "4368135 : API - Enhance the defaulting logics to populate 'Accenture Role/Rate' in offline MMP FFP Export": {
+      "4368224 : API - Save the Technology Tier, Profile City Tier, Role Type, Technology Role and Standard Role from Staffing Baseline": {
         "manual": {
           "total": 0,
           "passed": 0,
@@ -840,12 +840,12 @@
           }
         },
         "automation": {
-          "total": 3,
+          "total": 10,
           "passed": 0,
           "failed": 0,
           "blocked": 0,
           "na": 0,
-          "not_run": 3,
+          "not_run": 10,
           "percentages": {
             "pass": 0,
             "execution": 0.0
@@ -860,6 +860,32 @@
           "blocked": 0,
           "na": 0,
           "not_run": 13,
+          "percentages": {
+            "pass": 0,
+            "execution": 0.0
+          }
+        },
+        "automation": {
+          "total": 0,
+          "passed": 0,
+          "failed": 0,
+          "blocked": 0,
+          "na": 0,
+          "not_run": 0,
+          "percentages": {
+            "pass": 0,
+            "execution": 0
+          }
+        }
+      },
+      "4372847 : As a SA, add Technology & Standard Role columns in Staffing Baseline for auto-population/selection based on Tech Group & SSG.": {
+        "manual": {
+          "total": 24,
+          "passed": 0,
+          "failed": 0,
+          "blocked": 0,
+          "na": 0,
+          "not_run": 24,
           "percentages": {
             "pass": 0,
             "execution": 0.0
@@ -904,20 +930,8 @@
           }
         }
       },
-      "4372847 : As a SA, add Technology & Standard Role columns in Staffing Baseline for auto-population/selection based on Tech Group & SSG.": {
+      "4386373 : PCW - Rename existing 'Role Type' column in PCW 8.7 Template and Show a warning message in PCW 8.6 template": {
         "manual": {
-          "total": 24,
-          "passed": 0,
-          "failed": 0,
-          "blocked": 0,
-          "na": 0,
-          "not_run": 24,
-          "percentages": {
-            "pass": 0,
-            "execution": 0.0
-          }
-        },
-        "automation": {
           "total": 0,
           "passed": 0,
           "failed": 0,
@@ -927,6 +941,18 @@
           "percentages": {
             "pass": 0,
             "execution": 0
+          }
+        },
+        "automation": {
+          "total": 12,
+          "passed": 0,
+          "failed": 0,
+          "blocked": 0,
+          "na": 0,
+          "not_run": 12,
+          "percentages": {
+            "pass": 0,
+            "execution": 0.0
           }
         }
       },
@@ -982,32 +1008,6 @@
           }
         }
       },
-      "4386373 : PCW - Rename existing 'Role Type' column in PCW 8.7 Template and Show a warning message in PCW 8.6 template": {
-        "manual": {
-          "total": 0,
-          "passed": 0,
-          "failed": 0,
-          "blocked": 0,
-          "na": 0,
-          "not_run": 0,
-          "percentages": {
-            "pass": 0,
-            "execution": 0
-          }
-        },
-        "automation": {
-          "total": 12,
-          "passed": 0,
-          "failed": 0,
-          "blocked": 0,
-          "na": 0,
-          "not_run": 12,
-          "percentages": {
-            "pass": 0,
-            "execution": 0.0
-          }
-        }
-      },
       "4386944 : As a SA, auto-populate Profile City Tier from Rate Type in Staffing Baseline-OU Changes": {
         "manual": {
           "total": 0,
@@ -1034,7 +1034,7 @@
           }
         }
       },
-      "4411451 : Rename existing 'Role Type' column in Staffing OU Template": {
+      "4386942 : As a SA, I want the Technology Tier field to auto-populate based on the selected Technology - OU Changes": {
         "manual": {
           "total": 0,
           "passed": 0,
@@ -1048,12 +1048,12 @@
           }
         },
         "automation": {
-          "total": 4,
+          "total": 8,
           "passed": 0,
           "failed": 0,
           "blocked": 0,
           "na": 0,
-          "not_run": 4,
+          "not_run": 8,
           "percentages": {
             "pass": 0,
             "execution": 0.0
@@ -1086,7 +1086,7 @@
           }
         }
       },
-      "4386942 : As a SA, I want the Technology Tier field to auto-populate based on the selected Technology - OU Changes": {
+      "4411451 : Rename existing 'Role Type' column in Staffing OU Template": {
         "manual": {
           "total": 0,
           "passed": 0,
@@ -1100,12 +1100,12 @@
           }
         },
         "automation": {
-          "total": 8,
+          "total": 4,
           "passed": 0,
           "failed": 0,
           "blocked": 0,
           "na": 0,
-          "not_run": 8,
+          "not_run": 4,
           "percentages": {
             "pass": 0,
             "execution": 0.0

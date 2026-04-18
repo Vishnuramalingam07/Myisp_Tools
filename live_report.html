@@ -4404,34 +4404,37 @@
         // ============================================================
         async function reloadWithFreshData() {
             try {
-                console.log('🔄 Fetching latest data from Firebase...');
+                console.log('🔄 Reloading with fresh data from Firebase...');
                 
-                // Show loading indicator
-                const originalTitle = document.title;
-                document.title = '🔄 Loading...';
-                
-                // Fetch latest report data from Firebase
-                const reportRef = database.ref('prodSanityReport');
-                const snapshot = await reportRef.once('value');
-                const reportData = snapshot.val();
-                
-                if (reportData && reportData._lastUpdated) {
-                    const lastUpdate = new Date(reportData._lastUpdated).toLocaleString();
-                    alert('✅ Latest data loaded from Firebase!\\n\\nLast updated: ' + lastUpdate + '\\n\\nRefreshing page now...');
-                    
-                    // Add timestamp to force cache bust
-                    const url = new URL(window.location.href);
-                    url.searchParams.set('_refresh', Date.now());
-                    window.location.href = url.toString();
-                } else {
-                    alert('ℹ️ No updated data found in Firebase.\\n\\nRefreshing page with current data...');
-                    window.location.reload(true);
+                // First, auto-save current selections to Firebase before reloading
+                const currentTab = document.querySelector('.tab-content.active');
+                if (currentTab && currentTab.id) {
+                    console.log('💾 Auto-saving current tab before reload:', currentTab.id);
+                    try {
+                        const data = {};
+                        currentTab.querySelectorAll('select, input[type="text"]').forEach(function(el, i) {
+                            data[i] = el.value;
+                        });
+                        
+                        // Quick save to Firebase (no UI update needed)
+                        const userSelectionsRef = database.ref('userSelections/' + currentTab.id);
+                        await userSelectionsRef.set({
+                            selections: data,
+                            timestamp: new Date().toISOString()
+                        });
+                        console.log('✓ Auto-saved before reload');
+                    } catch(e) {
+                        console.warn('Auto-save failed:', e.message);
+                    }
                 }
                 
-                document.title = originalTitle;
+                // Add timestamp to URL to force cache bust and reload with fresh static HTML
+                const url = new URL(window.location.href);
+                url.searchParams.set('_refresh', Date.now());
+                window.location.href = url.toString();
+                
             } catch(e) {
                 console.error('Reload error:', e);
-                alert('⚠️ Error loading from Firebase: ' + e.message + '\\n\\nRefreshing page normally...');
                 window.location.reload(true);
             }
         }
@@ -4996,10 +4999,29 @@
                 }
             } catch(e) {}
             
-            // Load saved user selections from Firebase for all tabs
-            const tabIds = ['prodSanityTab', 'prodUSSanityTab', 'insprintStatusTab', 'readyForProdBugTab', 'prodSanityDefectsTab'];
-            tabIds.forEach(function(tabId) {
-                loadTabData(tabId);
+            // Load saved user selections from Firebase for all tabs (with delay to ensure page is fully loaded)
+            setTimeout(function() {
+                const tabIds = ['prodSanityTab', 'prodUSSanityTab', 'insprintStatusTab', 'readyForProdBugTab', 'prodSanityDefectsTab'];
+                tabIds.forEach(function(tabId) {
+                    loadTabData(tabId);
+                });
+                console.log('✓ Loaded all saved selections from Firebase');
+            }, 500);
+            
+            // Auto-save on change (debounced)
+            let autoSaveTimeout = null;
+            document.addEventListener('change', function(e) {
+                if (e.target.matches('select, input[type="text"]')) {
+                    // Find which tab this element belongs to
+                    let tab = e.target.closest('.tab-content');
+                    if (tab && tab.id) {
+                        clearTimeout(autoSaveTimeout);
+                        autoSaveTimeout = setTimeout(function() {
+                            console.log('💾 Auto-saving', tab.id, 'after change');
+                            saveTabData(tab.id, null);
+                        }, 1000); // Save 1 second after user stops making changes
+                    }
+                }
             });
         });
     </script>
