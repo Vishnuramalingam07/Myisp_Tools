@@ -939,6 +939,27 @@
         
     </style>
     <script src="https://cdn.jsdelivr.net/npm/exceljs@4.3.0/dist/exceljs.min.js"></script>
+    <!-- Firebase SDK v9 (Modular) -->
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-database-compat.js"></script>
+    <!-- Firebase Configuration -->
+    <script>
+        // Firebase configuration
+        const firebaseConfig = {
+            apiKey: "AIzaSyB_9XEWyPOsM4p8aCdgHo4zOljH-eGPLdM",
+            authDomain: "myisptools.firebaseapp.com",
+            databaseURL: "https://myisptools-default-rtdb.firebaseio.com",
+            projectId: "myisptools",
+            storageBucket: "myisptools.firebasestorage.app",
+            messagingSenderId: "231946416648",
+            appId: "1:231946416648:web:8123b8e35ab43c0b2997bd"
+        };
+        
+        // Initialize Firebase
+        firebase.initializeApp(firebaseConfig);
+        const database = firebase.database();
+        console.log('✓ Firebase initialized');
+    </script>
     <!-- Firebase Functions handles workflow triggering (secure!) -->
 </head>
 <body>
@@ -4306,11 +4327,11 @@
         }
 
         // ============================================================
-        // SAVE / LOAD tab data using localStorage
+        // SAVE / LOAD tab data using localStorage AND Firebase
         // Persists all <select> and <input type="text"> values inside
         // each tab content div, keyed by element index within that tab.
         // ============================================================
-        function saveTabData(tabId, btn) {
+        async function saveTabData(tabId, btn) {
             const tab = document.getElementById(tabId);
             if (!tab) return;
             const data = {};
@@ -4318,27 +4339,58 @@
                 data[i] = el.value;
             });
             try {
+                // Save to localStorage (fast, local backup)
                 localStorage.setItem('tabSave_' + tabId, JSON.stringify(data));
+                
+                // Save to Firebase (shared, persistent)
+                const userSelectionsRef = database.ref('userSelections/' + tabId);
+                await userSelectionsRef.set({
+                    selections: data,
+                    timestamp: new Date().toISOString()
+                });
+                
                 if (btn) {
                     const orig = btn.innerHTML;
-                    btn.innerHTML = '&#10003; Saved';
+                    btn.innerHTML = '&#10003; Saved to Firebase';
                     btn.classList.add('saved');
                     setTimeout(function() {
                         btn.innerHTML = orig;
                         btn.classList.remove('saved');
                     }, 1500);
                 }
+                console.log('✓ Saved ' + tabId + ' to Firebase and localStorage');
             } catch(e) {
+                console.error('Save error:', e);
                 alert('Save failed: ' + e.message);
             }
         }
 
-        function loadTabData(tabId) {
+        async function loadTabData(tabId) {
             const tab = document.getElementById(tabId);
             if (!tab) return;
+            
+            try {
+                // Try Firebase first (most up-to-date)
+                const userSelectionsRef = database.ref('userSelections/' + tabId + '/selections');
+                const snapshot = await userSelectionsRef.once('value');
+                const firebaseData = snapshot.val();
+                
+                if (firebaseData) {
+                    console.log('✓ Loading ' + tabId + ' from Firebase');
+                    tab.querySelectorAll('select, input[type="text"]').forEach(function(el, i) {
+                        if (firebaseData[i] !== undefined) el.value = firebaseData[i];
+                    });
+                    return;
+                }
+            } catch(e) {
+                console.error('Firebase load error:', e);
+            }
+            
+            // Fallback to localStorage
             const raw = localStorage.getItem('tabSave_' + tabId);
             if (!raw) return;
             try {
+                console.log('✓ Loading ' + tabId + ' from localStorage');
                 const data = JSON.parse(raw);
                 tab.querySelectorAll('select, input[type="text"]').forEach(function(el, i) {
                     if (data[i] !== undefined) el.value = data[i];
@@ -4347,44 +4399,41 @@
         }
 
         // ============================================================
-        // SAVE / LOAD tab data using localStorage
-        // Persists all <select> and <input type="text"> values inside
-        // each tab content div, keyed by element index within that tab.
+        // RELOAD WITH FRESH DATA FROM FIREBASE
+        // Fetches latest report data and displays notification
         // ============================================================
-        function saveTabData(tabId, btn) {
-            const tab = document.getElementById(tabId);
-            if (!tab) return;
-            const data = {};
-            tab.querySelectorAll('select, input[type="text"]').forEach(function(el, i) {
-                data[i] = el.value;
-            });
+        async function reloadWithFreshData() {
             try {
-                localStorage.setItem('tabSave_' + tabId, JSON.stringify(data));
-                if (btn) {
-                    const orig = btn.innerHTML;
-                    btn.innerHTML = '&#10003; Saved';
-                    btn.classList.add('saved');
-                    setTimeout(function() {
-                        btn.innerHTML = orig;
-                        btn.classList.remove('saved');
-                    }, 1500);
+                console.log('🔄 Fetching latest data from Firebase...');
+                
+                // Show loading indicator
+                const originalTitle = document.title;
+                document.title = '🔄 Loading...';
+                
+                // Fetch latest report data from Firebase
+                const reportRef = database.ref('prodSanityReport');
+                const snapshot = await reportRef.once('value');
+                const reportData = snapshot.val();
+                
+                if (reportData && reportData._lastUpdated) {
+                    const lastUpdate = new Date(reportData._lastUpdated).toLocaleString();
+                    alert('✅ Latest data loaded from Firebase!\\n\\nLast updated: ' + lastUpdate + '\\n\\nRefreshing page now...');
+                    
+                    // Add timestamp to force cache bust
+                    const url = new URL(window.location.href);
+                    url.searchParams.set('_refresh', Date.now());
+                    window.location.href = url.toString();
+                } else {
+                    alert('ℹ️ No updated data found in Firebase.\\n\\nRefreshing page with current data...');
+                    window.location.reload(true);
                 }
+                
+                document.title = originalTitle;
             } catch(e) {
-                alert('Save failed: ' + e.message);
+                console.error('Reload error:', e);
+                alert('⚠️ Error loading from Firebase: ' + e.message + '\\n\\nRefreshing page normally...');
+                window.location.reload(true);
             }
-        }
-
-        function loadTabData(tabId) {
-            const tab = document.getElementById(tabId);
-            if (!tab) return;
-            const raw = localStorage.getItem('tabSave_' + tabId);
-            if (!raw) return;
-            try {
-                const data = JSON.parse(raw);
-                tab.querySelectorAll('select, input[type="text"]').forEach(function(el, i) {
-                    if (data[i] !== undefined) el.value = data[i];
-                });
-            } catch(e) {}
         }
 
         // ============================================================
@@ -4946,18 +4995,13 @@
                     switchTab(savedTab);
                 }
             } catch(e) {}
+            
+            // Load saved user selections from Firebase for all tabs
+            const tabIds = ['prodSanityTab', 'prodUSSanityTab', 'insprintStatusTab', 'readyForProdBugTab', 'prodSanityDefectsTab'];
+            tabIds.forEach(function(tabId) {
+                loadTabData(tabId);
+            });
         });
-
-        // ============================================================
-        // RELOAD WITH FRESH DATA
-        // Reloads page with cache-busting and preserves active tab
-        // ============================================================
-        function reloadWithFreshData() {
-            // Add timestamp to URL to force fresh load (bypass browser cache)
-            const url = new URL(window.location.href);
-            url.searchParams.set('_refresh', Date.now());
-            window.location.href = url.toString();
-        }
     </script>
 </body>
 </html>
