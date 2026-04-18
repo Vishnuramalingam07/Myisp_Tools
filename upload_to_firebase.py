@@ -15,6 +15,60 @@ FIREBASE_DATABASE_URL = os.getenv('FIREBASE_DATABASE_URL', 'https://myisptools-d
 FIREBASE_PATH = os.getenv('FIREBASE_PATH', 'prodSanityReport')
 REPORT_FILE = os.getenv('REPORT_FILE', 'latest_report.json')
 
+def sanitize_firebase_key(key):
+    """
+    Sanitize key names for Firebase Realtime Database.
+    Firebase keys cannot contain: . $ # [ ] /
+    
+    Args:
+        key: Original key name
+        
+    Returns:
+        Sanitized key safe for Firebase
+    """
+    if not isinstance(key, str):
+        return str(key)
+    
+    # Replace invalid characters
+    sanitized = key.replace('.', '_')
+    sanitized = sanitized.replace('$', '_')
+    sanitized = sanitized.replace('#', '_')
+    sanitized = sanitized.replace('[', '(')
+    sanitized = sanitized.replace(']', ')')
+    sanitized = sanitized.replace('/', '-')
+    
+    # Remove leading/trailing whitespace
+    sanitized = sanitized.strip()
+    
+    # Ensure key is not empty
+    if not sanitized:
+        sanitized = 'empty_key'
+    
+    return sanitized
+
+def sanitize_firebase_data(data):
+    """
+    Recursively sanitize all keys in nested dictionaries/lists.
+    
+    Args:
+        data: Dictionary, list, or primitive value
+        
+    Returns:
+        Sanitized data structure
+    """
+    if isinstance(data, dict):
+        # Sanitize all keys in dictionary
+        return {
+            sanitize_firebase_key(k): sanitize_firebase_data(v)
+            for k, v in data.items()
+        }
+    elif isinstance(data, list):
+        # Recursively sanitize list items
+        return [sanitize_firebase_data(item) for item in data]
+    else:
+        # Return primitive values as-is
+        return data
+
 def upload_to_firebase(json_file, database_url, firebase_path):
     """
     Upload JSON data to Firebase Realtime Database using REST API
@@ -46,6 +100,11 @@ def upload_to_firebase(json_file, database_url, firebase_path):
     except Exception as e:
         print(f"❌ Error reading JSON file: {e}")
         return False
+    
+    # Sanitize data for Firebase (remove invalid characters from keys)
+    print(f"🔧 Sanitizing data for Firebase...")
+    data = sanitize_firebase_data(data)
+    print(f"✓ Data sanitized (Firebase-safe keys)")
     
     # Add upload metadata
     data['uploaded_at'] = datetime.now().isoformat()
